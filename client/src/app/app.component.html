@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="/apps">
+    <img src="../assets/logo-white.svg" width="30" height="30" class="d-inline-block align-top" alt=""> BRAIN Analytics
+  </a>
+  <button class="navbar-toggler" (click)="isCollapsed = !isCollapsed">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" [collapse]="isCollapsed" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/apps">Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown" dropdown>
+        <a class="nav-link dropdown-toggle" style="cursor:pointer;" dropdownToggle>
+          Dropdown
+        </a>
+        <div class="dropdown-menu" *dropdownMenu>
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" (ngSubmit)="onSubmit()">
+      <ng-template #customItemTemplate let-model="item" let-index="index">
+        <span>{{model.name}} - {{model.author}}</span>
+      </ng-template>
+      <input [(ngModel)]="selected" [typeahead]="dataSource" (typeaheadOnSelect)="onSelect($event)"
+        typeaheadOptionField="name" [typeaheadItemTemplate]="customItemTemplate" placeholder="Search" class="form-control mr-sm-2"
+        name="search" autocomplete="off">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+<router-outlet></router-outlet>

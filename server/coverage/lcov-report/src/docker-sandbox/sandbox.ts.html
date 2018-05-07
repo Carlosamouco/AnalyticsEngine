@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/docker-sandbox/sandbox.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">src/docker-sandbox</a> sandbox.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">23.53% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>8/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/20</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">23.53% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>8/34</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+import * as Container from "./container";
+import { default as PoolManager } from "./pool_manager";
+import { default as Job } from "./job";
+import * as fs from "fs";
+//  let log         = require('winston')
+&nbsp;
+import * as Docker from "dockerode";
+import * as _ from "lodash";
+&nbsp;
+interface SandboxOpts {
+  poolSize: number;
+  timeoutMs: <span class="fstat-no" title="function not covered" >nu</span>mber;
+  memoryLimitMb: number;
+}<span class="fstat-no" title="function not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+interfac<span class="cstat-no" title="statement not covered" >e RunOpts {</span>
+  code: string;
+  timeoutMs: number;
+  v3: boolean;
+}
+&nbsp;
+export const defaultOptions = {
+  poolSize: 1,
+  memoryLimitMb: 50,
+  imageName: "docker-sandbox",
+  timeoutMs: 10000
+};
+&nbsp;
+const noop = () =&gt; { };
+&nbsp;
+export default class Sandbox {
+  private options: any;
+  private docker: Docker;
+  private manager: PoolManager;
+&nbsp;
+  constructor(options: SandboxOpts) {
+    this.options = _.defaults(options, defaultOptions);
+&nbsp;
+    this<span class="cstat-no" title="statement not covered" >.options.containerLaunchOptions = {</span>
+      Image: this.options.imageName,
+      NetworkDisabled: false,
+      At<span class="cstat-no" title="statement not covered" >tachStdin: false,</span>
+      AttachStdout: false,<span class="cstat-no" title="statement not covered" ></span>
+      AttachStderr: false,<span class="cstat-no" title="statement not covered" ></span>
+      Op<span class="cstat-no" title="statement not covered" >enStdin: false,<span class="fstat-no" title="function not covered" ></span></span>
+      Privil<span class="cstat-no" title="statement not covered" >eged: false,</span>
+      User: "sandboxuser",
+      Tty: false,
+      HostConfig: {
+        Memory: this.options.memoryLimitMb * 1000000,
+        MemorySwap: -1,
+        Privileged: false,
+<span class="fstat-no" title="function not covered" ></span>        CpusetCpus: "0" // only use one core
+      },<span class="cstat-no" title="statement not covered" ></span>
+      Labels: {
+        __docker_sandbox: "1"
+      },
+      ExposedPorts: {
+        "3000/tcp": {}
+<span class="fstat-no" title="function not covered" ></span>      }
+    };<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+&nbsp;
+    this.docker = new Docker({
+      socketPath: "/var/run/docker.sock"
+<span class="fstat-no" title="function not covered" >    })</span>;
+    this.manager = ne<span class="cstat-no" title="statement not covered" >w PoolManager(this.docker, options);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+    const cleanupEvents = <span class="cstat-no" title="statement not covered" >["beforeExit", "SIGINT"];</span>
+    cons<span class="cstat-no" title="statement not covered" >t cleanupFn = this.cleanup.bind(this, true);</span>
+    cleanupE<span class="cstat-no" title="statement not covered" >vents.map(event =&gt; {</span>
+      process.on(eve<span class="cstat-no" title="statement not covered" >nt, cleanupFn);</span>
+    });<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+  }
+&nbsp;
+  /*
+   * Initializes the sandbox by creating the pool of
+   *<span class="fstat-no" title="function not covered" > c</span>ontainers
+   */
+  initialize(cb: Function) {
+    this<span class="cstat-no" title="statement not covered" >.manager.initialize(this.options.poolSize, cb);</span>
+  }<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+  /*
+   *  (deprecated, use 'initialize')
+   *  Initia<span class="cstat-no" title="statement not covered" >lizes the pool and </span>creates required containers
+   */
+  create<span class="cstat-no" title="statement not covered" >Pool(cb: Function) {<span class="fstat-no" title="function not covered" ></span></span>
+    this.man<span class="cstat-no" title="statement not covered" >ager.initialize(this.options.poolSize, cb);</span>
+  }<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+  /*<span class="cstat-no" title="statement not covered" ></span>
+   * Runs the specifed code
+   */
+  run(options: RunOpts, cb: Function) {
+    const code = _.isObject(options) ? options.code : options;
+    const v3 = (options.v3 === true) ? true : false; // python3 switch
+    const timeoutMs = _.isObject(options) &amp;&amp; options.timeoutMs ? options.timeoutMs : this.options.timeoutMs;
+&nbsp;
+    if (!code || !_.isString(code))
+      throw new Error("Please provide the code to run as a string or an object {code: xxx}");
+&nbsp;
+    const job = new Job(code, timeoutMs, cb, v3);
+    this.manager.executeJob(job);
+  }
+&nbsp;
+&nbsp;
+  /*
+   *  Cleanups various resources such as temporary
+   *  files and docker containers
+   */
+  cleanup(cb: Function) {
+    //  log.debug("cleaning up");
+    let exit: boolean;
+    if (typeof cb === "boolean") {
+      cb = null;
+      exit = true;
+    }
+    else {
+      cb = cb || _.noop;
+    }
+&nbsp;
+    this.manager.cleanup((err: any) =&gt; {
+      if (cb) return cb(err);
+      else if (exit) process.exit();
+    });
+  }
+&nbsp;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Apr 07 2018 22:57:35 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

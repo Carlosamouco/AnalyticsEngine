@@ -1,0 +1,48 @@
+version: "2.1"
+
+services:
+  database:
+    build: ./mongodb
+    container_name: "mongodb"
+    # volumes:
+    #   - ./mongodb/data/db:/data/db
+    ports: 
+      - "27017:27017"
+    env_file:
+      - ./mongodb/.env
+
+  server:
+    build: ./server
+    privileged: true
+    volumes:
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules
+    ports: 
+      - "3000:3000"
+    links:
+      - database:mongodb
+  
+ # test-server:
+ #   build: ./server
+ #   depends_on:
+ #     - server
+ #   volumes:
+ #     - ./server:/usr/src/app
+ #   command: npm test
+
+      
+  client:
+    build: ./client
+    volumes:
+      - ./client:/usr/src/app
+      - /usr/src/app/node_modules
+    ports: 
+      - "4200:4200"
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    links:
+      - client
+      - server

@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/docker_sandbox/container.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">src/docker_sandbox</a> container.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">12.5% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>4/32</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/14</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">12.5% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>4/32</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">"use strict";
+&nbsp;
+import * as _ from "lodash";
+import * as async from "async";
+import * as request from "request";
+import * as Docker from "dockerode";
+&nbsp;
+import { Job } from "./job";
+&nbsp;
+//  let fs      = require('fs-extra')
+//  let log     = require('winston')
+&nbsp;
+/*<span class="fstat-no" title="function not covered" ></span>
+ * A cla<span class="cstat-no" title="statement not covered" >ss representin</span>g a Docker container.
+ *<span class="cstat-no" title="statement not covered" ></span>
+ * The "<span class="cstat-no" title="statement not covered" >instance" fiel</span>d corresponds to a Dockerode container instance
+ */<span class="cstat-no" title="statement not covered" ></span>
+export default class Container {
+  private cleanedUp: boolean;
+  private ip: string;
+  private id: string;
+<span class="fstat-no" title="function not covered" ></span>
+  public vm: Docker.Cont<span class="cstat-no" title="statement not covered" >ainer;</span>
+&nbsp;
+  constructor(id: string, instance: Docker.Container) {
+    this.id = id;
+    this.vm = instance;
+    this<span class="cstat-no" title="statement not covered" >.ip = "";<span class="fstat-no" title="function not covered" ></span></span>
+    this.cle<span class="cstat-no" title="statement not covered" >anedUp = false;</span>
+  }
+<span class="fstat-no" title="function not covered" ></span>
+  /*<span class="cstat-no" title="statement not covered" ></span>
+   * Executes a job <span class="cstat-no" title="statement not covered" >inside the container</span>
+   */
+  public executeJob(job: Job) {
+    const options = {<span class="fstat-no" title="function not covered" ></span>
+      url: "http<span class="cstat-no" title="statement not covered" >://" + this.ip + "</span>:3000/",
+      formData: job.request,
+      timeout: job.timeout
+    };
+    return new Promise((resolve, reject) =&gt; {
+<span class="fstat-no" title="function not covered" ></span>      request
+<span class="cstat-no" title="statement not covered" >        .post(options)</span>
+        .on("error", (err) =&gt; {
+<span class="fstat-no" title="function not covered" ></span>          if (err) {
+<span class="cstat-no" title="statement not covered" >            return reject(e<span class="fstat-no" title="function not covered" >rr</span>);</span>
+          }<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+        })<span class="cstat-no" title="statement not covered" ></span>
+        .on("end", () =&gt; {
+          return res<span class="cstat-no" title="statement not covered" >olve();</span>
+        })
+        .pipe(jo<span class="cstat-no" title="statement not covered" >b.client);</span>
+    });<span class="cstat-no" title="statement not covered" ></span>
+  }
+&nbsp;
+  public getIp() {
+    return this.ip;
+  }
+&nbsp;
+  pu<span class="fstat-no" title="function not covered" >bl</span>ic getNewIp() {<span class="branch-0 cbranch-no" title="branch not covered" ></span>
+    retu<span class="cstat-no" title="statement not covered" >rn new Promise((resolve, reject) =&gt; {</span>
+      this.v<span class="cstat-no" title="statement not covered" >m.inspect((err: any<span class="fstat-no" title="function not covered" >, </span>data: any) =&gt; {</span>
+        if (err <span class="cstat-no" title="statement not covered" >|| !data ||</span> !data.NetworkSettings || !data.NetworkSettings.IPAddress
+          || data.NetworkSettings.IPAddress.length == 0) {
+          return reject(err || Error("unable to retrieve container IP"));
+        }<span class="cstat-no" title="statement not covered" ></span>
+        this.ip = data.NetworkSettings.IPAddress;
+        resolve();
+      });<span class="fstat-no" title="function not covered" ></span>
+    });<span class="cstat-no" title="statement not covered" ></span>
+  }<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+  /*
+  * Clea<span class="cstat-no" title="statement not covered" >ns up the resources<span class="fstat-no" title="function not covered" > u</span>sed by the container.</span>
+  */<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+  public cleanup<span class="cstat-no" title="statement not covered" >(ignore: boolean = false) {</span>
+    if (this.cleaned<span class="cstat-no" title="statement not covered" >Up === true) {</span>
+      return new<span class="cstat-no" title="statement not covered" > Promise((r</span>esolve) =&gt; {
+        resolve();
+      });
+    }
+&nbsp;
+    const stages = [
+      this.vm.stop.bind(this.vm),
+      this.vm.remove.bind(this.vm, { force: true }),
+      (next: any) =&gt; {
+        this.cleanedUp = true;
+        async.nextTick(next);
+      }
+    ];
+    return new Promise((resolve, reject) =&gt; {
+      async.series(stages, (err) =&gt; {
+        if (err &amp;&amp; !ignore) return reject(err);
+        resolve();
+      });
+    });
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Apr 21 2018 23:16:41 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

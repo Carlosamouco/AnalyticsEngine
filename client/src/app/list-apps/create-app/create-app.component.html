@@ -1,0 +1,30 @@
+<form (ngSubmit)="onSubmit()">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{!app ? 'Create New Application' : 'Edit Application'}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="appName">Name *</label>
+      <input type="text" class="form-control" [ngClass]="{ 'is-invalid': onError }" id="appName" placeholder="Application Name"
+        name="name" autocomplete="off" [(ngModel)]="name">
+      <div *ngIf="onError" class="invalid-feedback">Please provide a diferent name.</div>
+    </div>
+    <div class="form-group">
+      <label for="appAuthor">Author *</label>
+      <input type="text" class="form-control" id="appAuthor" placeholder="Author Name" name="author" [(ngModel)]="author">
+    </div>
+    <div class="form-group">
+      <label for="appDescription">Description</label>
+      <textarea type="text" class="form-control" id="appDescription" autocomplete="off" placeholder="A description about the purpose of the application."
+        name="description" [(ngModel)]="description"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">Close</button>
+    <button type="submit" class="btn btn-primary" *ngIf="app" [disabled]="author.length < 3 || name.length < 3">Save changes</button>
+    <button type="submit" class="btn btn-primary" *ngIf="!app" [disabled]="author.length < 3 || name.length < 3">Create app</button>
+  </div>
+</form>

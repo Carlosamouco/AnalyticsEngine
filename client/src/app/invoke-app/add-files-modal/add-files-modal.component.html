@@ -1,0 +1,101 @@
+<form #myForm (ngSubmit)="onSubmit()">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add File</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h6>Select Method</h6>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="methodRadios" id="uploadRadio" value="upload" [(ngModel)]="method">
+          <label class="form-check-label" for="uploadRadio">
+            Upload File
+          </label>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="methodRadios" id="postDataRadio" value="postdata" [(ngModel)]="method">
+          <label class="form-check-label" for="postDataRadio">
+            Post File Data
+          </label>
+        </div>
+      </div>
+
+      <div class="col-sm-4" *ngIf="files.length > 0">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="methodRadios" id="uploadedRadio" value="uploaded" [(ngModel)]="method">
+          <label class="form-check-label" for="uploadedRadio">
+            Uploaded File
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:15px;" *ngIf="method == 'upload'">
+      <h6>Select File</h6>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="validatedCustomFile" #fileInput required (change)="onFilesChange(fileInput, fileLable)">
+        <label class="custom-file-label" for="validatedCustomFile" #fileLable>Choose file...</label>
+        <div class="invalid-feedback">Example invalid custom file feedback</div>
+      </div>
+    </div>
+
+    <div style="margin-top:15px;" *ngIf="method == 'postdata'">
+      <h6>File Data</h6>
+      <textarea class="form-control" id="exampleFormControlTextarea1" name="postDataFile" [(ngModel)]="postDataFile" rows="3" placeholder="Some text..."></textarea>
+      <div class="form-row" style="margin-top:15px;">
+        <div class="form-group col-md-6">
+          <label for="inputEncoding">
+            <h6 style="margin: 0;">Encoding</h6>
+          </label>
+          <select class="form-control" id="inputEncoding" name="postDataEncodig" [(ngModel)]="postDataEncodig">
+            <option value="ascii">ascii</option>
+            <option value="utf8">utf8</option>
+            <option value="utf16le">utf16le</option>
+            <option value="base64">base64</option>
+            <option value="latin1">latin1</option>
+            <option value="hex">hex</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputExtention">
+            <h6 style="margin: 0;">File Extention</h6>
+          </label>
+          <input type="text" class="form-control" id="inputExtention" name="postDataExtention" [(ngModel)]="postDataExtention" placeholder="ex.: xml, csv, json, ...">
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:15px;" *ngIf="method == 'uploaded'">
+      <h6>Select File</h6>
+      <div class="input-group mb-3">
+        <input class="form-control" #uploadedInput type="text" autocomplete="off" placeholder="Search file" name="uploadedFile" [(ngModel)]="uploadedFileInput"
+          (input)="filterMenu($event.target)" (keydown)="menuNavigate($event)" (focus)="showMenu = true;" (focusout)="hideMenu()">
+        <div class="input-group-append" (click)="uploadedInput.focus()">
+          <span class="input-group-text">
+            <i class="fa fas fa-chevron-down"></i>
+          </span>
+        </div>
+      </div>
+
+      <div #uploadedMenu class="dropdown dropdown-menu" [ngClass]="{'open': showMenu}" (mouseleave)="mouseOverMenu = false" (mouseover)="mouseOverMenu = true">
+        <div class="dropdown-item" [ngClass]="{'active': menuIndex == i}" (click)="selectItem()" (mouseover)="menuIndex = i" *ngFor="let file of filteredFiles; let i = index">
+          {{file}}
+        </div>
+        <div class="dropdown-item" *ngIf="filteredFiles.length == 0">
+          No matching files.
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="cancelFile()">Cancel</button>
+    <button type="submit" class="btn btn-success" [disabled]="validateForm()">Add File</button>
+  </div>
+</form>

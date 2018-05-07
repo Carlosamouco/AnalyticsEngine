@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/utils/utils.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">src/utils</a> utils.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">54.55% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>12/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">41.67% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>5/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">40% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>2/5</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">54.55% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>12/22</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as path from "path";
+import * as fs from "fs";
+import { isBoolean, isNumber, isString as isStr, isPrimitive } from "util";
+&nbsp;
+export function isString(val: any, size?: number) {
+  if (size) {
+    return isStr(val) &amp;&amp; val.length &gt;= size;
+  }
+  return isStr(val);
+}
+&nbsp;
+export function isBool(val: any) {
+  return val != undefined &amp;&amp; (val === "true" || val === "false" || isBoolean(val));
+}<span class="branch-3 cbranch-no" title="branch not covered" ><span class="branch-2 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" ></span></span></span>
+&nbsp;
+export function isInteger(val: any) {
+  if (!(v<span class="fstat-no" title="function not covered" >al instanc</span>eof Array)) {
+<span class="cstat-no" title="statement not covered" >    return Number.isInteger(Number(val));</span>
+  }<span class="cstat-no" title="statement not covered" ></span>
+  return false;
+}<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+export function mkdirsSync(pathToCreate: string) {
+  pathToC<span class="fstat-no" title="function not covered" >reate</span>
+<span class="cstat-no" title="statement not covered" >    .split(path.sep)</span>
+    .reduce((currentPath, folder) =&gt; {
+      currentPat<span class="fstat-no" title="function not covered" >h </span>+= folder + path.sep;
+<span class="cstat-no" title="statement not covered" ></span>
+      tr<span class="cstat-no" title="statement not covered" >y {</span>
+        fs.m<span class="cstat-no" title="statement not covered" >kdirSync(currentPath);</span>
+      }
+      catch (err) {
+        if (<span class="cstat-no" title="statement not covered" >err.code !== "EEXIST") {</span>
+          throw <span class="cstat-no" title="statement not covered" >err;</span>
+        }
+      }
+<span class="cstat-no" title="statement not covered" ></span>
+      return currentPath;
+    }, "");
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Apr 21 2018 23:16:41 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

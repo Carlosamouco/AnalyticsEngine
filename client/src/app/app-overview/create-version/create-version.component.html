@@ -1,0 +1,25 @@
+<form (ngSubmit)="onSubmit()">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{!version_id ? 'Add New Version' : 'Edit App Version'}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="appVersion">Version *</label>
+      <input type="text" pattern=".{1,}" class="form-control" [ngClass]="{ 'is-invalid': onError }" id="appVersion" placeholder="ex.: 1.0"
+        name="version" autocomplete="off" [(ngModel)]="version">
+      <div *ngIf="onError" class="invalid-feedback">Please provide a diferent version code.</div>
+    </div>
+    <div class="form-group">
+      <label for="appDescription">Description</label>
+      <textarea type="text" class="form-control" id="appDescription" autocomplete="off" placeholder="A description about the purpose of the application."
+        name="description" [(ngModel)]="description"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">Close</button>
+    <button type="submit" class="btn btn-primary" [disabled]="version.length == 0">Save changes</button>
+  </div>
+</form>

@@ -1,0 +1,34 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Upload Files</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="onSubmit(fileInput)" novalidate>
+    <div class="row" style="width:100%;margin:auto;">
+      <div class="col-12 col-sm-9" style="padding:0 2px;">
+        <input type="text" style="width:100%;" class="form-control" placeholder="File upload" [value]="files" readonly/>
+      </div>
+      <div class="col" style="padding:0 2px;">
+        <label class="btn btn-info" style="width:100%;">
+          <input type="file" name="files" #fileInput (change)="onFilesChange(fileInput)" multiple/>
+          <span class="glyphicon glyphicon-folder-open" style="margin-right: 3px;" aria-hidden="true"></span> Browse
+        </label>
+      </div>
+    </div>
+    <div class="row" style="width:100%;margin:auto;">
+      <div class="col">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" name="override" id="overridebox" [checked]="true" [(ngModel)]="override">
+          <label class="form-check-label" for="overridebox">Override</label>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="width:100%;margin:auto;">
+      <div class="col" style="padding: 0 2px;">
+        <button type="submit" class="btn btn-primary" [disabled]="fileInput.files.length === 0" style="margin-top:5px;float:right;">Upload</button>
+      </div>
+    </div>
+  </form>
+</div>

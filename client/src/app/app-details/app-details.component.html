@@ -1,0 +1,395 @@
+<div class="container-fluid" style="margin-bottom:20px;">
+  <h1 class="border-bottom border-info" style="padding: 10px;"> {{app.name}} </h1>
+  <div style="font-size: 20px;margin-bottom:10px;"> {{app.description}}</div>
+  <div>Published By:
+    <div style="display:inline; font-weight: bold; color: black;">{{app.author}}</div>
+  </div>
+  <div style="margin-top:5px;">Version:
+    <div style="display:inline;font-weight:bold;color:black;">{{app.algorithm.version}}</div>
+    <button type="button" routerLink="/app/{{app._id}}" style="margin-left:10px;position:relative;top:-2px;" class="btn btn-sm btn-secondary">Other Versions</button>
+  </div>
+
+  <ng-container *ngIf="app.algorithm.entryApp">
+    <h5 class="sub-title">Call String:</h5>
+    <div style="padding: 5px; margin-bottom: 10px;background: #383d41;color: #eadb63;">
+      <div style="display: inline; margin-left:25px;font-weight: 500;">></div>
+      <div style="display: inline;font-weight: 500;">{{app.algorithm.entryApp.appName.length > 0 ? app.algorithm.entryApp.appName : '(app)'}}</div>
+      <div *ngFor="let param of parameters" style="display: inline">
+        <{{param.name}}>
+      </div>
+    </div>
+  </ng-container>
+
+
+  <h5 class="sub-title">Application:</h5>
+  <div class="card" *ngIf="!app.algorithm.entryApp.edit" style="background-color:#663399;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
+    <div class="card-body">
+      <h5>
+        {{app.algorithm.entryApp.appName}}
+        <i style="font-size:20px;float:right;cursor:pointer;top:6px;position:relative;" (click)="app.algorithm.entryApp.edit = true;copyApp=app.algorithm.entryApp.appName"
+          class="fa fas fa-edit"></i>
+      </h5>
+    </div>
+  </div>
+  <div class="card" *ngIf="app.algorithm.entryApp.edit" style="background-color: #663399c9;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
+    <div class="card-body">
+      <div class="form-group">
+        <input type="text" class="form-control form-control col" (input)="onAppChange($event.target)" [typeahead]="app.algorithm.files"
+          [(ngModel)]="app.algorithm.entryApp.appName" />
+      </div>
+      <div class="btn-group  btn-group-sm" role="group">
+        <button class="btn btn-primary" [disabled]="app.algorithm.entryApp.appName.length == 0" (click)="saveApp()">Save</button>
+        <button class="btn btn-secundary" [disabled]="!copyApp" (click)="app.algorithm.entryApp.edit=false;app.algorithm.entryApp.appName=copyApp">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+
+  <h5 class="sub-title">Parameters:</h5>
+  <button type="button" class="btn btn-info" (click)="addParameter()" style="display:block;margin-bottom:10px;">
+    <i class="fa fas fa-plus"></i> Add Parameter</button>
+  <div class="card-columns">
+    <ng-container *ngFor="let param of app.algorithm.parameters">
+      <div class="card text-white bg-success" style="background-color:#1a8198!important" *ngIf="!param.edit">
+        <div class="card-header" style="font-weight: bold;">
+          <h6 style="margin:0">
+            {{param.name}}
+            <i style="font-size:20px;float:right;cursor:pointer;" (click)="editParameter(param)" class="fa fas fa-edit"></i>
+          </h6>
+        </div>
+
+        <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
+          <div style="margin-bottom:5px">{{param.description}}</div>
+          <div class="property" style="color:black">Type:
+            <div class="property-value">{{param.type == "0" ? "Primitive" : "File"}}</div>
+          </div>
+          <div *ngIf="param.flag" class="property" style="color:black">Flag:
+            <div class="property-value">{{param.flag}}</div>
+          </div>
+          <button type="button" style="padding-left:0;font-weight:bold;color:black;display:block;" class="btn btn-link" (click)="param.isCollapsed = !param.isCollapsed">
+            <i *ngIf="param.isCollapsed" class="fa fas fa-caret-up"></i>
+            <i *ngIf="!param.isCollapsed" class="fa fas fa-caret-down"></i> Options:</button>
+          <div class="table-responsive" [collapse]="param.isCollapsed">
+            <table class="table table-sm table-striped table-dark">
+              <tbody>
+                <tr>
+                  <th scope="row" style="padding-left:10px;">Static</th>
+                  <td style="text-align:center">{{param.options.static ? "Yes" : "No"}}</td>
+                </tr>
+                <tr *ngIf="!param.options.static">
+                  <th scope="row" style="padding-left:10px;">Required</th>
+                  <td style="text-align:center">{{param.options.required ? "Yes" : "No"}}</td>
+                </tr>
+                <tr *ngIf="param.options.default">
+                  <td style="text-align:center" colspan="2">
+                    <div style="font-weight:bold">Default value</div>
+                    <div>{{param.options.default}}</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card text-white" style="background-color:#1a819880!important;" *ngIf="param.edit">
+        <h6 class="card-header" style="font-weight: bold;">
+          <input type="text" class="form-control" placeholder="Parameter Name" [(ngModel)]="param.name" [disabled]="param.name == 'outputDir'"
+          />
+        </h6>
+        <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
+          <div style="margin-bottom:5px">
+            <textarea name="Text1" class="form-control form-control-sm" rows="2" placeholder="Parameter Description" [(ngModel)]="param.description"
+              [disabled]="param.name == 'outputDir'"></textarea>
+          </div>
+          <div class="form-group row" style="width: 100%;margin: 5px auto;">
+            <label for="inputState" class="property col-4" style="color:black">Type:</label>
+            <select class="form-control form-control-sm col" [(ngModel)]="param.type" [disabled]="param.name == 'outputDir'">
+              <option value="0" selected>Primitive</option>
+              <option value="1">File</option>
+            </select>
+          </div>
+          <div class="form-group row" style="width: 100%;margin: 5px auto;">
+            <label for="inputState" class="property col-4" style="color:black">Flag:</label>
+            <input type="text" class="form-control form-control-sm col" placeholder="ex. --flag" [(ngModel)]="param.flag" />
+          </div>
+          <div class="form-group row" style="width: 100%;margin: 5px auto;">
+            <label for="inputState" class="property col-4" style="color:black">Position:</label>
+            <input type="number" class="form-control form-control-sm col" [min]="0" [max]="app.algorithm.parameters.length - 1" (change)="orderParams(param)"
+              [(ngModel)]="param.position" />
+          </div>
+          <table class="table table-sm table-striped table-dark">
+            <tbody>
+              <tr>
+                <th scope="row" style="padding-left:10px;vertical-align:middle;">Static</th>
+                <td style="text-align:center">
+                  <label class="switch" style="position:relative;top:3px;">
+                    <input type="checkbox" [(ngModel)]="param.options.static" [disabled]="param.name == 'outputDir'">
+                    <span class="slider round"></span>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row" style="padding-left:10px;vertical-align:middle;">Required</th>
+                <td style="text-align:center;">
+                  <label class="switch" style="position:relative;top:3px;">
+                    <input type="checkbox" [(ngModel)]="param.options.required" [disabled]="param.name == 'outputDir'">
+                    <span class="slider round"></span>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <div class="row" style="margin:auto;margin-bottom:2px;">
+                    <div class="col" style="padding-left:7px;margin-top:2px;font-weight:bold">
+                      Default value
+                    </div>
+                  </div>
+                  <input type="text" *ngIf="param.type !== '1'" placeholder="Some text..." [(ngModel)]="param.options.default" [disabled]="param.name == 'outputDir'"
+                    class="form-control form-control-sm" />
+                  <input type="text" *ngIf="param.type === '1'" placeholder="Some text..." [typeahead]="app.algorithm.files" [(ngModel)]="param.options.default"
+                    [disabled]="param.name == 'outputDir'" (change)="onDefaultChange(param.options)" class="form-control form-control-sm" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="btn-group  btn-group-sm" role="group" style="margin-bottom:10px">
+            <button class="btn btn-primary" (click)="saveParameter(param)" [disabled]="checkParamConstraints(param)">Save</button>
+            <button class="btn btn-secondary" (click)="cancelEditParameter(param)">Cancel</button>
+            <button class="btn btn-danger" (click)="deleteParameter(param)" [disabled]="param.name == 'outputDir' && app.algorithm.output.files.length > 0">Delete</button>
+          </div>
+        </div>
+      </div>
+      <!--/div-->
+    </ng-container>
+  </div>
+
+  <h5 class="sub-title">Standard Output Streams:</h5>
+  <div class="card-columns">
+    <div class="card text-white" style="background-color: #12a978!important" *ngIf="!app.algorithm.output.stdout.edit">
+      <div class="card-header" style="font-weight: bold;">
+        <h6 style="margin:0">
+          Standard Output
+          <i style="font-size:20px;float:right;cursor:pointer;" (click)="editStream(app.algorithm.output.stdout)" class="fa fas fa-edit"></i>
+        </h6>
+      </div>
+      <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
+        <button type="button" style="padding-left:0;font-weight:bold;color:black;" class="btn btn-link">
+          <i class="fa fas fa-caret-down"></i> Options:</button>
+        <div class="table-responsive">
+          <table class="table table-sm table-striped table-dark">
+            <tbody>
+              <tr>
+                <th scope="row" style="padding-left:10px;">Alias</th>
+                <td style="text-align:center;">
+                  {{app.algorithm.output.stdout.alias}}
+                </td>
+              </tr>
+              <tr *ngIf="app.algorithm.output.stdout.extention">
+                <th scope="row" style="padding-left:10px;">Extention</th>
+                <td style="text-align:center;">{{app.algorithm.output.stdout.extention}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card text-white" style="background-color: #10bb848a!important" *ngIf="app.algorithm.output.stdout.edit">
+      <div class="card-header" style="font-weight: bold;">
+        <h6 style="margin:0">Standard Output</h6>
+      </div>
+      <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
+        <div class="table-responsive">
+          <table class="table table-sm table-striped table-dark">
+            <tbody>
+              <tr>
+                <th scope="row" style="padding-left:10px;">Alias</th>
+                <td style="text-align:center;">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="app.algorithm.output.stdout.alias" />
+                </td>
+              </tr>
+              <tr>
+                <th scope="row" style="padding-left:10px;">Extention</th>
+                <td style="text-align:center;">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="app.algorithm.output.stdout.extention" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="btn-group  btn-group-sm" role="group" style="margin-bottom:10px">
+            <button class="btn btn-primary" (click)="saveStream()" [disabled]="checkStreamConstraints(app.algorithm.output.stdout)">Save</button>
+            <button class="btn btn-secondary" (click)="cancelEditStream('stdout')">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card text-white" style="background-color: #12a978!important" *ngIf="!app.algorithm.output.stderr.edit">
+      <div class="card-header" style="font-weight: bold;">
+        <h6 style="margin:0">
+          Standard Error Output
+          <i style="font-size:20px;float:right;cursor:pointer;" (click)="editStream(app.algorithm.output.stderr)" class="fa fas fa-edit"></i>
+        </h6>
+      </div>
+      <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
+        <button type="button" style="padding-left:0;font-weight:bold;color:black;" class="btn btn-link">
+          <i class="fa fas fa-caret-down"></i> Options:</button>
+        <div class="table-responsive">
+          <table class="table table-sm table-striped table-dark">
+            <tbody>
+              <tr>
+                <th scope="row" style="padding-left:10px;">Alias</th>
+                <td style="text-align:center;">
+                  {{app.algorithm.output.stderr.alias}}
+                </td>
+              </tr>
+              <tr *ngIf="app.algorithm.output.stderr.extention">
+                <th scope="row" style="padding-left:10px;">Extention</th>
+                <td style="text-align:center;">{{app.algorithm.output.stderr.extention}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card text-white bg-warning" style="background-color: #10bb848a!important" *ngIf="app.algorithm.output.stderr.edit">
+      <div class="card-header" style="font-weight: bold;">
+        <h6 style="margin:0">Standard Output</h6>
+      </div>
+      <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
+        <div class="table-responsive">
+          <table class="table table-sm table-striped table-dark">
+            <tbody>
+              <tr>
+                <th scope="row" style="padding-left:10px;">Alias</th>
+                <td style="text-align:center;">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="app.algorithm.output.stderr.alias" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="btn-group  btn-group-sm" role="group" style="margin-bottom:10px">
+            <button class="btn btn-primary" (click)="saveStream()" [disabled]="checkStreamConstraints(app.algorithm.output.stderr)">Save</button>
+            <button class="btn btn-secondary" (click)="cancelEditStream('stderr')">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h5 class="sub-title">File Output:</h5>
+  <button type="button" class="btn btn-info" style="display:block;margin-bottom:10px;" (click)="addFOut()">
+    <i class="fa fas fa-plus"></i> Add Output File</button>
+  <div class="card-columns">
+    <ng-container *ngFor="let fout of app.algorithm.output.files">
+      <div class="card text-white bg-warning" *ngIf="!fout.edit">
+        <div class="card-header" style="font-weight: bold;">
+          <h6 style="margin:0">
+            {{fout.alias}}
+            <i style="font-size:20px;float:right;cursor:pointer;" (click)="editOutput(fout)" class="fa fas fa-edit"></i>
+          </h6>
+        </div>
+        <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
+          <button type="button" style="padding-left:0;font-weight:bold;color:black;" class="btn btn-link" (click)="fout.isCollapsed = !fout.isCollapsed">
+            <i *ngIf="fout.isCollapsed" class="fa fas fa-caret-up"></i>
+            <i *ngIf="!fout.isCollapsed" class="fa fas fa-caret-down"></i> Options:</button>
+          <div class="table-responsive" [collapse]="fout.isCollapsed">
+            <table class="table table-sm table-striped table-dark">
+              <tbody>
+                <tr>
+                  <th scope="row" style="padding-left:10px;">Regex</th>
+                  <td style="text-align:center;color:aquamarine;">/
+                    <div style="display:inline;color:white;">{{fout.fileRgx}}</div>
+                    /g</td>
+                </tr>
+                <tr *ngIf="fout.encoding">
+                  <th scope="row" style="padding-left:10px;">Encoding</th>
+                  <td style="text-align:center;">{{fout.encoding}}</td>
+                </tr>
+                <tr *ngIf="fout.extention">
+                  <th scope="row" style="padding-left:10px;">Extention</th>
+                  <td style="text-align:center;">{{fout.extention}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card text-white bg-warning" *ngIf="fout.edit" style="background-color:#ffc1078a!important;">
+        <div class="card-header" style="font-weight: bold;">
+          <input type="text" class="form-control" placeholder="File Alias" [(ngModel)]="fout.alias" />
+        </div>
+        <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
+          <div class="table-responsive">
+            <table class="table table-sm table-striped table-dark">
+              <tbody>
+                <tr>
+                  <th scope="row" style="padding-left:10px;">Regex</th>
+                  <td style="text-align:center;color:aquamarine;">
+                    <input type="text" placeholder="ex.: teste.txt" class="form-control form-control-sm" [(ngModel)]="fout.fileRgx" />
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" style="padding-left:10px;">Encoding</th>
+                  <td style="text-align:center;">
+                    <input type="text" placeholder="ex.: utf-8" class="form-control form-control-sm" [(ngModel)]="fout.encoding" />
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row" style="padding-left:10px;">Extention</th>
+                  <td style="text-align:center;">
+                    <input type="text" placeholder="ex.: txt" class="form-control form-control-sm" [(ngModel)]="fout.extention" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="btn-group  btn-group-sm" role="group" style="margin-bottom:10px">
+              <button class="btn btn-primary" (click)="saveFOut(fout)" [disabled]="checkFOutConstraints(fout)">Save</button>
+              <button class="btn btn-secondary" (click)="cancelEditFOut(fout)">Cancel</button>
+              <button class="btn btn-danger" (click)="deleteFOut(fout)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+
+  <div *ngIf="app.algorithm.files.lenght != 0">
+    <h5 class="sub-title">Uploaded Files:</h5>
+    <button type="button" (click)="openUploadModal()" class="btn btn-info" style="display:block;margin-bottom:10px;">
+      <i class="fa fas fa-plus"></i> Add Files</button>
+    <div style="display:inline-block;font-weight:bold;margin-right:10px;margin-bottom:10px;">Index Of</div>
+    <div class="sub-path"></div>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <div (click)="travelBack(-1)" [ngClass]="{ 'nav-folder': path.length > 0 }" style="display: inline-block;padding-right: .5rem;color: #6c757d;">/ </div>
+        <li class="breadcrumb-item" [ngClass]="{ 'active': i + 1 == path.length, 'nav-folder': i + 1 != path.length }" *ngFor="let p of path; let i = index">
+          <a (click)="travelBack(i)">{{p}}</a>
+        </li>
+      </ol>
+    </nav>
+    <div class="row">
+      <div class="col-sm-6 col-md-4 col-xl-3" *ngIf="path.length > 0" style="margin-bottom:5px;">
+        <div class="border border-dark folder back-folder file" (click)="travelBack(path.length - 2)">
+          <i style="font-size:20px;" class="fa fas fa-folder" aria-hidden="true"></i>
+          <div style="display:inline;"> ../</div>
+        </div>
+      </div>
+      <ng-container *ngFor="let file of parent">
+        <div class="col-sm-6 col-md-4 col-xl-3" style="margin-bottom:5px;">
+          <div class="border border-dark folder forword-folder file" *ngIf="file.files" (click)="expandFolder(file)">
+            <i style="font-size:20px;" class="fa fas fa-folder-open" aria-hidden="true"></i>
+            <div style="display:inline;">{{file.path}}</div>
+          </div>
+          <div class="border border-dark file" *ngIf="!file.files">
+            <i style="font-size:20px;" class="fa fas fa-file" aria-hidden="true"></i>
+            <div style="display:inline;">{{file.path}}</div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+</div>

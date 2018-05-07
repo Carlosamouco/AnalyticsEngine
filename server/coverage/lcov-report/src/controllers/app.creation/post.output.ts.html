@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/controllers/app.creation/post.output.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">src/controllers/app.creation</a> post.output.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">9.52% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>4/42</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">17.65% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>3/17</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">10.81% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>4/37</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Request, Response, NextFunction } from "express";
+import { isArray, isString } from "util";<span class="fstat-no" title="function not covered" ></span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+import { default <span class="fstat-no" title="function not covered" >as Applica</span>tion, App<span class="cstat-no" title="statement not covered" >licati<span class="cstat-no" title="statement not covered" >onModel, ParameterModel, Para</span>meterType, Out<span class="cstat-no" title="statement not covered" >putModel } </span>fr</span>om "../../models/Application";
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span>
+<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ></span></span></span></span>
+export d<span class="cstat-no" title="statement not covered" >efault async function postUpdateOutput(req: Request, res: Response, nex</span>t: NextFunction) {
+  let existingApp: ApplicationModel;
+&nbsp;
+  try {
+    existingApp = &lt;ApplicationModel&gt;(await Application.findOne({ id: req.body.app_id, "algorithms.id": req.body.version_id }));
+  }<span class="fstat-no" title="function not covered" ></span>
+  ca<span class="cstat-no" title="statement not covered" >tch (err) {<span class="fstat-no" title="function not covered" ></span></span>
+    return next(err);
+  }<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+  if (!existingApp) {
+    return res.status(400).json({ messages: ["`app_id` and/or `algorithms.id` are non registered."] });
+  }<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+  const <span class="cstat-no" title="statement not covered" >algorithm = existingApp.algorithms.find((elem) =&gt; {</span>
+    return e<span class="cstat-no" title="statement not covered" >lem.id == req.body.version_id;</span>
+  });
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+  algorithm.<span class="cstat-no" title="statement not covered" >output = req.body.output;</span>
+&nbsp;
+  const <span class="cstat-no" title="statement not covered" >resObj: any = {};</span>
+<span class="cstat-no" title="statement not covered" ></span>
+  try {<span class="cstat-no" title="statement not covered" ></span>
+    await ex<span class="cstat-no" title="statement not covered" >istingApp.validate();</span>
+  }
+  catch (err) {
+    handleVa<span class="cstat-no" title="statement not covered" >lidationError(err, resObj);</span>
+  }
+<span class="cstat-no" title="statement not covered" ></span>
+  if (Object<span class="cstat-no" title="statement not covered" >.keys(resObj).length !== 0) {</span>
+    return res.status(400).json(resObj);
+  }<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+  try {
+    await existingApp.save();
+  }<span class="cstat-no" title="statement not covered" ></span>
+  catch (err) {
+    return next(err)<span class="cstat-no" title="statement not covered" >;</span>
+  }<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+  const <span class="cstat-no" title="statement not covered" >app = existingAp</span>p.toObject();
+  app.al<span class="cstat-no" title="statement not covered" >gorithms = [algorithm];</span>
+  delete app._id;
+  delete app.__v;
+&nbsp;
+  return <span class="fstat-no" title="function not covered" >res.json({ app });</span>
+}<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+function handleValidat<span class="cstat-no" title="statement not covered" >ionError(err: any, res: any</span>) {
+  for (const property in<span class="cstat-no" title="statement not covered" > err.errors) {</span>
+    if (err.<span class="cstat-no" title="statement not covered" >errors.hasOwnProperty(property)) {</span>
+      const i = property.indexOf("output");
+      const key = (i !== -1) ? property.substr(i) : "";
+      res[key] = {
+        messages: [err.errors[property].message],
+        value: err.errors[property].value
+      };
+    }
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Apr 21 2018 23:16:41 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

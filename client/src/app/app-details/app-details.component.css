@@ -1,0 +1,136 @@
+.back-folder {
+  color:#e8e8e8;
+  background-color:#007bff
+}
+
+.forword-folder {
+  color:#e8e8e8;
+  background-color:#383d41;
+}
+
+.folder {
+  cursor:pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.file {
+  padding:7px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sub-title {
+  margin-top: 30px;
+  font-size: 25px;
+  padding-left: 20px;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  font-weight: bold;
+}
+
+.property-value {
+  display:inline;
+  font-weight:initial;
+}
+
+.property {
+  padding: 0;
+  font-weight: bold;
+  margin: auto;
+}
+
+.sub-path:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.sub-path {
+  display:inline;
+  color: #007bff;
+}
+
+@media (min-width: 576px) {
+  .card-columns {
+      column-count: 1;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-columns {
+      column-count: 2;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card-columns {
+      column-count: 3;
+  }
+}
+
+/* The switch - the box around the slider */
+.switch {
+  margin: 0;
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #00b8d6;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #00b8d6;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.nav-folder:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

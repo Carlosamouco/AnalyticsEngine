@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/controllers/application.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">src/controllers</a> application.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">27.03% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>10/37</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">5.56% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>1/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">12.5% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">22.86% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>8/35</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Request, Response, NextFunction } from "express";
+&nbsp;
+import { default as A<span class="missing-if-branch" title="else path not taken" >E</span>pplication } from "../models/Application";
+import { Sandbox } from "../docker_sandbox/sandbox";
+&nbsp;
+export * from "./app.creation/";
+export * from "./app.invoke/";
+&nbsp;
+export fu<span class="fstat-no" title="function not covered" >nction getApplic</span>ations(req: Request, res: Response, next: NextFunction) {
+  Ap<span class="cstat-no" title="statement not covered" >plication.find({}, { algorithms: { $slice: -1 } })</span>
+    .select("-_id author name description id algorithms.id algorithms.version algorithms.description")
+    .exec((err<span class="fstat-no" title="function not covered" >, </span>apps) =&gt; {
+      if<span class="cstat-no" title="statement not covered" > (err) return next(err);</span>
+      if (re<span class="cstat-no" title="statement not covered" >q.query.q) {</span>
+<span class="cstat-no" title="statement not covered" >        for (let i = 0; i &lt; apps.length; ++i) {</span>
+          co<span class="cstat-no" title="statement not covered" >nst tokens = req.query.q.split(" ");</span>
+          if (!containsSubstr([<span class="cstat-no" title="statement not covered" >(&lt;any&gt;apps[i]).name, (&lt;</span>any&gt;apps[i]).author], tokens)) {
+            apps<span class="cstat-no" title="statement not covered" >.splice(i--, 1);</span>
+          }<span class="cstat-no" title="statement not covered" ></span>
+        }
+      }
+      return res.status(200).json(apps);
+    });<span class="cstat-no" title="statement not covered" ></span>
+}
+&nbsp;
+function containsSubstr(names: string[], tokens: string[]) {
+  for (co<span class="fstat-no" title="function not covered" >nst name of nam</span>es) {
+<span class="cstat-no" title="statement not covered" >    for (let i = 0; i &lt; tokens.length; ++i) {</span>
+      if<span class="cstat-no" title="statement not covered" > (name.toLowerCase().indexOf(tokens[i].toLowerCase()) &gt;= 0) {</span>
+        toke<span class="cstat-no" title="statement not covered" >ns.splice(i--, 1);</span>
+      }<span class="cstat-no" title="statement not covered" ></span>
+    }
+  }
+  return tokens.length === 0;
+}<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+export fu<span class="fstat-no" title="function not covered" >nction getAppli</span>cation(req: Request, res: Response, next: NextFunction) {
+  Ap<span class="cstat-no" title="statement not covered" >plication.find({ id: req.params.app_id })</span>
+    .select("-_id -__v")
+    .exec((err<span class="fstat-no" title="function not covered" >, </span>apps) =&gt; {
+      if<span class="cstat-no" title="statement not covered" > (err) return next(err);</span>
+      if (ap<span class="cstat-no" title="statement not covered" >ps.length === 0) {</span>
+<span class="cstat-no" title="statement not covered" >        return res.status(404).send("Application Not Found!");</span>
+      }<span class="cstat-no" title="statement not covered" ></span>
+      return res.status(200).json(apps[0]);
+    });<span class="cstat-no" title="statement not covered" ></span>
+}
+&nbsp;
+export function getApplicationVersion(req: Request, res: Response, next: NextFunction) {
+  Applica<span class="fstat-no" title="function not covered" >tion.aggregate([</span>
+<span class="cstat-no" title="statement not covered" >    { $match: { id: req.params.app_id, "algorithms.id": req.params.version_id } },</span>
+    { $project: { _id: 0, __v: 0 } },
+    {
+      $project: {
+        algorithms: {
+          $filter: {
+            input: "$algorithms",
+            as: "a",
+            cond: {
+              $ne: ["$$a.id", req.params.version_id]
+            }
+          }
+        },
+        id: 1,
+        description: 1,
+        name: 1,
+        author: 1,
+        algorithm: {
+          $filter: {
+            input: "$algorithms",
+            as: "a",
+            cond: {
+              $eq: ["$$a.id", req.params.version_id]
+            }
+          }
+        }
+      }
+    },
+    {
+      $project: { "algorithms.parameters": 0, "algorithms.entryApp": 0, "algorithms.files": 0 }
+    }])
+    .exec((err, apps) =&gt; {
+      if (err) return next(err);
+      if (apps<span class="fstat-no" title="function not covered" >.l</span>ength === 0) {
+<span class="cstat-no" title="statement not covered" >        return res.status(404).send("Application Not Found!");</span>
+      }<span class="cstat-no" title="statement not covered" ></span>
+      ap<span class="cstat-no" title="statement not covered" >ps[0].algorithm = apps[0].algorithm[0];</span>
+      return<span class="cstat-no" title="statement not covered" > res.status(200).json(apps[0]);</span>
+    });
+}<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span></pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Apr 21 2018 23:16:41 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

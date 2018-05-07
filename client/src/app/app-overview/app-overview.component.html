@@ -1,0 +1,42 @@
+<div class="container-fluid" style="margin-bottom:20px;">
+  <h2 class="border-bottom border-info" style="padding: 10px;"> {{app.name}} </h2>
+  <div style="font-size: 20px;margin-bottom:10px;"> {{app.description}}</div>
+  <div>Maintained By:
+    <div style="display:inline; font-weight: bold; color: black;">{{app.author}}</div>
+  </div>
+  <button style="margin: 15px 0" type="button" class="btn btn-info" (click)="openCreateVersionModal()">
+    <i class="fa fas fa-plus"></i> Add Version</button>
+  <h4 class="sub-title">Versions:</h4>
+  <div *ngIf="app.algorithms.length === 0" style="width: 100%; text-align: center; margin-top: 50px;">
+    <h5>No versions of the application are available.</h5>
+  </div>
+  <div class="row">
+    <ng-container *ngFor="let algorithm of app.algorithms">
+      <div class="col-sm-12 col-md-6" style="margin-top: 15px">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Version: {{algorithm.version}}
+              <i style="font-size:20px;float:right;cursor:pointer;top:5px;position:relative;" (click)="openDeleteVersionModal(algorithm)" class="fa fas fa-trash"></i>
+              <i style="font-size:20px;float:right;cursor:pointer;top:6px;position:relative;margin-right:10px;" (click)="openCreateVersionModal(algorithm)"
+                class="fa fas fa-edit"></i>
+            </h5>
+            <p class="card-text">{{algorithm.description}}</p>
+            <p class="card-text" *ngIf="algorithm.description == '' || !algorithm.description">No description available.</p>
+            <h6>Call:</h6>
+            <ng-container *ngIf="algorithm.parameters.length !== 0">
+              <div style="padding: 5px; margin-bottom: 10px;background: #383d41;color: #eadb63;">
+                <div style="display: inline; margin-left:25px;font-weight: 500;">></div>
+                <div style="display: inline;font-weight: 500;">{{algorithm.entryApp.appName}}</div>
+                <div *ngFor="let param of algorithm.parameters" style="display: inline">
+                  <{{param.name}}>
+                </div>
+              </div>
+            </ng-container>
+            <p *ngIf="algorithm.parameters.length === 0" style="font-weight: 500;padding: 5px 5px 5px 30px; margin-bottom: 10px;background: #dc3545;color: #181919;">App version not configured yet.</p>
+            <a routerLink="/app/{{app._id}}/{{algorithm._id}}" class="card-link">Details</a>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

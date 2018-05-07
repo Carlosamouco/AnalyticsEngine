@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/controllers/app.invoke/pipe.output.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">src/controllers/app.invoke</a> pipe.output.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">9.62% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>5/52</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">9.62% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>5/52</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Readable } from "stream";
+import * as fs from "fs";
+import * as path from "path";
+import { Response } from "express";
+&nbsp;
+import { OutputModel, FileOutputModel } from "../../models/Application";
+impo<span class="fstat-no" title="function not covered" >rt</span> { default as Spawn } from "./spawn";
+<span class="cstat-no" title="statement not covered" ></span>
+type Pip<span class="cstat-no" title="statement not covered" >eOptions = {</span>
+  stderr?: boolean,
+  st<span class="fstat-no" title="function not covered" >do</span>ut?: boolean,
+  files?: boolean<span class="cstat-no" title="statement not covered" ></span>
+};<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+type FilesCr<span class="cstat-no" title="statement not covered" >eated = FileOutputModel &amp; {<span class="fstat-no" title="function not covered" ></span></span>
+  files: {<span class="cstat-no" title="statement not covered" ></span>
+    fPath: string,
+    fName: string
+  }[]<span class="cstat-no" title="statement not covered" ></span>
+};<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+type stdOptions = {
+  stdout<span class="cstat-no" title="statement not covered" >: {</span>
+    path: st<span class="cstat-no" title="statement not covered" >ring,<span class="fstat-no" title="function not covered" ></span></span>
+    alias: string<span class="cstat-no" title="statement not covered" ></span>
+  }<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+  stderr: {<span class="cstat-no" title="statement not covered" ></span>
+    path: string,
+    alias: strin<span class="cstat-no" title="statement not covered" >g</span>
+  }<span class="cstat-no" title="statement not covered" ></span>
+};<span class="cstat-no" title="statement not covered" ></span>
+&nbsp;
+export abstract clas<span class="cstat-no" title="statement not covered" >s PipeOutput {</span>
+  private res: Response;
+  protected stream: Readable;
+&nbsp;
+  constr<span class="cstat-no" title="statement not covered" >uctor(res: Response) {</span>
+    this.res = res<span class="fstat-no" title="function not covered" >;</span>
+    this.str<span class="cstat-no" title="statement not covered" >eam = new Readable()</span>;
+  }<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+  public initOutput(options: PipeOptions, model: OutputModel, spawn: Spawn, outdir: string) {
+    const fOutStream = fs.createWriteStream(path.join(outdir, "stdout"));
+    const fErrStream = fs.createWriteStream(path.join(outdir, "stderr"));
+&nbsp;
+    if (options.stderr) {
+      spawn.child.stderr.on("data", (data: Buffer) =&gt; {
+        fErrStream.write(data);
+      });
+    }
+    if (options.stdout) {
+      spawn.child.s<span class="fstat-no" title="function not covered" >td</span>out.on("data", (data: Buffer) =&gt; {
+        fOut<span class="cstat-no" title="statement not covered" >Stream.write(data);</span>
+      });<span class="cstat-no" title="statement not covered" ></span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    if</span> (options.files) {
+      sp<span class="cstat-no" title="statement not covered" >awn.files.on("data", (fPath: string, fName: string) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        const files: FileOutputModel</span>[] = model.files;
+<span class="cstat-no" title="statement not covered" >        const fOptions = &lt;Files</span>Created&gt;files.find((f) =&gt; {
+<span class="cstat-no" title="statement not covered" >          return new RegExp(f.fileRgx).test(fName);</span>
+<span class="cstat-no" title="statement not covered" >        });</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        if (fOptions) {</span>
+<span class="cstat-no" title="statement not covered" >          if (!fOptions.files) {</span>
+<span class="cstat-no" title="statement not covered" >            fOptions.files = [];</span>
+          }
+<span class="cstat-no" title="statement not covered" >          fOptions.files.push({</span> fPath, fName });
+<span class="cstat-no" title="statement not covered" >        }</span>
+      })<span class="cstat-no" title="statement not covered" >;</span>
+    }
+<span class="fstat-no" title="function not covered" ></span>
+    spaw<span class="cstat-no" title="statement not covered" >n.runChild</span>
+      .then((code) =&gt; {<span class="cstat-no" title="statement not covered" ></span>
+        fOut<span class="cstat-no" title="statement not covered" >Stream.close();</span>
+        fErr<span class="cstat-no" title="statement not covered" >Stream.close();</span>
+<span class="cstat-no" title="statement not covered" ></span>
+        this.pip<span class="cstat-no" title="statement not covered" >eData(&lt;FilesCreated[]&gt;model.files, {</span>
+          stdout<span class="cstat-no" title="statement not covered" >: {</span>
+            alia<span class="cstat-no" title="statement not covered" >s: model.stdout.alias,</span>
+            path: pa<span class="cstat-no" title="statement not covered" >th.join(outdir, "stdout")</span>
+          },
+          stderr: {
+<span class="cstat-no" title="statement not covered" >            alias: model.stderr.alia</span>s,
+            path: path.join(outdir, "stderr")
+          }
+        }, code);
+      })
+      .catch((error) =&gt; {
+        this.stream.push(`{"Fatal Error":${JSON.stringify(error)}}`);
+        this.stream.push(null);
+      });
+  }
+&nbsp;
+  public pipeData(files: FilesCreated[], std: stdOptions, exit_code: number) {
+    this.res.setHeader("Content-Type", "application/json");
+    this.stream.pipe(this.res);
+    this.stream.push("{");
+    this.stream.push('"' + std.stdout.alias + '":');
+    this.pipeStdout(std.stdout.path);
+    this.stream.push(',"' + std.stderr.alias + '":');
+    this.pipeStdout(std.stderr.path);
+    if (exit_code == null) {
+      this.stream.push('",waring":"Process allowed execution time expired (Killed)."');
+    }
+    this.pipeFiles(&lt;FilesCreated[]&gt;files);
+    this.stream.push(`,"exit_code":${exit_code}}`);
+    this.stream.push(null);
+  }
+&nbsp;
+  private pipeFiles(files: FilesCreated[]) {
+    for (let n = 0; n &lt; files.length; n++) {
+      const fileOutOpts = files[n];
+      this.stream.push(`,"${fileOutOpts.alias}":[{`);
+      for (let i = 0; fileOutOpts.files &amp;&amp; i &lt; fileOutOpts.files.length; i++) {
+        const file = fileOutOpts.files[i];
+        this.stream.push(`"${file.fName}":`);
+        this.pipeFileData(path.join(file.fPath, file.fName), fileOutOpts.encoding);
+&nbsp;
+        if (i + 1 !== fileOutOpts.files.length) {
+          this.stream.push("},{");
+        }
+      }
+      this.stream.push("}]");
+    }
+  }
+&nbsp;
+  protected abstract pipeStdout(fPath: string): void;
+&nbsp;
+  protected abstract pipeStderr(fPath: string): void;
+&nbsp;
+  protected abstract pipeFileData(fPath: string, encoding: string): void;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Apr 21 2018 23:16:41 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

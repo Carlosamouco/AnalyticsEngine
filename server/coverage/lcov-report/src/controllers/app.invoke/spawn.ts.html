@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/controllers/app.invoke/spawn.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">src/controllers/app.invoke</a> spawn.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">21.62% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>8/37</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/6</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">22.22% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>8/36</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as child from "child_process";
+import * as kill from "tree-kill";
+import * as Promise from "bluebird";
+import * as fs from "fs";
+import * as path from "path";
+import * as crypto from "crypto";
+import * as EventEmitter from "events";
+&nbsp;
+export type SpawnOptions = {
+  ou<span class="fstat-no" title="function not covered" >tp</span>ut: {
+    outputDir: strin<span class="cstat-no" title="statement not covered" >g,</span>
+    ignoreFiles: string[]<span class="cstat-no" title="statement not covered" ></span>
+  }<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+  spawn: chi<span class="cstat-no" title="statement not covered" >ld.SpawnOptions<span class="fstat-no" title="function not covered" ></span></span>
+};<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" ></span>
+export default c<span class="cstat-no" title="statement not covered" >lass SpawnWarp<span class="fstat-no" title="function not covered" >er</span> {</span>
+  private _entry: st<span class="cstat-no" title="statement not covered" >ring;</span>
+  private _args: string[<span class="cstat-no" title="statement not covered" >];</span>
+  private _options: SpawnOptions;
+  private _timeout: <span class="cstat-no" title="statement not covered" >number;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+  public child: child.ChildProcess;
+  public runChild: Promise&lt;any&gt;;
+  public files: <span class="cstat-no" title="statement not covered" >EventEmitte</span>r;
+&nbsp;
+  private _readFiles() {
+    const dir = this._options.output.outputDir;
+<span class="fstat-no" title="function not covered" >    co</span>nst ignoreFiles = this._options.output.ignoreFiles;
+<span class="cstat-no" title="statement not covered" ></span>
+    retu<span class="cstat-no" title="statement not covered" >rn new Promise((res</span>olve, reject) =&gt; {
+      fs<span class="cstat-no" title="statement not covered" >.readdir(dir, (err, files</span>) =&gt; {
+<span class="cstat-no" title="statement not covered" >        if (err) return reject(er</span>r);
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        files.forEach((fName) =&gt; {</span>
+          if (ignoreFiles.in<span class="cstat-no" title="statement not covered" >dexOf(fName<span class="fstat-no" title="function not covered" >) </span>!== -1<span class="cstat-no" title="statement not covered" >) {</span></span>
+<span class="cstat-no" title="statement not covered" >            return;<span class="fstat-no" title="function not covered" ></span></span>
+          }<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+          if (fs<span class="cstat-no" title="statement not covered" >.lstatSync(path.join(dir, f</span>Name)).isFile()) {
+            this<span class="cstat-no" title="statement not covered" >.files.emit("</span>data", dir, fName);
+          }
+        });<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+<span class="cstat-no" title="statement not covered" ></span>
+        resolve(<span class="cstat-no" title="statement not covered" >);</span>
+      });<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+    });<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+  }
+&nbsp;
+  constructor(entry: string, args: string[], timeout: number, options: SpawnOptions) {
+    this._entry = entry;
+    this._args = args;
+    this._timeout = timeout;
+    this._options = options;
+&nbsp;
+    this.files = new EventEmitter();
+&nbsp;
+    this.child = child.spawn(this._entry, this._args, this._options.spawn);
+&nbsp;
+    const timeoutFunc = setTimeout(() =&gt; { kill(this.child.pid); }, this._timeout);
+&nbsp;
+    this.runChild = new Promise((resolve, reject) =&gt; {
+      this.child.on("error", (err) =&gt; {
+        clearTimeout(timeoutFunc);
+        reject(err);
+      });
+&nbsp;
+      this.child.on("close", (code) =&gt; {
+        clearTimeout(timeoutFunc);
+        this._readFiles()
+          .then(() =&gt; resolve(code))
+          .catch((err) =&gt; reject(err));
+      });
+    });
+  }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Apr 21 2018 23:16:41 GMT+0000 (UTC)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
