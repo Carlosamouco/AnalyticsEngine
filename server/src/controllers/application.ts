@@ -53,11 +53,7 @@ export function getApplicationVersion(req: Request, res: Response, next: NextFun
     { $project: { __v: 0 } },
     {
       $project: {
-        _id: 1,
-        description: 1,
-        name: 1,
-        author: 1,
-        algorithm: {
+        _id: 1, description: 1, name: 1, author: 1, algorithm: {
           $filter: {
             input: "$algorithms",
             as: "a",
@@ -67,13 +63,57 @@ export function getApplicationVersion(req: Request, res: Response, next: NextFun
           }
         }
       }
+    },
+    { $unwind: "$algorithm" },
+    { $unwind: { path: "$algorithm.parameters", "preserveNullAndEmptyArrays": true } },
+    {
+      $lookup: {
+        from: "endpoints",
+        let: { endpoint_id: "$algorithm.parameters.options.endpointId" },
+        pipeline: [
+          { $match: { $expr: { $eq: ["$_id", "$$endpoint_id"] } } },
+          { $project: { __v: 0 } }
+        ],
+        as: "algorithm.parameters.options.endpoint"
+      }
+    },
+    { $unwind: { path: "$algorithm.parameters.options.endpoint", "preserveNullAndEmptyArrays": true } },
+    { $project: { "algorithm.parameters.options.endpointId": 0 } },
+    {
+      $group: {
+        _id: {
+          _id: "$_id", description: "$description", name: "$name", author: "$author",
+          algorithm: {
+            _id: "$algorithm._id",
+            description: "$algorithm.description",
+            entryApp: "$algorithm.entryApp",
+            files: "$algorithm.files",
+            output: "$algorithm.output",
+            version: "$algorithm.version"
+          }
+        },
+        parameters: { $push: "$algorithm.parameters" }
+      }
+    },
+    {
+      $project: {
+        _id: "$_id._id", description: "$_id.description", name: "$_id.name", author: "$_id.author",
+        algorithm: {
+          _id: "$_id.algorithm._id",
+          description: "$_id.algorithm.description",
+          entryApp: "$_id.algorithm.entryApp",
+          files: "$_id.algorithm.files",
+          output: "$_id.algorithm.output",
+          version: "$_id.algorithm.version",
+          parameters: "$parameters"
+        }
+      }
     }])
     .exec((err, app) => {
       if (err) return next(err);
       if (app.length === 0) {
         return res.status(404).send("Application Not Found!");
       }
-      app[0].algorithm = app[0].algorithm[0];
       return res.status(200).json(app[0]);
     });
 }

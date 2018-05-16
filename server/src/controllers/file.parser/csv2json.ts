@@ -8,7 +8,7 @@ export class Parser implements FileOutputParser {
     if (obj.errors.length > 0) {
       throw obj.errors;
     }
-    return obj.data;
+    return JSON.stringify(obj.data);
   }
 }
 

@@ -95,7 +95,7 @@ export class AddFilesModalComponent implements OnInit, AfterViewInit {
             postDataExtention: this.postDataExtention
           },
           data: {
-            rawData: this.postDataFile,
+            data: this.postDataFile,
             encoding: this.postDataEncodig,
             extention: this.postDataExtention
           },

@@ -80,6 +80,12 @@
                   <th scope="row" style="padding-left:10px;">Required</th>
                   <td style="text-align:center">{{param.options.required ? "Yes" : "No"}}</td>
                 </tr>
+                <tr *ngIf="param.options.endpoint">
+                  <td style="text-align:center" colspan="2">
+                    <div style="font-weight:bold">Endpoint</div>
+                    <div>{{param.options.endpoint.url}}</div>
+                  </td>
+                </tr>
                 <tr *ngIf="param.options.default">
                   <td style="text-align:center" colspan="2">
                     <div style="font-weight:bold">Default value</div>
@@ -139,16 +145,23 @@
                 </td>
               </tr>
               <tr>
-                <td colspan="2">
-                  <div class="row" style="margin:auto;margin-bottom:2px;">
-                    <div class="col" style="padding-left:7px;margin-top:2px;font-weight:bold">
-                      Default value
-                    </div>
-                  </div>
+                <th scope="row" style="padding-left:10px;vertical-align:middle;">Endpoint</th>
+                <td>
+                  <select class="form-control form-control-sm" name="endpoint" (change)="onEndpointChange($event.target, param)" [disabled]="param.name == 'outputDir' || param.options.static"
+                    [(ngModel)]="param.options.endpointId">
+                    <option value="">None</option>
+                    <option value="{{endpoint._id}}" *ngFor="let endpoint of endpoints">{{endpoint.url}}</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row" style="padding-left:10px;vertical-align:middle;">Default value</th>
+                <td>
                   <input type="text" *ngIf="param.type !== '1'" placeholder="Some text..." [(ngModel)]="param.options.default" [disabled]="param.name == 'outputDir'"
                     class="form-control form-control-sm" />
                   <input type="text" *ngIf="param.type === '1'" placeholder="Some text..." [typeahead]="app.algorithm.files" [(ngModel)]="param.options.default"
-                    [disabled]="param.name == 'outputDir'" (change)="onDefaultChange(param.options)" class="form-control form-control-sm" />
+                    [disabled]="param.name == 'outputDir'" (change)="onDefaultChange(param.options)" class="form-control form-control-sm"
+                  />
                 </td>
               </tr>
             </tbody>

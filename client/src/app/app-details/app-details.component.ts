@@ -8,6 +8,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import { UploadModalComponent } from './upload-modal/upload-modal.component';
 import { ApplicationDetails, Parameter } from './app-details.types';
+import { Endpoint } from '../list-endpoints/list-endpoints.types';
 
 @Component({
   selector: 'app-app-details',
@@ -21,6 +22,7 @@ export class AppDetailsComponent implements OnInit {
   public path: string[];
   public uploadModalRef: BsModalRef;
   public parameters: Parameter[];
+  public endpoints: Endpoint[];
 
   private copyFout: any;
   private copyParam: Parameter;
@@ -30,6 +32,8 @@ export class AppDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private modalService: BsModalService) {
 
     const data = route.snapshot.data['app'];
+    this.endpoints = route.snapshot.data['endpoints'];
+
     if (!data) {
       this.router.navigate(['/404'], { skipLocationChange: true });
     }
@@ -50,6 +54,9 @@ export class AppDetailsComponent implements OnInit {
 
   private prepareData(data) {
     this.app = data;
+
+    this.prepareParameters(this.app.algorithm.parameters);
+
     this.parameters = this.app.algorithm.parameters.slice();
     this.path = [];
 
@@ -64,6 +71,15 @@ export class AppDetailsComponent implements OnInit {
     this.files = this.organizeFiles();
     this.parent = this.files.files;
   }
+
+  private prepareParameters(parameters) {
+    for (const param of parameters) {
+      if (param.options.endpoint) {
+        param.options.endpointId = param.options.endpoint._id;
+      }
+    }
+  }
+
 
   public saveApp() {
     const i = this.app.algorithm.files.indexOf(this.app.algorithm.entryApp.appName);
@@ -117,9 +133,11 @@ export class AppDetailsComponent implements OnInit {
         static: param.options.static,
         required: param.options.required,
         default: param.options.default,
+        endpoint: param.options.endpoint
       },
     };
 
+    param.options.endpointId = param.options.endpoint ? param.options.endpoint._id : null;
     (<any>param).edit = true;
   }
 
@@ -146,8 +164,7 @@ export class AppDetailsComponent implements OnInit {
       parameters: this.parameters
     })
       .subscribe((data) => {
-        this.app.algorithm.parameters = data.app.algorithms[0].parameters;
-        this.parameters = this.app.algorithm.parameters.slice();
+        this.updateParameters(data.app.algorithms[0].parameters);
         this.copyParam = null;
       });
   }
@@ -246,6 +263,19 @@ export class AppDetailsComponent implements OnInit {
     this.commitOutput();
   }
 
+  private updateParameters(parameters) {
+    for (const param of parameters) {
+      if (param.options.endpointId) {
+        param.options.endpoint = <any>this.endpoints.find((endpoint: any) => {
+          return endpoint._id === param.options.endpointId;
+        });
+      }
+    }
+
+    this.app.algorithm.parameters = parameters;
+    this.parameters = this.app.algorithm.parameters.slice();
+  }
+
   public commitOutput() {
     this.http.post<any>('/api/create/output', {
       version_id: this.app.algorithm._id,
@@ -254,8 +284,7 @@ export class AppDetailsComponent implements OnInit {
     })
       .subscribe((data) => {
         this.app.algorithm.output.files = data.app.algorithms[0].output.files;
-        this.app.algorithm.parameters = data.app.algorithms[0].parameters;
-        this.parameters = this.app.algorithm.parameters.slice();
+        this.updateParameters(data.app.algorithms[0].parameters);
         this.copyParam = null;
         this.copyFout = null;
       });
@@ -348,6 +377,13 @@ export class AppDetailsComponent implements OnInit {
     }
   }
 
+  public onEndpointChange(target, param) {
+    if (target.selectedIndex === 0) {
+      target.selectedIndex = -1;
+      delete param.options.endpointId;
+    }
+  }
+
   public openUploadModal() {
     this.uploadModalRef = this.modalService.show(UploadModalComponent, {
       initialState: {
@@ -408,3 +444,5 @@ export class AppDetailsComponent implements OnInit {
     return fsys;
   }
 }
+
+

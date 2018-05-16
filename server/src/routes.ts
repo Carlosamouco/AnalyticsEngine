@@ -3,6 +3,7 @@ import * as multer from "multer";
 
 // Controllers (route handlers)
 import * as applicationControler from "./controllers/application";
+import * as endpointControler from "./controllers/endpoint";
 import * as sandboxControler from "./controllers/sandbox";
 
 export function setup(app: Express) {
@@ -28,4 +29,13 @@ export function setup(app: Express) {
   app.get("/api/applications", applicationControler.getApplications);
   app.get("/api/application/:app_id/:version_id", applicationControler.getApplicationVersion);
   app.get("/api/application/:app_id", applicationControler.getApplication);
+
+  app.post("/api/create/endpoint", endpointControler.postCreateEndpoint);
+  app.post("/api/create/endpointparams", endpointControler.postUpdateEndpointParams);
+
+  app.get("/api/endpoints", endpointControler.getEndpoints);
+  app.get("/api/endpoint/:endpoint_id", endpointControler.getEndpoint);
+
+  app.post("/api/delete/endpoint", endpointControler.postDeleteEndpoint);
+  app.post("/api/update/endpoint", endpointControler.postUpdateEndpoint);
 }

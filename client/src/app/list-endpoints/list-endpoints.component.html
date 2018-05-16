@@ -1,0 +1,35 @@
+<div class="container-fluid" style="margin-bottom:20px;">
+  <div class="row border-bottom border-info" style="padding: 10px 0 10px 0">
+    <div class="col-sm-12">
+      <h2>Available Endpoints:</h2>
+    </div>
+  </div>
+  <div class="row" style="padding: 10px 0 10px 0">
+    <div class="col-sm-12" style="margin: auto;text-align: left;">
+      <button type="button" class="btn btn-info" (click)="openCreateEndpointModal()">
+        <i class="fa fas fa-plus"></i> Create Endpoint</button>
+    </div>
+    <ng-container *ngFor="let endpoint of endpoints">
+      <div class="col-sm-12 col-md-6" style="margin-top: 15px">
+        <div class="card">
+          <div class="card-body">
+            <div style="font-size: 20px;float: right;top: -2px;position: relative;margin-left: 10px;">
+              <i style="cursor:pointer;" class="fa fas fa-trash" (click)="openDeleteEndpointModal(endpoint)"></i>
+              <i style="cursor:pointer;position:relative;top:1px;" class="fa fas fa-edit" (click)="openCreateEndpointModal(endpoint)"></i>
+            </div>
+            <h5 class="card-title" style="display:inline">{{endpoint.url}}</h5>
+            <p class="card-text" *ngIf="endpoint.description != '' && endpoint.description">{{endpoint.description}}</p>
+            <p class="card-text" *ngIf="endpoint.description == '' || !endpoint.description">No description available.</p>
+
+            <a routerLink="/endpoint/{{endpoint._id}}" class="card-link">Details</a>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div *ngIf="endpoints.length === 0" style="width: 100%; text-align: center; margin-top: 50px;">
+      <h4>It seams like there are no endpoints available.</h4>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="container-fluid" style="margin-bottom:20px;">
+  <h1 class="border-bottom border-info" style="padding: 10px;"> Endpoint Configuration </h1>
+
+  <h5 class="sub-title">URL:</h5>
+  <div class="card" *ngIf="!endpoint.urlEdit" style="background-color:#663399;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
+    <div class="card-body">
+      <h5>
+        {{endpoint.url}}
+        <i style="font-size:20px;float:right;cursor:pointer;top:6px;position:relative;" (click)="endpoint.urlEdit = true;copyUrl=endpoint.url"
+          class="fa fas fa-edit"></i>
+      </h5>
+    </div>
+  </div>
+  <div class="card" *ngIf="endpoint.urlEdit" style="background-color: #663399c9;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
+    <div class="card-body">
+      <div class="form-group">
+        <input type="text" class="form-control form-control col" [(ngModel)]="endpoint.url" />
+      </div>
+      <div class="btn-group  btn-group-sm" role="group">
+        <button class="btn btn-primary" [disabled]="endpoint.url.length == 0" (click)="saveEndpoint()">Save</button>
+        <button class="btn btn-secundary" (click)="endpoint.urlEdit=false;endpoint.url=copyUrl">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

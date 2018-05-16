@@ -14,6 +14,11 @@ enum ParamTypes {
   File = '1'
 }
 
+enum OutputModes {
+  Raw = '0',
+  Parsed = '1'
+}
+
 
 @Component({
   selector: 'app-invoke-app',
@@ -28,6 +33,10 @@ export class InvokeAppComponent implements OnInit {
   public timeout: number;
   public secure: boolean;
 
+  public outputMode: { key: string, value: string };
+  public outputModes: any;
+  public activeIndex: number;
+
   public onInvoke: boolean;
 
   public showResults: boolean;
@@ -37,6 +46,10 @@ export class InvokeAppComponent implements OnInit {
   public hideSecundaryContainer: boolean;
 
   public addFileModalRef: BsModalRef;
+
+  public requestDataError: any[];
+
+  private animationEnded: boolean;
 
   constructor(private route: ActivatedRoute, private router: Router, private modalService: BsModalService, private http: HttpClient) {
     const data = route.snapshot.data['apps'];
@@ -48,22 +61,42 @@ export class InvokeAppComponent implements OnInit {
     this.timeout = 5000;
     this.secure = false;
 
-    this.onInvoke = false;
+    this.activeIndex = 0;
+    this.outputMode = {
+      key: Object.keys(OutputModes)[this.activeIndex],
+      value: OutputModes[Object.keys(OutputModes)[this.activeIndex]]
+    };
+    this.outputModes = this.getObjProperties(OutputModes);
 
+    this.onInvoke = false;
     this.showResults = false;
     this.hideSecundaryContainer = true;
     this.hideMainContainer = false;
     this.hideResults = false;
+
+    this.animationEnded = true;
   }
 
   private _initParamVals() {
     for (const param of this.app.algorithm.parameters) {
-      (<any>param).useDefault = true;
-      this.setDefault(param);
+      if (param.type === ParamTypes.File) {
+        (<any>param).value = { };
+      }
+      if (param.options.default) {
+        (<any>param).useDefault = true;
+        this.setDefault(param);
+      }
     }
   }
 
   ngOnInit() {
+  }
+
+  public isFileRef(key) {
+    const file = this.app.algorithm.output.files.find((elem) => {
+      return elem.alias === key;
+    });
+    return !!file;
   }
 
   public isArray(obj: any) {
@@ -105,21 +138,32 @@ export class InvokeAppComponent implements OnInit {
   }
 
   public hideResultsContainer(animation) {
-    if (animation === 'rotateFoldLeft') {
+    if (animation === 'moveFromRightFade') {
       this.hideMainContainer = true;
       this.showResults = false;
-      console.log(1);
+
+      this.animationEnded = true;
     }
     if (animation === 'moveFromLeftFade') {
+      this.requestDataError = null;
+      this.processingResult = null;
+
       this.hideSecundaryContainer = true;
       this.hideResults = false;
-      console.log(2);
+
+      this.animationEnded = true;
     }
   }
 
   public onNewRun() {
     this.hideMainContainer = false;
     this.hideResults = true;
+
+    if (!this.animationEnded) {
+      this.showResults = false;
+    }
+
+    this.animationEnded = false;
   }
 
   public validateForm() {
@@ -128,7 +172,7 @@ export class InvokeAppComponent implements OnInit {
     }
 
     for (const param of this.app.algorithm.parameters) {
-      if (param.options.required && !(<any>param).useDefault) {
+      if (param.options.required && !((<any>param).useDefault || (<any>param).useEndpoint)) {
         if (param.type === ParamTypes.Primitive && !(<any>param).value) {
           return true;
         } else if (param.type === ParamTypes.File && !(<any>param).value.file) {
@@ -141,14 +185,53 @@ export class InvokeAppComponent implements OnInit {
   }
 
   public invokeApp() {
-    this.processingResult = null;
     const args = {};
+    const promises: Promise<{}>[] = [];
+    this.requestDataError = [];
 
-    this.showResults = true;
     this.hideSecundaryContainer = false;
+    this.showResults = true;
+    this.onInvoke = true;
+
+    if (!this.animationEnded) {
+      this.hideResults = false;
+    }
+
+    this.animationEnded = false;
 
     for (const param of this.app.algorithm.parameters) {
-      if ((<any>param).value && !(<any>param).useDefault) {
+      if ((<any>param).useEndpoint) {
+        const params = {};
+
+        for (const endParam of param.options.endpoint.parameters) {
+          if (endParam.value) {
+            params[endParam.name] = endParam.value;
+          }
+        }
+
+        let url = param.options.endpoint.url;
+
+        if (!(url.startsWith('http://') || url.startsWith('https://'))) {
+          url = 'http://' + url;
+        }
+
+        promises.push(new Promise(
+          (resolve, reject) => {
+            this.http.get(url, {
+              params
+            }).subscribe((data) => {
+              if (param.type === ParamTypes.File) {
+                args[param.name] = { data };
+              } else {
+                args[param.name] = data;
+              }
+              resolve();
+            }, (err) => {
+              reject(err);
+            });
+          }));
+
+      } else if ((<any>param).value && !(<any>param).useDefault) {
         if (param.type === ParamTypes.Primitive) {
           args[param.name] = (<any>param).value;
         } else if (param.type === ParamTypes.File) {
@@ -157,26 +240,51 @@ export class InvokeAppComponent implements OnInit {
       }
     }
 
-    this.onInvoke = true;
-    this.http.post('/api/invoke', {
-      app_id: this.app._id,
-      version_id: this.app.algorithm._id,
-      args,
-      options: {
-        output: {
-          stderr: true,
-          stdout: true,
-          files: true,
-          mode: 0
-        },
-        secure: this.secure,
-        timeout: this.timeout
-      }
-    })
-      .subscribe((data) => {
-        this.processingResult = data;
+    Promise.all(promises.map(p => p.catch(e => {
+      this.requestDataError.push(e);
+      throw e;
+    })))
+      .then(() => {
+        this.http.post('/api/invoke', {
+          app_id: this.app._id,
+          version_id: this.app.algorithm._id,
+          args,
+          options: {
+            output: {
+              stderr: true,
+              stdout: true,
+              files: true,
+              mode: this.outputMode.value
+            },
+            secure: this.secure,
+            timeout: this.timeout
+          }
+        })
+          .subscribe((data) => {
+            this.processingResult = this.prepareResultData(data);
+            this.onInvoke = false;
+          });
+      })
+      .catch(() => {
         this.onInvoke = false;
       });
+  }
+
+  private prepareResultData(data) {
+    data = this.getObjProperties(data);
+    for (const obj of data) {
+      if (this.isFileRef(obj.key)) {
+        for (let i = 0; i < obj.value.length; i++) {
+          obj.value[i] = this.getObjProperties(obj.value[i]);
+          if (obj.value[i].length > 0) {
+            obj.value[i][0].value = this.showObject(obj.value[i][0].value);
+          }
+        }
+      } else {
+        obj.value = this.showObject(obj.value);
+      }
+    }
+    return data;
   }
 
   public openAddFilesModal(param) {

@@ -23,7 +23,7 @@
             <p class="card-text">{{algorithm.description}}</p>
             <p class="card-text" *ngIf="algorithm.description == '' || !algorithm.description">No description available.</p>
             <h6>Call:</h6>
-            <ng-container *ngIf="algorithm.parameters.length !== 0">
+            <ng-container *ngIf="algorithm.entryApp">
               <div style="padding: 5px; margin-bottom: 10px;background: #383d41;color: #eadb63;">
                 <div style="display: inline; margin-left:25px;font-weight: 500;">></div>
                 <div style="display: inline;font-weight: 500;">{{algorithm.entryApp.appName}}</div>
@@ -32,7 +32,7 @@
                 </div>
               </div>
             </ng-container>
-            <p *ngIf="algorithm.parameters.length === 0" style="font-weight: 500;padding: 5px 5px 5px 30px; margin-bottom: 10px;background: #dc3545;color: #181919;">App version not configured yet.</p>
+            <p *ngIf="!algorithm.entryApp" style="font-weight: 500;padding: 5px 5px 5px 30px; margin-bottom: 10px;background: #dc3545;color: #181919;">App version not configured yet.</p>
             <a routerLink="/app/{{app._id}}/{{algorithm._id}}" class="card-link">Details</a>
           </div>
         </div>

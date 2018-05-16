@@ -47,5 +47,11 @@ export interface Parameter {
     static: boolean,
     required: boolean,
     default: string,
+    endpointId?: string,
+    endpoint?: {
+      url: string,
+      parameters: any[],
+      _id: string
+    }
   };
 }

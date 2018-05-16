@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Renderer2 } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -18,12 +18,17 @@ export class AppComponent {
   public selected: string;
   public selectedItem: any;
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient, private renderer: Renderer2) {
     this.selectedItem = false;
     this.dataSource = Observable.create((observer: any) => {
-      // Runs on every search
       observer.next(this.selected);
     }).mergeMap((token: string) => this.getApps(token));
+
+    this.router.events.subscribe((val) => {
+      if ((val instanceof NavigationEnd) && !this.isCollapsed) {
+        this.collapseNav(true);
+      }
+    });
   }
 
   public onSelect(event: TypeaheadMatch): void {
@@ -35,9 +40,18 @@ export class AppComponent {
     return this.http.get('/api/applications', { params: { q: token.replace(' - ', ' ') } });
   }
 
+  public collapseNav(val: boolean) {
+    this.isCollapsed = val;
+    if (!this.isCollapsed) {
+      this.renderer.addClass(document.body, 'modal-open');
+    } else {
+      this.renderer.removeClass(document.body, 'modal-open');
+    }
+  }
+
   public onSubmit() {
     if (this.selectedItem) {
-      this.router.navigate([`/app/${this.selectedItem.id}`]);
+      this.router.navigate([`/app/${this.selectedItem._id}`]);
       this.selectedItem = undefined;
       this.selected = '';
     } else if (this.selected !== '') {

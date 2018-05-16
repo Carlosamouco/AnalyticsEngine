@@ -9,6 +9,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 import { AppDetailsModule } from './app-details/app-details.module';
 import { ListAppsModule } from './list-apps/list-apps.module';
@@ -18,11 +19,14 @@ import { InvokeAppModule } from './invoke-app/invoke-app.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { PageNotFoundComponent } from './page_not_found/page-not-found.component';
+import { ListEndpointsModule } from './list-endpoints/list-endpoints.module';
+import { EndpointDetailsComponent } from './endpoint-details/endpoint-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
+    EndpointDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,10 +38,12 @@ import { PageNotFoundComponent } from './page_not_found/page-not-found.component
     BsDropdownModule.forRoot(),
     CollapseModule.forRoot(),
     TypeaheadModule.forRoot(),
+    PopoverModule.forRoot(),
     AppDetailsModule,
     AppOverviewModule,
     InvokeAppModule,
-    ListAppsModule
+    ListAppsModule,
+    ListEndpointsModule
   ],
   providers: [],
   bootstrap: [

@@ -84,7 +84,7 @@ export abstract class PipeOutput {
     this.stream.pipe(this.res);
     this.stream.push("{");
     this.stream.push('"' + model.stdout.alias + '":');
-    this.pipeStdout(output.stdout);
+    this.pipeStdout(output.stdout, model.stdout.extention);
     this.stream.push(',"' + model.stderr.alias + '":');
     this.pipeStderr(output.stderr);
     this._pipeFiles(<FilesCreated[]>model.files);
@@ -104,7 +104,7 @@ export abstract class PipeOutput {
       for (let i = 0; fileOutOpts.files && i < fileOutOpts.files.length; i++) {
         const file = fileOutOpts.files[i];
         this.stream.push(`"${file.fName}":`);
-        this.pipeFileData(path.join(file.fPath, file.fName), fileOutOpts.encoding);
+        this.pipeFileData(path.join(file.fPath, file.fName), fileOutOpts.encoding, fileOutOpts.extention);
 
         if (i + 1 !== fileOutOpts.files.length) {
           this.stream.push("},{");
@@ -114,9 +114,9 @@ export abstract class PipeOutput {
     }
   }
 
-  protected abstract pipeStdout(fPath: string): void;
+  protected abstract pipeStdout(fPath: string, extention?: string): void;
 
   protected abstract pipeStderr(fPath: string): void;
 
-  protected abstract pipeFileData(fPath: string, encoding: string): void;
+  protected abstract pipeFileData(fPath: string, encoding: string, extention?: string): void;
 }

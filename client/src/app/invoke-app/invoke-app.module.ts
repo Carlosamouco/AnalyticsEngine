@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 import { AddFilesModalComponent } from './add-files-modal/add-files-modal.component';
 import { InvokeAppComponent } from './invoke-app.component';
@@ -16,6 +18,8 @@ import { InvokeAppComponent } from './invoke-app.component';
   ],
   imports: [
     ModalModule,
+    BsDropdownModule,
+    PopoverModule,
     CommonModule,
     HttpClientModule,
     FormsModule,

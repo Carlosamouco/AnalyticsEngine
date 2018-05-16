@@ -9,7 +9,6 @@ import * as mongo from "connect-mongo";
 import * as mongoose from "mongoose";
 import * as passport from "passport";
 import * as bluebird from "bluebird";
-import * as path from "path";
 
 import * as routes from "./routes";
 import { Sandbox } from "./docker_sandbox/sandbox";
@@ -28,7 +27,7 @@ mongoose.connect(mongoUrl).catch(err => {
 
 const MongoStore = mongo(session);
 
-Sandbox.getInstance({ poolSize: 3 });
+Sandbox.getInstance({ poolSize: 1 });
 Parsers.getInstance().catch((err) => {
   console.warn("Failed to load some plugins." + err);
 });

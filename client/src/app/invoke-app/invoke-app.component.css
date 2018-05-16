@@ -144,3 +144,43 @@ input:checked + .slider:before {
 .hide {
   display: none;
 }
+
+.dropdown-menu .dropdown-item.active {
+  color: #fff;
+}
+
+.striped:nth-child(even) {
+  background-color: #e9ecef;
+  border: solid 1px #686c73!important;
+  color: #686c73;
+}
+
+.striped:nth-child(odd) {
+  background-color: #848c9a;
+  border: solid 1px #43454a!important;
+}
+
+.striped input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(52,58,64,.25);
+  border-color: white;
+}
+
+.btn.side-btn {
+  border-radius: 0 .2rem .2rem 0!important;
+}
+
+
+.btn.side-btn:focus {
+  box-shadow: -0.26rem 0 0 -0.025rem #fff,
+    0 0 0 0.2rem rgba(52,58,64,.25)!important;
+}
+
+.combined-input {
+  border-radius: .2rem 0 0 .2rem;
+}
+
+.dropdown-item {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

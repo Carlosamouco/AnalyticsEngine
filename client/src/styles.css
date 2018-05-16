@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
+h3.popover-title.popover-header {
+  color: #000!important;
+}
+
 .sk-folding-cube {
   margin: 20px auto;
   width: 40px;

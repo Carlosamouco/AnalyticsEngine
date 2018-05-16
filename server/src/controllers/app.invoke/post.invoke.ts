@@ -5,7 +5,7 @@ import * as path from "path";
 import * as uuid from "uuid/v4";
 
 import { default as Spawn } from "./spawn";
-import { PipeRawOutput } from "./pipe.raw";
+import { PipeRawOutput, PipeParsedOutput } from "./pipe.raw";
 import { ExecApp, ProcessOutput } from "./exec.app";
 import { preInvokeAlgorithm } from "./pre.invoke";
 import { AlgorithmModel } from "../../models/Application";
@@ -33,8 +33,10 @@ type InvokeOptions = {
 };
 
 enum OutputMode {
-  RawJson,
-  Raw
+  Raw,
+  Parsed,
+  RawS = "0",
+  ParsedS = "1"
 }
 
 
@@ -71,16 +73,11 @@ export async function invokeAlgorithm(req: Request, res: Response, next: NextFun
   }
 
   switch (data.call.options.output.mode) {
-    case OutputMode.RawJson:
-      try {
-        new PipeRawOutput(res).initOutput(data.call.options.output, processOutput, data.algorithm.output);
-        break;
-      }
-      catch (err) {
-        next(err);
-      }
-    case OutputMode.Raw:
-      //  pipeRawData(process, res, { stderr: output.stderr, stdout: output.stdout });
+    case OutputMode.Parsed: case OutputMode.ParsedS:
+      new PipeParsedOutput(res).initOutput(data.call.options.output, processOutput, data.algorithm.output);
+      break;
+    case OutputMode.Raw: case OutputMode.RawS: default:
+      new PipeRawOutput(res).initOutput(data.call.options.output, processOutput, data.algorithm.output);
       break;
   }
 }

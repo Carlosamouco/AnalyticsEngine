@@ -10,9 +10,12 @@ import { ListAppsComponent } from './list-apps/list-apps.component';
 import { AppDetailsComponent } from './app-details/app-details.component';
 import { AppOverviewComponent } from './app-overview/app-overview.component';
 import { InvokeAppComponent } from './invoke-app/invoke-app.component';
+import { ListEndpointsComponent } from './list-endpoints/list-endpoints.component';
+import { EndpointDetailsComponent } from './endpoint-details/endpoint-details.component';
 
 import { AppList } from './list-apps/list-apps.types';
 import { ApplicationDetails } from './app-details/app-details.types';
+import { Endpoint } from './list-endpoints/list-endpoints.types';
 
 
 @Injectable()
@@ -57,13 +60,45 @@ export class AppOverviewResolver implements Resolve<ApplicationDetails> {
   }
 }
 
+@Injectable()
+export class EndpointsResolver implements Resolve<Endpoint[]> {
+  constructor(private http: HttpClient) { }
+
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<any> | Promise<any> | any {
+    return this.http.get<Endpoint[]>('/api/endpoints');
+  }
+}
+
+@Injectable()
+export class EndpointResolver implements Resolve<Endpoint> {
+  constructor(private http: HttpClient) { }
+
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<any> | Promise<any> | any {
+    return this.http.get<Endpoint>(`/api/endpoint/${route.params['endpointId']}`);
+  }
+}
 
 const routes: Routes = [
   { path: '', redirectTo: '/apps', pathMatch: 'full' },
   { path: 'invoke/:appId/:versionId', component: InvokeAppComponent, resolve: { apps: AppVersionDetailsResolver } },
   { path: 'apps', component: ListAppsComponent, resolve: { apps: AppListResolver } },
+  { path: 'endpoints', component: ListEndpointsComponent, resolve: { endpoints: EndpointsResolver } },
   { path: 'app/:appId', component: AppOverviewComponent, resolve: { app: AppOverviewResolver } },
-  { path: 'app/:appId/:versionId', component: AppDetailsComponent, resolve: { app: AppVersionDetailsResolver } },
+  { path: 'endpoint/:endpointId', component: EndpointDetailsComponent, resolve: { endpoint: EndpointResolver } },
+  {
+    path: 'app/:appId/:versionId',
+    component: AppDetailsComponent,
+    resolve: {
+      app: AppVersionDetailsResolver,
+      endpoints: EndpointsResolver
+    }
+  },
   { path: '404', component: PageNotFoundComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -78,7 +113,9 @@ const routes: Routes = [
   providers: [
     AppListResolver,
     AppOverviewResolver,
-    AppVersionDetailsResolver
+    AppVersionDetailsResolver,
+    EndpointsResolver,
+    EndpointResolver
   ],
   declarations: []
 })

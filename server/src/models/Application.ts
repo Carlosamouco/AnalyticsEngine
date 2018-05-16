@@ -1,7 +1,7 @@
 import * as mongoose from "mongoose";
-import * as crypto from "crypto";
-
 import { isString } from "util";
+
+import { default as Endpoint } from "./Endpoint";
 
 export type ApplicationModel = mongoose.Document & {
   author: string,
@@ -57,6 +57,7 @@ export type ParameterModel = {
   options: {
     static: boolean,
     required: boolean,
+    endpointId?: string,
     default: string
   }
 };
@@ -101,6 +102,29 @@ const parameterSchema = new mongoose.Schema({
     required: {
       type: Boolean,
       required: true
+    },
+    endpointId: {
+      type: mongoose.Schema.Types.ObjectId,
+      validate: {
+        isAsync: true,
+        validator: (value: string, cb: any) => {
+          if (!value) {
+            cb(true);
+          }
+
+          Endpoint.findOne({ _id: value }, (err, doc) => {
+            if (err) {
+              return cb(false, err);
+            }
+            else if (doc) {
+              return cb(true);
+            }
+
+            cb(false);
+          });
+        },
+        message: "Invalid endpoint _id."
+      }
     },
     default: String
   }
@@ -204,6 +228,8 @@ const appSchema = new mongoose.Schema({
   description: String,
   algorithms: [algorithmSchema]
 });
+
+appSchema.index({ author: 1, name: 1 }, { unique: true });
 
 algorithmSchema.pre("validate", function validate(next) {
   const algorithm = this;

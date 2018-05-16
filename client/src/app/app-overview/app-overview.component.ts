@@ -46,7 +46,7 @@ export class AppOverviewComponent implements OnInit {
     if (algorithm) {
       state['version'] = algorithm.version;
       state['description'] = algorithm.description;
-      state['version_id'] = algorithm.id;
+      state['version_id'] = algorithm._id;
     }
 
     this.createModalRef = this.modalService.show(CreateVersionComponent, {

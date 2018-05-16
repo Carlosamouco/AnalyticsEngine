@@ -13,11 +13,11 @@
       <div class="col-sm-12 col-md-6" style="margin-top: 15px">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">{{app.name}}
-              <i style="font-size:20px;float:right;cursor:pointer;top:5px;position:relative;" (click)="openDeleteAppModal(app)" class="fa fas fa-trash"></i>
-              <i style="font-size:20px;float:right;cursor:pointer;top:6px;position:relative;margin-right:10px;" (click)="openCreateAppModal(app)"
-                class="fa fas fa-edit"></i>
-            </h5>
+            <div style="font-size: 20px;float: right;top: -2px;position: relative;margin-left: 10px;">
+              <i style="cursor:pointer;" class="fa fas fa-trash" (click)="openDeleteAppModal(app)"></i>
+              <i style="cursor:pointer;position:relative;top:1px;" class="fa fas fa-edit" (click)="openCreateAppModal(app)"></i>
+            </div>
+            <h5 class="card-title">{{app.name}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">Author: {{app.author}}</h6>
             <h6 class="card-subtitle mb-2 text-muted" *ngIf="app.algorithms.length > 0">Latest Version: {{app.algorithms[0].version}}</h6>
             <h6 class="card-subtitle mb-2 text-muted" *ngIf="app.algorithms.length == 0">Latest Version: No versions available.</h6>
