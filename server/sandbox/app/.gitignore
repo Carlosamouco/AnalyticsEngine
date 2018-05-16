@@ -1,5 +1,5 @@
 temp
-dist
 .npm
 .config
 node_modules
+logs

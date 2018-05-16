@@ -15,8 +15,6 @@ export class EndpointDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {
     this.endpoint = route.snapshot.data['endpoint'];
 
-    console.log(this.endpoint);
-
     if (!this.endpoint) {
       this.router.navigate(['/404'], { skipLocationChange: true });
     }
@@ -26,8 +24,6 @@ export class EndpointDetailsComponent implements OnInit {
   }
 
   public saveEndpoint(fInput) {
-    console.log(this.endpoint);
-
     const url = '/api/update/endpoint';
     const req = {
       description: this.endpoint.description,
