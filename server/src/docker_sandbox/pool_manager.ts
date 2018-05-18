@@ -172,6 +172,11 @@ export default class PoolManager {
     const container: Container = this.bootingContainers.find((c) => {
       return c.getIp() === ip;
     });
+
+    console.log("Container: ", container);
+    console.log("IP: ", ip);
+    console.log("Booting Containers: ", this.bootingContainers);
+
     if (container) {
       this._registerContainer(container);
     }

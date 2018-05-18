@@ -21,19 +21,21 @@ export function registerWorker() {
     }
   });
 
-  child.exec("/sbin/ip route|awk '/default/ { print $3 }'", (err, stdout, stderr) => {
-    const options: http.RequestOptions = {
-      host: `${stdout.slice(0, -1)}`,
-      path: "/register",
-      method: "POST",
-      port: 3000,
-      headers: {
-        "Connection": "close",
-        "Content-Type": "application/json",
-        "Content-Length": 0
-      }
-    };
-    const req = http.request(options);
-    req.end();
-  });
+  child.exec("/sbin/awk 'END{print $1}' /etc/hosts", (err, stdout, stderr) => {
+   child.exec("/sbin/ip route|awk '/default/ { print $3 }'", (err, stdout, stderr) => {
+      const options: http.RequestOptions = {
+        host: `${stdout.slice(0, -1)}`,
+        path: "/register",
+        method: "POST",
+        port: 3000,
+        headers: {
+          "Connection": "close",
+          "Content-Type": "application/json",
+          "Content-Length": 0
+        }
+      };
+      const req = http.request(options);
+      req.end(JSON.stringify({"ip":stdout}));
+    });
+  }); 
 }

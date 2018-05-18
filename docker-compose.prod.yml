@@ -1,0 +1,43 @@
+version: "2.1"
+
+services:
+  database:
+    build: ./mongodb
+    container_name: "mongodb"
+    volumes:
+      - ./mongodb/data/db:/data/db
+    ports: 
+      - "27017:27017"
+    env_file:
+      - ./mongodb/.env
+
+  server:
+    build: 
+      context: ./server
+      dockerfile: Dockerfile.prod
+    privileged: true
+    volumes:
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules
+      - /var/run/docker.sock:/var/run/docker.sock 
+      - /usr/bin/docker:/usr/bin/docker
+    ports: 
+      - "3000:3000"
+    links:
+      - database:mongodb
+        
+  client:
+    build: ./client
+    volumes:
+      - ./client:/usr/src/app
+      - /usr/src/app/node_modules
+    ports: 
+      - "4200:4200"
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    links:
+      - client
+      - server

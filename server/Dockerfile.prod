@@ -1,0 +1,20 @@
+FROM node
+
+RUN apt-get update -qq && apt-get install -qqy \
+  apt-transport-https \
+  ca-certificates \
+  curl \
+  lxc \
+  iptables
+
+RUN mkdir -p /usr/src/app
+
+COPY ./package.json ./package-lock.json /usr/src/app/
+
+WORKDIR /usr/src/app
+
+RUN npm install
+
+EXPOSE 3000
+
+CMD docker build -t docker-sandbox sandbox/ && npm run watch-prod
