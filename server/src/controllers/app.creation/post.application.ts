@@ -3,7 +3,7 @@ import * as path from "path";
 import { Request, Response, NextFunction } from "express";
 import * as rimraf from "rimraf";
 
-import { isString } from "../../utils/utils";
+import { isString, mkdirsSync } from "../../utils/utils";
 import { default as Application, ApplicationModel, AlgorithmModel } from "../../models/Application";
 
 
@@ -217,6 +217,14 @@ export async function postCreatAlgorithm(req: Request, res: Response, next: Next
         return elem.version == algorithm.version;
       })];
       delete app.__v;
+
+      const appPath = path.join(process.cwd(), "uploads", app._id.toString(), app.algorithms[0]._id.toString());
+      try {
+        mkdirsSync(appPath);
+      }
+      catch (err) {
+        return next(err);
+      }
 
       return res.json(app);
     }

@@ -123,6 +123,8 @@ export class AppDetailsComponent implements OnInit {
       }
     }
 
+    param.options.endpointId = param.options.endpoint ? param.options.endpoint._id : null;
+
     this.copyParam = {
       name: param.name,
       type: param.type,
@@ -133,11 +135,11 @@ export class AppDetailsComponent implements OnInit {
         static: param.options.static,
         required: param.options.required,
         default: param.options.default,
-        endpoint: param.options.endpoint
+        endpoint: param.options.endpoint,
+        endpointId: param.options.endpointId
       },
     };
 
-    param.options.endpointId = param.options.endpoint ? param.options.endpoint._id : null;
     (<any>param).edit = true;
   }
 
@@ -153,7 +155,19 @@ export class AppDetailsComponent implements OnInit {
     }
   }
 
+  private equalParams(p1: Parameter, p2: Parameter) {
+    return (p1.description === p2.description && p1.flag === p2.flag && p1.name === p2.name && p1.position === p2.position
+      && p1.type === p2.type && p1.options.default === p2.options.default
+      && p1.options.required === p2.options.required && p1.options.static === p2.options.static
+      && p1.options.endpointId === p2.options.endpointId);
+  }
+
   public saveParameter(param: Parameter) {
+    if (this.copyParam && this.equalParams(param, this.copyParam)) {
+      this.cancelEditParameter(param);
+      return;
+    }
+
     this.commitParameters();
   }
 
