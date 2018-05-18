@@ -3,6 +3,7 @@ import * as mongoose from "mongoose";
 export type EndpointModel = mongoose.Document & {
   url: string,
   description: string,
+  method: string,
   parameters?: any[];
 };
 
@@ -19,11 +20,21 @@ const parameterSchema = new mongoose.Schema({
   description: String
 }, { _id: false });
 
+export enum HTTPMethod {
+  GET,
+  POST
+}
+
 const endpointSchema = new mongoose.Schema({
   url: {
     type: String,
     required: true,
     unique: true
+  },
+  method: {
+    type: String,
+    required: true,
+    enum: [HTTPMethod.GET, HTTPMethod.POST]
   },
   description: String,
   parameters: [parameterSchema]

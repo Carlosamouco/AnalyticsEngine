@@ -1,5 +1,8 @@
 <div class="container-fluid" style="margin-bottom:20px;">
-  <h1 class="border-bottom border-info" style="padding: 10px;"> {{app.name}} </h1>
+  <h1 class="border-bottom border-info" style="padding: 10px;">
+    <img src="../assets/rocket.svg" width="35" height="35" style="position: relative;top: 8px;" class="d-inline-block align-top"
+    alt=""> Application Configuration</h1>
+  <h2>{{app.name}}</h2>
   <div style="font-size: 20px;margin-bottom:10px;"> {{app.description}}</div>
   <div>Published By:
     <div style="display:inline; font-weight: bold; color: black;">{{app.author}}</div>
@@ -22,7 +25,7 @@
 
 
   <h5 class="sub-title">Application:</h5>
-  <div class="card" *ngIf="!app.algorithm.entryApp.edit" style="background-color:#663399;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
+  <div class="card" *ngIf="!app.algorithm.entryApp.edit" style="background-color:#234b6d;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
     <div class="card-body">
       <h5>
         {{app.algorithm.entryApp.appName}}
@@ -31,7 +34,7 @@
       </h5>
     </div>
   </div>
-  <div class="card" *ngIf="app.algorithm.entryApp.edit" style="background-color: #663399c9;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
+  <div class="card" *ngIf="app.algorithm.entryApp.edit" style="background-color: #67839a;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
     <div class="card-body">
       <div class="form-group">
         <input type="text" class="form-control form-control col" (input)="onAppChange($event.target)" [typeahead]="app.algorithm.files"
@@ -58,7 +61,7 @@
           </h6>
         </div>
 
-        <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
+        <div class="card-body" style="padding-top: 10px;padding-bottom: 10px;">
           <div style="margin-bottom:5px">{{param.description}}</div>
           <div class="property" style="color:black">Type:
             <div class="property-value">{{param.type == "0" ? "Primitive" : "File"}}</div>
@@ -69,32 +72,32 @@
           <button type="button" style="padding-left:0;font-weight:bold;color:black;display:block;" class="btn btn-link" (click)="param.isCollapsed = !param.isCollapsed">
             <i *ngIf="param.isCollapsed" class="fa fas fa-caret-up"></i>
             <i *ngIf="!param.isCollapsed" class="fa fas fa-caret-down"></i> Options:</button>
-          <div class="table-responsive" [collapse]="param.isCollapsed">
-            <table class="table table-sm table-striped table-dark">
-              <tbody>
-                <tr>
-                  <th scope="row" style="padding-left:10px;">Static</th>
-                  <td style="text-align:center">{{param.options.static ? "Yes" : "No"}}</td>
-                </tr>
-                <tr *ngIf="!param.options.static">
-                  <th scope="row" style="padding-left:10px;">Required</th>
-                  <td style="text-align:center">{{param.options.required ? "Yes" : "No"}}</td>
-                </tr>
-                <tr *ngIf="param.options.endpoint">
-                  <td style="text-align:center" colspan="2">
-                    <div style="font-weight:bold">Endpoint</div>
-                    <div>{{param.options.endpoint.url}}</div>
-                  </td>
-                </tr>
-                <tr *ngIf="param.options.default">
-                  <td style="text-align:center" colspan="2">
-                    <div style="font-weight:bold">Default value</div>
-                    <div>{{param.options.default}}</div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+
+          <div [collapse]="param.isCollapsed">
+            <div class="table-dark table-striped">
+              <div class="row">
+                <div class="col-9 table-th">Static</div>
+                <div class="col-3 table-td">{{param.options.static ? "Yes" : "No"}}</div>
+              </div>
+              <div class="row" *ngIf="!param.options.static">
+                <div class="col-9 table-th">Required</div>
+                <div class="col-3 table-td">{{param.options.required ? "Yes" : "No"}}</div>
+              </div>
+              <div class="row" style="height:auto;" *ngIf="param.options.endpoint">
+                <div class="col-12" style="text-align:center;padding:3px 10px">
+                  <div style="font-weight:bold;">Endpoint</div>
+                  <div>{{param.options.endpoint.url}}</div>
+                </div>
+              </div>
+              <div class="row" style="height:auto;" *ngIf="param.options.default">
+                <div class="col-12" style="text-align:center;padding:3px 10px">
+                  <div style="font-weight:bold;">Default value</div>
+                  <div>{{param.options.default}}</div>
+                </div>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
 
@@ -124,48 +127,49 @@
             <input type="number" class="form-control form-control-sm col" [min]="0" [max]="app.algorithm.parameters.length - 1" (change)="orderParams(param)"
               [(ngModel)]="param.position" />
           </div>
-          <table class="table table-sm table-striped table-dark">
-            <tbody>
-              <tr>
-                <th scope="row" style="padding-left:10px;vertical-align:middle;">Static</th>
-                <td style="text-align:center">
-                  <label class="switch" style="position:relative;top:3px;">
-                    <input type="checkbox" [(ngModel)]="param.options.static" [disabled]="param.name == 'outputDir'">
-                    <span class="slider round"></span>
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row" style="padding-left:10px;vertical-align:middle;">Required</th>
-                <td style="text-align:center;">
-                  <label class="switch" style="position:relative;top:3px;">
-                    <input type="checkbox" [(ngModel)]="param.options.required" [disabled]="param.name == 'outputDir'">
-                    <span class="slider round"></span>
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row" style="padding-left:10px;vertical-align:middle;">Endpoint</th>
-                <td>
-                  <select class="form-control form-control-sm" name="endpoint" (change)="onEndpointChange($event.target, param)" [disabled]="param.name == 'outputDir' || param.options.static"
-                    [(ngModel)]="param.options.endpointId">
-                    <option value="">None</option>
-                    <option value="{{endpoint._id}}" *ngFor="let endpoint of endpoints">{{endpoint.url}}</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row" style="padding-left:10px;vertical-align:middle;">Default value</th>
-                <td>
-                  <input type="text" *ngIf="param.type !== '1'" placeholder="Some text..." [(ngModel)]="param.options.default" [disabled]="param.name == 'outputDir'"
-                    class="form-control form-control-sm" />
-                  <input type="text" *ngIf="param.type === '1'" placeholder="Some text..." [typeahead]="app.algorithm.files" [(ngModel)]="param.options.default"
-                    [disabled]="param.name == 'outputDir'" (change)="onDefaultChange(param.options)" class="form-control form-control-sm"
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+
+
+          <div class="table-dark table-striped">
+            <div class="row">
+              <div class="col-4 table-th">Static</div>
+              <div class="col-8 table-td">
+                <label class="switch" style="position:relative;top:3px;">
+                  <input type="checkbox" [(ngModel)]="param.options.static" [disabled]="param.name == 'outputDir'">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4 table-th">Required</div>
+              <div class="col-8 table-td">
+                <label class="switch" style="position:relative;top:3px;">
+                  <input type="checkbox" [(ngModel)]="param.options.required" [disabled]="param.name == 'outputDir'">
+                  <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+            <div class="row" style="height:auto;padding: 3px 0px;">
+              <div class="col-4 table-th">Endpoint</div>
+              <div class="col-8 table-td" style="padding: 0 5px;">
+                <select class="form-control form-control-sm" name="endpoint" (change)="onEndpointChange($event.target, param)" [disabled]="param.name == 'outputDir' || param.options.static"
+                  [(ngModel)]="param.options.endpointId">
+                  <option value="">None</option>
+                  <option value="{{endpoint._id}}" *ngFor="let endpoint of endpoints">{{endpoint.url}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row" style="height:auto;padding: 3px 0px;">
+              <div class="col-4 table-th">Default value</div>
+              <div class="col-8 table-td" style="padding: 0 5px;">
+                <input type="text" *ngIf="param.type !== '1'" placeholder="Some text..." [(ngModel)]="param.options.default" [disabled]="param.name == 'outputDir'"
+                  class="form-control form-control-sm" />
+                <input type="text" *ngIf="param.type === '1'" placeholder="Some text..." [typeahead]="app.algorithm.files" [(ngModel)]="param.options.default"
+                  [disabled]="param.name == 'outputDir'" (change)="onDefaultChange(param.options)" class="form-control form-control-sm"
+                />
+              </div>
+            </div>
+          </div>
+
           <div class="btn-group  btn-group-sm" role="group" style="margin-bottom:10px">
             <button class="btn btn-primary" (click)="saveParameter(param)" [disabled]="checkParamConstraints(param)">Save</button>
             <button class="btn btn-secondary" (click)="cancelEditParameter(param)">Cancel</button>

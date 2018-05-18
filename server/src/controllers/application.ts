@@ -9,7 +9,7 @@ export * from "./app.invoke/";
 
 export function getApplications(req: Request, res: Response, next: NextFunction) {
   Application.find({}, { algorithms: { $slice: -1 } })
-    .select("author name description id algorithms._id algorithms.version algorithms.description")
+    .select("author name description id algorithms._id algorithms.version algorithms.description algorithms.entryApp")
     .exec((err, apps) => {
       if (err) return next(err);
       if (req.query.q) {
@@ -105,7 +105,13 @@ export function getApplicationVersion(req: Request, res: Response, next: NextFun
           files: "$_id.algorithm.files",
           output: "$_id.algorithm.output",
           version: "$_id.algorithm.version",
-          parameters: "$parameters"
+          parameters: {
+            $filter: {
+              input: "$parameters",
+              as: "param",
+              cond: { $gt: ["$$param.name", null] }
+            }
+          }
         }
       }
     }])

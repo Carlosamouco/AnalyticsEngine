@@ -1,3 +1,5 @@
+import { Endpoint } from '../list-endpoints/list-endpoints.types';
+
 export interface ApplicationDetails {
   author: string;
   name: string;
@@ -48,10 +50,6 @@ export interface Parameter {
     required: boolean,
     default: string,
     endpointId?: string,
-    endpoint?: {
-      url: string,
-      parameters: any[],
-      _id: string
-    }
+    endpoint?: Endpoint
   };
 }

@@ -27,6 +27,14 @@ export class CreateVersionComponent implements OnInit {
   ngOnInit() {
   }
 
+  public onVersionKeyDown(event) {
+    const pattern = /[0-9.]/;
+
+    if (!(pattern.test(event.key) || event.key === 'Backspace')) {
+      event.preventDefault();
+    }
+  }
+
   public onSubmit() {
     let url = '/api/create/algorithm';
     const req = {

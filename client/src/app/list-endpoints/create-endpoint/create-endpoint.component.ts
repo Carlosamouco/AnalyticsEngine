@@ -16,20 +16,23 @@ export class CreateEndpointComponent implements OnInit {
   public endpoint: Endpoint;
   public url: string;
   public description: string;
+  public method: string;
 
   public onError: boolean;
 
   constructor(public bsModalRef: BsModalRef, private http: HttpClient) {
     this.onError = false;
-   }
+  }
 
   ngOnInit() {
     if (this.endpoint) {
       this.url = this.endpoint.url || '';
       this.description = this.endpoint.description || '';
+      this.method = this.endpoint.method || '0';
     } else {
       this.url = '';
       this.description = '';
+      this.method = '0';
     }
   }
 
@@ -37,6 +40,7 @@ export class CreateEndpointComponent implements OnInit {
     let url = '/api/create/endpoint';
     const req = {
       description: this.description,
+      method: this.method,
       url: this.url
     };
 
@@ -54,6 +58,14 @@ export class CreateEndpointComponent implements OnInit {
           this.url = '';
           this.onError = true;
         });
+  }
+
+  public onUrlChange() {
+    if (this.url !== '') {
+      if (!(this.url.startsWith('http://') || this.url.startsWith('https://'))) {
+        this.url = 'http://' + this.url;
+      }
+    }
   }
 
 }

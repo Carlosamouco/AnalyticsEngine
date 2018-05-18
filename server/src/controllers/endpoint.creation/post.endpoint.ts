@@ -23,7 +23,8 @@ export async function postCreateEndpoint(req: Request, res: Response, next: Next
 
   const endpoint = new Endpoint({
     url: req.body.url,
-    description: req.body.description
+    description: req.body.description,
+    method: req.body.method
   });
 
   try {
@@ -113,11 +114,12 @@ export async function postUpdateEndpoint(req: Request, res: Response, next: Next
   }
 
   if (!existingEndpoint) {
-    return res.status(400).json({ errors: ["There is no application with the specified id."] });
+    return res.status(400).json({ errors: ["There is no endpoint with the specified id."] });
   }
   else {
     existingEndpoint.url = req.body.url;
     existingEndpoint.description = req.body.description;
+    existingEndpoint.method = req.body.method;
 
     try {
       await existingEndpoint.save();

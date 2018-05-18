@@ -33,6 +33,7 @@
               </div>
             </ng-container>
             <p *ngIf="!algorithm.entryApp" style="font-weight: 500;padding: 5px 5px 5px 30px; margin-bottom: 10px;background: #dc3545;color: #181919;">App version not configured yet.</p>
+            <a *ngIf="algorithm.entryApp" routerLink="/invoke/{{app._id}}/{{algorithm._id}}" class="card-link">Invoke</a>
             <a routerLink="/app/{{app._id}}/{{algorithm._id}}" class="card-link">Details</a>
           </div>
         </div>

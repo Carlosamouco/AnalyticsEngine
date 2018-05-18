@@ -1,20 +1,19 @@
 <div class="container-fluid" style="margin-bottom:20px;">
-  <h1 class="border-bottom border-info" style="padding: 10px;"> Endpoint Configuration </h1>
-
+  <h1 class="border-bottom border-info" style="padding: 10px;">
+    <img src="../assets/globe.svg" width="35" height="35" style="position: relative;top: 8px;" class="d-inline-block align-top"
+      alt=""> Endpoint Configuration </h1>
   <h5 class="sub-title">URL:</h5>
-  <div class="card" *ngIf="!endpoint.urlEdit" style="background-color:#663399;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
+  <div class="card" *ngIf="!endpoint.urlEdit" style="background-color:#576d7f;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
     <div class="card-body">
-      <h5>
-        {{endpoint.url}}
-        <i style="font-size:20px;float:right;cursor:pointer;top:6px;position:relative;" (click)="endpoint.urlEdit = true;copyUrl=endpoint.url"
-          class="fa fas fa-edit"></i>
-      </h5>
+      <i style="font-size:20px;float:right;top:4px;position:relative;margin-left:10px;" (click)="endpoint.urlEdit=true;copyUrl=endpoint.url"
+        class="fa fas fa-edit"></i>
+      <h5 style="display:inline;">{{endpoint.url}}</h5>
     </div>
   </div>
-  <div class="card" *ngIf="endpoint.urlEdit" style="background-color: #663399c9;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
+  <div class="card" *ngIf="endpoint.urlEdit" style="background-color: #9facb6;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
     <div class="card-body">
       <div class="form-group">
-        <input type="text" class="form-control form-control col" [(ngModel)]="endpoint.url" />
+        <input type="text" class="form-control form-control col" (change)="onUrlChange()" [(ngModel)]="endpoint.url" />
       </div>
       <div class="btn-group  btn-group-sm" role="group">
         <button class="btn btn-primary" [disabled]="endpoint.url.length == 0" (click)="saveEndpoint()">Save</button>
@@ -23,11 +22,79 @@
     </div>
   </div>
 
-  <h5 class="sub-title">Method:</h5>
-  
+  <h5 class="sub-title">HTTP Method:</h5>
+  <div class="card" *ngIf="!endpoint.methodEdit" style="background-color:#234b6d;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
+    <div class="card-body">
+      <i style="font-size:20px;float:right;top:4px;position:relative;margin-left:10px;" (click)="endpoint.methodEdit = true;copyMethod=endpoint.method"
+        class="fa fas fa-edit"></i>
+      <h5 style="display:inline;">{{endpoint.method === '0' ? 'GET' : 'POST'}}</h5>
+    </div>
+  </div>
+  <div class="card" *ngIf="endpoint.methodEdit" style="background-color: #67839a;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
+    <div class="card-body">
+      <div class="form-group">
+        <div class="btn-group" style="width: 100%;" dropdown>
+          <input type="text" class="btn form-control-sm btn-light" style="width: 100%;text-align: left;" readonly [value]="endpoint.method==='0' ? 'GET' : 'POST'"
+          />
+          <button type="button" dropdownToggle class="btn dropdown-toggle dropdown-toggle-split btn-light" aria-controls="dropdown-split">
+          </button>
+          <ul *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+            <li role="menuitem">
+              <a class="dropdown-item" [ngClass]="{ 'active': activeIndex===0 }" (click)="endpoint.method='0'" (mouseover)="activeIndex=0"
+                style="cursor:pointer">GET</a>
+            </li>
+            <li role="menuitem">
+              <a class="dropdown-item" [ngClass]="{ 'active': activeIndex===1 }" (click)="endpoint.method='1'" (mouseover)="activeIndex=1"
+                style="cursor:pointer">POST</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="btn-group btn-group-sm" role="group">
+        <button class="btn btn-primary" [disabled]="endpoint.url.length==0" (click)="saveEndpoint()">Save</button>
+        <button class="btn btn-secundary" (click)="endpoint.methodEdit=false;endpoint.method=copyMethod">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+
+
 
   <h5 class="sub-title">Parameters:</h5>
   <button type="button" class="btn btn-info" (click)="addParameter()" style="display:block;margin-bottom:10px;">
     <i class="fa fas fa-plus"></i> Add Parameter</button>
+  <div class="card-columns">
+    <ng-container *ngFor="let param of endpoint.parameters; let i = index;">
+      <div class="card text-white" style="background-color: #0b68b7!important;" *ngIf="!param.edit">
+        <div class="card-header" style="font-weight: bold;">
+          <h6 style="margin:0">
+            {{param.name}}
+            <i style="font-size:20px;float:right;cursor:pointer;" (click)="editParameter(param)" class="fa fas fa-edit"></i>
+          </h6>
+        </div>
 
+        <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
+          <div style="margin-bottom:5px">{{param.description ? param.description : 'No description available.'}}</div>
+        </div>
+      </div>
+
+      <div class="card text-white" style="background-color:#609dd0!important;" *ngIf="param.edit">
+        <h6 class="card-header" style="font-weight: bold;">
+          <input type="text" class="form-control" placeholder="Parameter Name" [(ngModel)]="param.name" [disabled]="param.name=='outputDir'"
+          />
+        </h6>
+        <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
+          <div style="margin-bottom:5px">
+            <textarea name="Text1" class="form-control form-control-sm" rows="2" placeholder="Parameter Descriptions" [(ngModel)]="param.description"
+              [disabled]="param.name=='outputDir'"></textarea>
+          </div>
+          <div class="btn-group btn-group-sm" role="group" style="margin-bottom:10px">
+            <button class="btn btn-primary" (click)="saveParameter(param)" [disabled]="!param.name">Save</button>
+            <button class="btn btn-secondary" (click)="cancelEditParameter(i)">Cancel</button>
+            <button class="btn btn-danger" (click)="deleteParameter(i)" [disabled]="!tempParam">Delete</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
 </div>

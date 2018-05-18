@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { ListEndpointsComponent } from './list-endpoints.component';
 import { CreateEndpointComponent } from './create-endpoint/create-endpoint.component';
@@ -21,7 +22,8 @@ import { DeleteEndpointComponent } from './delete-endpoint/delete-endpoint.compo
     CommonModule,
     HttpClientModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    BsDropdownModule
   ],
   bootstrap: [
     CreateEndpointComponent,

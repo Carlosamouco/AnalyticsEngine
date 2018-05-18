@@ -58,7 +58,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 650px) {
   .card-columns {
       column-count: 2;
   }
@@ -133,4 +133,25 @@ input:checked + .slider:before {
 .nav-folder:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.table-striped > .row:nth-child(odd) {
+  background-color: rgba(255,255,255,.05);
+}
+
+.table-striped > .row {
+  height: 37px;
+  margin: auto;
+}
+
+.table-th {
+  padding-left: 10px;
+  font-weight: bold;
+  margin: auto;
+  padding-right: 0;
+}
+
+.table-td {
+  text-align: center;
+  margin: auto;
 }

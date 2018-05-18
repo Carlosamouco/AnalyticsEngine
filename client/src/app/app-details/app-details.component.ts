@@ -196,7 +196,7 @@ export class AppDetailsComponent implements OnInit {
       },
     };
     this.parameters.push(newP);
-    this.app.algorithm.parameters.push(<any>newP);
+    this.app.algorithm.parameters.unshift(<any>newP);
   }
 
   public addFOut() {

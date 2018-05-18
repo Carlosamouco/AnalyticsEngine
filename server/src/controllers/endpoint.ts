@@ -7,7 +7,7 @@ export * from "./endpoint.creation/";
 
 export function getEndpoints(req: Request, res: Response, next: NextFunction) {
   Endpoint.find({})
-    .select("url description")
+    .select("url description method")
     .exec((err, endpoints) => {
       if (err) return next(err);
       return res.status(200).json(endpoints);

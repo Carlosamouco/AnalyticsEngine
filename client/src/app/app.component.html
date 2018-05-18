@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-light" style="box-shadow:0 -5px 7px 4px rgba(0,0,0,.35);background-color:#f7f7f7!important;">
-  <a class="navbar-brand" routerLink="/apps">
+  <a class="navbar-brand" routerLink="/apps" (click)="currLink = 0">
     <img src="../assets/logo-white.svg" width="30" height="30" class="d-inline-block align-top" alt=""> BRAIN Analytics
   </a>
   <button class="navbar-toggler" (click)="collapseNav(!isCollapsed)">
@@ -8,24 +8,13 @@
 
   <div class="collapse navbar-collapse" [collapse]="isCollapsed" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/apps">Home
+      <li class="nav-item" [ngClass]="{'active': currLink == 0}" (click)="currLink = 0">
+        <a class="nav-link" routerLink="/apps">Apps
           <span class="sr-only">(current)</span>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown" dropdown>
-        <a class="nav-link dropdown-toggle" style="cursor:pointer;" dropdownToggle>
-          Dropdown
-        </a>
-        <div class="dropdown-menu" *dropdownMenu>
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
+      <li class="nav-item" [ngClass]="{'active': currLink == 1}" (click)="currLink = 1">
+        <a class="nav-link" routerLink="/endpoints">Endpoints</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" (ngSubmit)="onSubmit()">

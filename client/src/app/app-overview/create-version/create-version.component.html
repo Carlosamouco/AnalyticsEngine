@@ -8,7 +8,7 @@
   <div class="modal-body">
     <div class="form-group">
       <label for="appVersion">Version *</label>
-      <input type="text" pattern=".{1,}" class="form-control" [ngClass]="{ 'is-invalid': onError }" id="appVersion" placeholder="ex.: 1.0"
+      <input type="text" (keydown)="onVersionKeyDown($event)" class="form-control" [ngClass]="{ 'is-invalid': onError }" id="appVersion" placeholder="ex.: 1.0"
         name="version" autocomplete="off" [(ngModel)]="version">
       <div *ngIf="onError" class="invalid-feedback">Please provide a diferent version code.</div>
     </div>

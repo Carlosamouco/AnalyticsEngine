@@ -6,3 +6,15 @@
   padding-bottom: 5px;
   font-weight: bold;
 }
+
+@media (min-width: 576px) {
+  .card-columns {
+      column-count: 2;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card-columns {
+      column-count: 3;
+  }
+}

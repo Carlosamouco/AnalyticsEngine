@@ -18,6 +18,8 @@ export class AppComponent {
   public selected: string;
   public selectedItem: any;
 
+  public currLink: number;
+
   constructor(private router: Router, private http: HttpClient, private renderer: Renderer2) {
     this.selectedItem = false;
     this.dataSource = Observable.create((observer: any) => {
@@ -27,6 +29,19 @@ export class AppComponent {
     this.router.events.subscribe((val) => {
       if ((val instanceof NavigationEnd) && !this.isCollapsed) {
         this.collapseNav(true);
+      }
+
+      if (val instanceof NavigationEnd) {
+        switch (val.url.split('/')[1]) {
+          case 'apps': case 'app':
+            this.currLink = 0;
+            break;
+          case 'endpoints': case 'endpoint':
+            this.currLink = 1;
+            break;
+          default:
+            this.currLink = 0;
+        }
       }
     });
   }

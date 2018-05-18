@@ -18,6 +18,7 @@
               <i style="cursor:pointer;position:relative;top:1px;" class="fa fas fa-edit" (click)="openCreateEndpointModal(endpoint)"></i>
             </div>
             <h5 class="card-title" style="display:inline">{{endpoint.url}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted" style="margin-top:10px;">HTTP Method: {{endpoint.method === '0' ? 'GET' : 'POST' }}</h6>
             <p class="card-text" *ngIf="endpoint.description != '' && endpoint.description">{{endpoint.description}}</p>
             <p class="card-text" *ngIf="endpoint.description == '' || !endpoint.description">No description available.</p>
 

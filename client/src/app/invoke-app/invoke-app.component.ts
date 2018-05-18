@@ -19,6 +19,11 @@ enum OutputModes {
   Parsed = '1'
 }
 
+enum HTTPMethods {
+  GET = '0',
+  POST = '1'
+}
+
 
 @Component({
   selector: 'app-invoke-app',
@@ -80,7 +85,7 @@ export class InvokeAppComponent implements OnInit {
   private _initParamVals() {
     for (const param of this.app.algorithm.parameters) {
       if (param.type === ParamTypes.File) {
-        (<any>param).value = { };
+        (<any>param).value = {};
       }
       if (param.options.default) {
         (<any>param).useDefault = true;
@@ -204,8 +209,8 @@ export class InvokeAppComponent implements OnInit {
         const params = {};
 
         for (const endParam of param.options.endpoint.parameters) {
-          if (endParam.value) {
-            params[endParam.name] = endParam.value;
+          if ((<any>endParam).value) {
+            params[endParam.name] = (<any>endParam).value;
           }
         }
 
@@ -217,9 +222,15 @@ export class InvokeAppComponent implements OnInit {
 
         promises.push(new Promise(
           (resolve, reject) => {
-            this.http.get(url, {
-              params
-            }).subscribe((data) => {
+            let request;
+            if (param.options.endpoint.method === HTTPMethods.GET) {
+              request = this.http.get(url, {
+                params
+              });
+            } else {
+              request = this.http.post(url, params);
+            }
+            request.subscribe((data) => {
               if (param.type === ParamTypes.File) {
                 args[param.name] = { data };
               } else {

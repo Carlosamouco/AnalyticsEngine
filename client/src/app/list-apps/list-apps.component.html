@@ -24,7 +24,7 @@
             <p class="card-text" *ngIf="app.description != '' && app.description">{{app.description}}</p>
             <p class="card-text" *ngIf="app.description == '' || !app.description">No description available.</p>
             <ng-container *ngIf="app.algorithms.length > 0">
-              <a routerLink="/invoke/{{app._id}}/{{app.algorithms[0]._id}}" class="card-link">Invoke</a>
+              <a *ngIf="app.algorithms[0].entryApp" routerLink="/invoke/{{app._id}}/{{app.algorithms[0]._id}}" class="card-link">Invoke</a>
               <a routerLink="/app/{{app._id}}/{{app.algorithms[0]._id}}" class="card-link">Details</a>
             </ng-container>
             <a routerLink="/app/{{app._id}}" class="card-link">Overview</a>
