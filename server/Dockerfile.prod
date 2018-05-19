@@ -17,4 +17,4 @@ RUN npm install
 
 EXPOSE 3000
 
-CMD docker build --no-cache -t docker-sandbox -- sandbox/ && npm run watch-prod
+CMD docker build --no-cache -t docker-sandbox sandbox/ && npm run watch-prod
