@@ -5,7 +5,7 @@ import * as path from "path";
 
 //  import * as console from "./logger";
 
-export function registerWorker(data?: any) {
+export function registerWorker() {
   const outDir = path.join(process.cwd(), "temp", "output", "files");
 
   try {
@@ -18,7 +18,7 @@ export function registerWorker(data?: any) {
   }  
 
   child.exec("awk 'END{print $1}' /etc/hosts", (err, stdout, stderr) => {
-   const postData = JSON.stringify({ip:stdout,data:data});
+   const postData = JSON.stringify({ip:stdout});
 
     child.exec("/sbin/ip route|awk '/default/ { print $3 }'", (err, stdout, stderr) => {
       const options: http.RequestOptions = {
