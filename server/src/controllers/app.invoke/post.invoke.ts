@@ -25,14 +25,14 @@ type InvokeOptions = {
   timeout: number,
   secure: boolean,
   output: {
-    mode: OutputMode,
+    mode: string,
     stderr: boolean,
     stdout: boolean,
     files: boolean
   }
 };
 
-enum OutputMode {
+export enum OutputMode {
   Raw,
   Parsed,
   RawS = "0",

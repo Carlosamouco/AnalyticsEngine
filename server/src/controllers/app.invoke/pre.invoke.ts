@@ -4,23 +4,19 @@ import * as mongoose from "mongoose";
 
 import { AlgorithmModel, ParameterModel, ParameterType, default as Application, File } from "../../models/Application";
 import { isBool, isInteger } from "../../utils";
-import { InvokeModel } from "./post.invoke";
+import { InvokeModel, OutputMode } from "./post.invoke";
 
 
 type Arguments = {
   [key: string]: any
 };
 
-enum OutputMode {
-  RawJson,
-  Raw
-}
 
 function setDefaults(req: InvokeModel) {
   req.options = <any>req.options || {};
   req.options.output = <any>req.options.output || {};
 
-  req.options.output.mode = req.options.output.mode || OutputMode.RawJson;
+  req.options.output.mode = req.options.output.mode || OutputMode.RawS;
   req.options.output.stderr = req.options.output.stderr || true;
   req.options.output.stdout = req.options.output.stdout || true;
   req.options.secure = req.options.secure || false;
