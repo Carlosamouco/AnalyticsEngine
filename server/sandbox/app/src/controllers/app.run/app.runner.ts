@@ -7,6 +7,7 @@ import { Request, Response, NextFunction } from "express";
 import { default as Spawn } from "./spawn";
 
 export async function invokeAlgorithm(req: Request, res: Response, next: NextFunction) {
+
   const call = req.body;
 
   const outDir = path.join(process.cwd(), "temp", "output");
@@ -51,10 +52,11 @@ export async function invokeAlgorithm(req: Request, res: Response, next: NextFun
       archiveData(outDir, code, res, next);
     })
     .catch((err) => {
-      error.write(err.toString());
+      error.write(JSON.stringify(err));
+      error.write(path.join(process.cwd(), call.cwd));
       closeStreams([stdout, stderr, error]);
       archiveData(outDir, null, res, next);
-    });
+    });  
 }
 
 function closeStreams(streams: fs.WriteStream[]) {

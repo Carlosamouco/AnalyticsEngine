@@ -5,24 +5,22 @@ import * as path from "path";
 
 //  import * as console from "./logger";
 
-export function registerWorker() {
-  const outDir = path.join(process.cwd(), "temp", "output");
-  const outFDir = path.join(outDir, "files");
+export function registerWorker(data?: any) {
+  const outDir = path.join(process.cwd(), "temp", "output", "files");
 
-  fs.mkdir(outDir, (err) => {
-    if (err && err.code !== "EEXIST") {
+  try {
+    mkdirsSync(outDir);
+  }
+  catch(err) {
+    if (err.code !== "EEXIST") {
       return process.exit(1);
     }
-  });
+  }  
 
-  fs.mkdir(outFDir, (err) => {
-    if (err && err.code !== "EEXIST") {
-      return process.exit(1);
-    }
-  });
+  child.exec("awk 'END{print $1}' /etc/hosts", (err, stdout, stderr) => {
+   const postData = JSON.stringify({ip:stdout,data:data});
 
-  child.exec("/sbin/awk 'END{print $1}' /etc/hosts", (err, stdout, stderr) => {
-   child.exec("/sbin/ip route|awk '/default/ { print $3 }'", (err, stdout, stderr) => {
+    child.exec("/sbin/ip route|awk '/default/ { print $3 }'", (err, stdout, stderr) => {
       const options: http.RequestOptions = {
         host: `${stdout.slice(0, -1)}`,
         path: "/register",
@@ -31,11 +29,31 @@ export function registerWorker() {
         headers: {
           "Connection": "close",
           "Content-Type": "application/json",
-          "Content-Length": 0
+          "Content-Length": postData.length
         }
       };
       const req = http.request(options);
-      req.end(JSON.stringify({"ip":stdout}));
+      req.write(postData);
+      req.end();
     });
-  }); 
+  });
+}
+
+function mkdirsSync(pathToCreate: string) {
+  pathToCreate
+    .split(path.sep)
+    .reduce((currentPath, folder) => {
+      currentPath += folder + path.sep;
+
+      try {
+        fs.mkdirSync(currentPath);
+      }
+      catch (err) {
+        if (err.code !== "EEXIST") {
+          throw err;
+        }
+      }
+
+      return currentPath;
+    }, "");
 }

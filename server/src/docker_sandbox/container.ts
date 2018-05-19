@@ -33,12 +33,13 @@ export default class Container {
   /*
    * Executes a job inside the container
    */
-  public executeJob(job: Job) {
+  public executeJob(job: Job) {  
     const options = {
-      url: "http://" + this.ip + ":3000/",
+      url: `http://${this.ip}:3000/`,
       formData: job.request,
       timeout: job.timeout
     };
+    console.log(process.env.HOST_DIR);
     return new Promise((resolve, reject) => {
       let code: any;
       request
