@@ -11,6 +11,4 @@ COPY ./app/dist/* /usr/src/app/
 
 WORKDIR /usr/src/app/
 
-EXPOSE 3000
-
 CMD node ./bundle.js

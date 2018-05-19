@@ -8,8 +8,6 @@ import * as BPromise from "bluebird";
 
 import { SandboxOpts } from "./sandbox.types";
 
-const noop = () => { };
-
 export const default_options: Docker.ContainerCreateOptions = {
   Image: "docker-sandbox",
   NetworkDisabled: false,
@@ -20,13 +18,11 @@ export const default_options: Docker.ContainerCreateOptions = {
   User: "sandboxuser",
   Tty: false,
   HostConfig: {
-    Memory: 100 * 1000000,
+    Memory: 100 * 500000,
     MemorySwap: -1,
     Privileged: false,
     Binds: [
-     /* `/usr/src/app/temp`,*/
-      /*`${process.cwd()}/sandbox/app:/usr/src/app`,*/
-      `${process.cwd()}/uploads:/usr/src/app/uploads:ro`,
+      `${process.env.HOST_DIR}/uploads:/usr/src/app/uploads:ro`,
       `${process.env.MATLAB_DIR}:/usr/local/MATLAB:ro`,
     ]
   },
@@ -46,7 +42,7 @@ export class Sandbox {
 
   private constructor(options: SandboxOpts) {
     options.poolSize = options.poolSize || 1;
-    default_options.HostConfig.Memory = (options.memoryLimitMb || 100) * 1000000;
+    default_options.HostConfig.Memory = (options.memoryLimitMb || 100) * 500000;
 
     this.options = options;
 

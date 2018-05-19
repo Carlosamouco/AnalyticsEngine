@@ -1,0 +1,54 @@
+version: "2.1"
+
+services:
+  database:
+    build: ./mongodb
+    container_name: "mongodb"
+    volumes:
+      - ./mongodb/data/db:/data/db
+    network_mode: "bridge"
+    ports: 
+      - "27017:27017"
+    env_file:
+      - ./mongodb/.env
+
+        
+  client:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile.prod
+    volumes:
+      - ./client:/usr/src/app
+      - /usr/src/app/node_modules
+    network_mode: "bridge"
+    ports: 
+      - "4200:4200"
+
+
+  server:
+    build: 
+      context: ./server
+      dockerfile: Dockerfile.prod
+    privileged: true
+    volumes:
+      - "./server:/usr/src/app"
+      - "/usr/src/app/node_modules"
+      - "/usr/bin/docker:/usr/bin/docker"
+      - "/var/run/docker.sock:/var/run/docker.sock"  
+    environment:
+      - HOST_DIR=${PWD?err}/server
+      - NODE_ENV=production
+    network_mode: "bridge"    
+    ports: 
+      - "3000:3000"
+    links:
+      - database:mongodb
+
+  nginx:
+    build: ./nginx
+    network_mode: "bridge"
+    ports:
+      - "80:80"
+    links:
+      - client
+      - server
