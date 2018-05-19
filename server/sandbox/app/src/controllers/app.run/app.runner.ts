@@ -53,7 +53,6 @@ export async function invokeAlgorithm(req: Request, res: Response, next: NextFun
     })
     .catch((err) => {
       error.write(JSON.stringify(err));
-      error.write(path.join(process.cwd(), call.cwd));
       closeStreams([stdout, stderr, error]);
       archiveData(outDir, null, res, next);
     });  
