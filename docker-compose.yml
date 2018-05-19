@@ -4,8 +4,6 @@ services:
   database:
     build: ./mongodb
     container_name: "mongodb"
-    # volumes:
-    #   - ./mongodb/data/db:/data/db
     ports: 
       - "27017:27017"
     env_file:
@@ -17,6 +15,8 @@ services:
     volumes:
       - ./server:/usr/src/app
       - /usr/src/app/node_modules
+    environment:
+      - HOST_DIR=/usr/src/app
     ports: 
       - "3000:3000"
     links:
@@ -29,7 +29,6 @@ services:
  #   volumes:
  #     - ./server:/usr/src/app
  #   command: npm test
-
       
   client:
     build: ./client

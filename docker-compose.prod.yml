@@ -4,8 +4,8 @@ services:
   database:
     build: ./mongodb
     container_name: "mongodb"
-    volumes:
-      - ./mongodb/data/db:/data/db
+   volumes:
+     - ./mongodb/data/db:/data/db
     network_mode: "bridge"
     ports: 
       - "27017:27017"
@@ -33,10 +33,10 @@ services:
     volumes:
       - "./server:/usr/src/app"
       - "/usr/src/app/node_modules"
-      - "/usr/bin/docker:/usr/bin/docker"
-      - "/var/run/docker.sock:/var/run/docker.sock"  
+     - "/usr/bin/docker:/usr/bin/docker:ro"
+     - "/var/run/docker.sock:/var/run/docker.sock:ro"
     environment:
-      - HOST_DIR=${PWD?err}/server
+      - HOST_DIR=${PWD?'PWD=$$PWD'}/server
       - NODE_ENV=production
     network_mode: "bridge"    
     ports: 
