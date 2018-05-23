@@ -23,7 +23,7 @@ RUN mkdir /mcr-install && \
     cd / && \
     rm -rf mcr-install
 
-ENV LD_LIBRARY_PATH /usr/local/MATLAB/v90/runtime/glnxa64:/usr/local/MATLAB/v90/bin/glnxa6
+ENV LD_LIBRARY_PATH /usr/local/MATLAB/v90/runtime/glnxa64:/usr/local/MATLAB/v90/bin/glnxa64
 
 
 RUN mkdir -p /usr/src/app

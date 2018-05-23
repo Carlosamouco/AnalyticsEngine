@@ -22,7 +22,8 @@ export const default_options: Docker.ContainerCreateOptions = {
     MemorySwap: -1,
     Privileged: false,
     Binds: [
-      `${process.env.HOST_DIR}/uploads:/usr/src/app/uploads:ro`
+      `${process.env.HOST_DIR}/uploads:/usr/src/app/uploads:ro`,
+      `matlab:/usr/local/MATLAB:ro`
     ]
   },
   Labels: {

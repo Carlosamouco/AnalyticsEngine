@@ -1,5 +1,9 @@
 version: "2.1"
 
+volumes:
+  matlab:
+    external: true
+
 services:
   database:
     build: ./mongodb
@@ -35,6 +39,7 @@ services:
       - "/usr/src/app/node_modules"
       - "/usr/bin/docker:/usr/bin/docker:ro"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - matlab:/usr/local/MATLAB
     environment:
       - HOST_DIR=${PWD?'PWD=$$PWD'}/server
       - NODE_ENV=production
