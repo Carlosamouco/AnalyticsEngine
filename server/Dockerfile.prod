@@ -1,17 +1,17 @@
 FROM node
 
-RUN apt-get update -qq && apt-get install -qqy \
-  apt-transport-https \
-  ca-certificates \
-  curl \
-  lxc \
-  iptables
+#-----------------------------------------Install PYTHON & SITE PACKAGES--------------------------------------
 
 RUN apt-get update
+
 RUN apt-get install -y python3 \
     python \
-    unzip
+    python3-pip
 
+RUN pip3 install opencv-contrib-python
+
+#-----------------------------------------------Install MATLAB------------------------------------------------
+RUN apt-get install -y unzip
 
 RUN mkdir /mcr-install && \    
     cd /mcr-install && \
@@ -25,6 +25,7 @@ RUN mkdir /mcr-install && \
 
 ENV LD_LIBRARY_PATH /usr/local/MATLAB/v90/runtime/glnxa64:/usr/local/MATLAB/v90/bin/glnxa64
 
+#--------------------------------------------------Install APP------------------------------------------------
 
 RUN mkdir -p /usr/src/app
 

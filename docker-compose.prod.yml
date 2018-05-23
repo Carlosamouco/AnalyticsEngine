@@ -3,6 +3,8 @@ version: "2.1"
 volumes:
   matlab:
     external: true
+  python-site-packages:
+    external: true
 
 services:
   database:
