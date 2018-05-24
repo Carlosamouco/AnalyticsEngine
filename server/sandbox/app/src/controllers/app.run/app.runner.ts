@@ -8,10 +8,14 @@ import { default as Spawn } from "./spawn";
 
 export async function invokeAlgorithm(req: Request, res: Response, next: NextFunction) {
 
-  const call = req.body;
-
   const outDir = path.join(process.cwd(), "temp", "output");
   const outFDir = path.join(outDir, "files");
+
+  const stdout = fs.createWriteStream(path.join(outDir, "stdout"));
+  const stderr = fs.createWriteStream(path.join(outDir, "stderr"));
+  const error = fs.createWriteStream(path.join(outDir, "error"));
+
+  const call = req.body;
 
   const mapping = JSON.parse(call.mapping);
   const args: string[] = JSON.parse(call.args);
@@ -34,9 +38,6 @@ export async function invokeAlgorithm(req: Request, res: Response, next: NextFun
     detached: true
   });
 
-  const stdout = fs.createWriteStream(path.join(outDir, "stdout"));
-  const stderr = fs.createWriteStream(path.join(outDir, "stderr"));
-  const error = fs.createWriteStream(path.join(outDir, "error"));
 
   child.child.stderr.on("data", (data) => {
     stderr.write(data);

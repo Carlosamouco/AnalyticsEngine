@@ -39,7 +39,6 @@ export default class Container {
       formData: job.request,
       timeout: job.timeout
     };
-    console.log(process.env.HOST_DIR);
     return new Promise((resolve, reject) => {
       let code: any;
       request

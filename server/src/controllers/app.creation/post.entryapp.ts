@@ -1,3 +1,5 @@
+import * as fs from "fs";
+import * as path from "path";
 import { Request, Response, NextFunction } from "express";
 
 import { isBool, isInteger, isString } from "../../utils";
@@ -38,10 +40,12 @@ export default async function postUpdateEntryApp(req: Request, res: Response, ne
       return elem._id == req.body.version_id;
     });
 
-    if ((algorithm.files.indexOf(req.body.entryApp.appName) === -1) && req.body.entryApp.localFile) {
+    const fileIndex = algorithm.files.indexOf(req.body.entryApp.appName);
+
+    if ((fileIndex === -1) && req.body.entryApp.localFile) {
       return res.status(400).json({ messages: [`\`algorithm.entryApp\` (${req.body.entryApp.localFile}) file not found!`] });
     }
-
+    
     algorithm.entryApp = {
       appName: req.body.entryApp.appName,
       localFile: req.body.entryApp.localFile
@@ -65,6 +69,10 @@ export default async function postUpdateEntryApp(req: Request, res: Response, ne
     }
     catch (err) {
       return next(err);
+    }
+
+    if (req.body.entryApp.localFile) {
+      fs.chmodSync(path.join(process.cwd(), "uploads", existingApp._id.toString(), algorithm._id.toString(), req.body.entryApp.appName), 0o777);
     }
 
     const app = existingApp.toObject();

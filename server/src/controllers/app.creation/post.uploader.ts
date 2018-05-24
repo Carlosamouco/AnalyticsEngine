@@ -74,6 +74,10 @@ export default async function postUpload(req: Request, res: Response, next: Next
       return next(err);
     }
 
+    if (algorithm.entryApp && algorithm.entryApp.localFile) {
+      fs.chmodSync(path.join(process.cwd(), "uploads", existingApp._id.toString(), algorithm._id.toString(), algorithm.entryApp.appName), 0o777);
+    }
+
     const app = existingApp.toObject();
     app.algorithms = [algorithm];
     delete app.__v;

@@ -3,8 +3,6 @@ version: "2.1"
 volumes:
   matlab:
     external: true
-  python-site-packages:
-    external: true
 
 services:
   database:
@@ -37,10 +35,10 @@ services:
       dockerfile: Dockerfile.prod
     privileged: true
     volumes:
-      - "./server:/usr/src/app"
-      - "/usr/src/app/node_modules"
-      - "/usr/bin/docker:/usr/bin/docker:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - ./server:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/bin/docker:/usr/bin/docker:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - matlab:/usr/local/MATLAB
     environment:
       - HOST_DIR=${PWD?'PWD=$$PWD'}/server

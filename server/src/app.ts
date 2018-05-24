@@ -14,6 +14,8 @@ import * as routes from "./routes";
 import { Sandbox } from "./docker_sandbox/sandbox";
 import { Parsers } from "./controllers/parsers";
 
+process.umask(0);
+
 dotenv.config({ path: ".env.example" });
 
 // Connect to MongoDB

@@ -1,14 +1,6 @@
 FROM node
 
-#-----------------------------------------Install PYTHON & SITE PACKAGES--------------------------------------
-
 RUN apt-get update
-
-RUN apt-get install -y python3 \
-    python \
-    python3-pip
-
-RUN pip3 install opencv-contrib-python
 
 #-----------------------------------------------Install MATLAB------------------------------------------------
 RUN apt-get install -y unzip
@@ -25,8 +17,16 @@ RUN mkdir /mcr-install && \
 
 ENV LD_LIBRARY_PATH /usr/local/MATLAB/v90/runtime/glnxa64:/usr/local/MATLAB/v90/bin/glnxa64
 
-#--------------------------------------------------Install APP------------------------------------------------
+#-----------------------------------------Install PYTHON & SITE PACKAGES--------------------------------------
+RUN apt-get install -y python3 \
+    python \
+    python3-pip
 
+RUN pip3 install --upgrade pip
+
+RUN pip3 install opencv-contrib-python
+
+#--------------------------------------------------Install APP------------------------------------------------
 RUN mkdir -p /usr/src/app
 
 COPY ./package.json ./package-lock.json /usr/src/app/
