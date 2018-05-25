@@ -177,6 +177,10 @@ export class InvokeAppComponent implements OnInit {
     }
 
     for (const param of this.app.algorithm.parameters) {
+      if (param.options.static) {
+        continue;
+      }
+      
       if (param.options.required && !((<any>param).useDefault || (<any>param).useEndpoint)) {
         if (param.type === ParamTypes.Primitive && !(<any>param).value) {
           return true;
