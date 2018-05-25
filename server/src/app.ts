@@ -41,7 +41,7 @@ const app = express();
 app.set("port", process.env.PORT || 3000);
 app.use(compression());
 app.use(logger("dev"));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '2mb'}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({

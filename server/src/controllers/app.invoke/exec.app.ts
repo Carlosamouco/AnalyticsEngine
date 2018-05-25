@@ -66,7 +66,7 @@ export class ExecApp {
     return this._tempFiles;
   }
 
-  public spawnProcess(timeout: number) {
+  public spawnProcess(timeout: number) {    
     const process = new Spawn(this._command, this._args, timeout, {
       cwd: this._cwd,
       detached: true
@@ -211,7 +211,12 @@ export class ExecApp {
         values = [param.options.default];        
       }
       else {
-        if (!args.hasOwnProperty(param.name) && param.options.required || !args[param.name] && param.options.default) {
+        console.log(args.hasOwnProperty(param.name), args[param.name], param.options.default);
+
+        if (!args.hasOwnProperty(param.name) && param.options.required) {          
+          values = [param.options.default];
+        }
+        else if (args.hasOwnProperty(param.name) && !args[param.name] && param.options.default) {
           values = [param.options.default];
         }
         else if (args[param.name]) {

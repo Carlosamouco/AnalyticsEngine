@@ -87,7 +87,7 @@ export class InvokeAppComponent implements OnInit {
       if (param.type === ParamTypes.File) {
         (<any>param).value = {};
       }
-      if (param.options.default) {
+      if (param.options.default && !param.options.static) {
         (<any>param).useDefault = true;
         this.setDefault(param);
       }
@@ -242,14 +242,18 @@ export class InvokeAppComponent implements OnInit {
             });
           }));
 
-      } else if ((<any>param).value && !(<any>param).useDefault) {
+      } else if ((<any>param).useDefault) {
+        if (!param.options.required) {
+          args[param.name] = null;
+        }
+      } else if ((<any>param).value) {
         if (param.type === ParamTypes.Primitive) {
           args[param.name] = (<any>param).value;
         } else if (param.type === ParamTypes.File) {
           args[param.name] = (<any>param).value.file;
         }
       }
-    }
+    } 
 
     Promise.all(promises.map(p => p.catch(e => {
       this.requestDataError.push(e);

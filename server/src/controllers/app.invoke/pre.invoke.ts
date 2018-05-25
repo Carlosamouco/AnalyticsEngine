@@ -78,7 +78,7 @@ function validateParamConstraints(parameters: ParameterModel[], args: Arguments,
   const errors: any = {};
 
   for (const arg in args) {
-    if (!(args[arg] instanceof Array)) {
+    if (!(args[arg] instanceof Array) && args[arg]) {
       args[arg] = [args[arg]];
     }
 
@@ -96,9 +96,13 @@ function validateParamConstraints(parameters: ParameterModel[], args: Arguments,
         continue;
       }
 
-      if (param.type == ParameterType.File) {
+      if (param.type == ParameterType.File && data) {
         let n = 0;
         data.forEach((file: File | string) => {
+          if (!file) {
+            return;
+          }
+
           if (isString(file)) {
             if (files.indexOf(file) === -1) {
               addError(errors, `'${file}' file not found`,
