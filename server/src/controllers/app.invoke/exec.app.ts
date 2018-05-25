@@ -211,8 +211,6 @@ export class ExecApp {
         values = [param.options.default];        
       }
       else {
-        console.log(args.hasOwnProperty(param.name), args[param.name], param.options.default);
-
         if (!args.hasOwnProperty(param.name) && param.options.required) {          
           values = [param.options.default];
         }
