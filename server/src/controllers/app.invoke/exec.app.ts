@@ -33,8 +33,9 @@ export class ExecApp {
   private _tempDir: string;
   private _command: string;
   private _args: string[];
-  private _cwd: string;
   private _mapping: any;
+  private _cwd: string;
+
 
   private _tempFiles: string[] = [];
 
@@ -118,7 +119,7 @@ export class ExecApp {
     const request = {
       command: this._command,
       args: JSON.stringify(this._args),
-      cwd: path.join("uploads", this._appId, this._algorithm._id.toString()),
+      cwd: this._cwd ? this._cwd : '',
       mapping: JSON.stringify(this._mapping),
       files: fStreams
     };
@@ -183,10 +184,11 @@ export class ExecApp {
   }
 
   private _compileCommand(appId: string, algorithm: AlgorithmModel) {
-    this._cwd = algorithm.files.length !== 0 ? path.join(process.cwd(), "uploads", appId, algorithm._id.toString()) : undefined;
-
+    const appDir = path.join(process.cwd(), "uploads", appId, algorithm._id.toString());
     const app = algorithm.entryApp.appName;
-    this._command = algorithm.entryApp.localFile ? path.join(process.cwd(), "uploads", appId, algorithm._id.toString(), app) : app;
+
+    this._cwd = algorithm.files.length !== 0 ? appDir : null;   
+    this._command = algorithm.entryApp.localFile ? path.join(appDir, app) : app;
   }
 
   private async _compileArgs(args: Arguments) {
@@ -206,7 +208,7 @@ export class ExecApp {
         values = [path.join(this._tempDir, "files")];
       }
       else if (param.options.static) {
-        values = [param.options.default];
+        values = [param.options.default];        
       }
       else {
         if (!args.hasOwnProperty(param.name) && param.options.required || !args[param.name] && param.options.default) {
@@ -229,7 +231,7 @@ export class ExecApp {
 
         for (const file of <(File | string)[]>values) {
           if (isString(file)) {
-            files.push(file);
+            files.push(`.${path.sep}${file}`);
             continue;
           }
           let hash = crypto.createHash("md5").update(JSON.stringify(file.data || file.rawData)).digest("hex");

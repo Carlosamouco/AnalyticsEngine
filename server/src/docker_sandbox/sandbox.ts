@@ -18,7 +18,7 @@ export const default_options: Docker.ContainerCreateOptions = {
   User: "sandboxuser",
   Tty: false,
   HostConfig: {
-    Memory: 100 * 500000,
+    Memory: 250 * 1000000,
     MemorySwap: -1,
     Privileged: false,
     Binds: [
@@ -42,7 +42,6 @@ export class Sandbox {
 
   private constructor(options: SandboxOpts) {
     options.poolSize = options.poolSize || 1;
-    default_options.HostConfig.Memory = (options.memoryLimitMb || 100) * 500000;
 
     this.options = options;
 

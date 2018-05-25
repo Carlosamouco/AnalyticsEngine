@@ -218,14 +218,6 @@ export async function postCreatAlgorithm(req: Request, res: Response, next: Next
       })];
       delete app.__v;
 
-      const appPath = path.join(process.cwd(), "uploads", app._id.toString(), app.algorithms[0]._id.toString());
-      try {
-        mkdirsSync(appPath);
-      }
-      catch (err) {
-        return next(err);
-      }
-
       return res.json(app);
     }
   }

@@ -34,7 +34,7 @@ export async function invokeAlgorithm(req: Request, res: Response, next: NextFun
   }
 
   const child = new Spawn(call.command, args, {
-    cwd: path.join(process.cwd(), call.cwd),
+    cwd: call.cwd,
     detached: true
   });
 
