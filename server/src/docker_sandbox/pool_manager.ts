@@ -10,6 +10,7 @@ export default class PoolManager {
   private waitingJobs: Job[];
   private availableContainers: Container[];
   private bootingContainers: Container[];
+  private registeredContainers: string[];
   private docker: Docker;
   private options: any;
 
@@ -17,6 +18,7 @@ export default class PoolManager {
     this.waitingJobs = [];
     this.availableContainers = [];
     this.bootingContainers = [];
+    this.registeredContainers = [];
     this.docker = docker;
     this.options = options;
   }
@@ -118,6 +120,11 @@ export default class PoolManager {
       container = <Container>await this._initializeContainer();
       await this._startContainer(container);
       await this._getContainerInfo(container);
+
+      const idx = this.registeredContainers.indexOf(container.getIp());
+      if (idx !== -1) {
+        this._registerContainer(container);
+      }
     }
     catch (err) {
       if (container && container.cleanup) {
@@ -168,6 +175,7 @@ export default class PoolManager {
     return container.getNewIp();
   }
 
+
   public registerContainer(ip: string) {
     const container: Container = this.bootingContainers.find((c) => {
       return c.getIp() === ip;
@@ -175,6 +183,9 @@ export default class PoolManager {
 
     if (container) {
       this._registerContainer(container);
+    }
+    else {
+      this.registeredContainers.push(ip);
     }
   }
 

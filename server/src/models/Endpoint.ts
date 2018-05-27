@@ -48,7 +48,6 @@ endpointSchema.pre("remove", function (next) {
     { $unset: { "algorithms.$[].parameters.$[].options.endpointId": 1 } },
     { multi: true },
     (res: any, res2: any) => {
-      console.log(res, res2);
       next();
     });
 });

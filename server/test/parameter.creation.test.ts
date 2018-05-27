@@ -62,7 +62,6 @@ describe("POST /api/create/parameters 200 OK", () => {
       .expect(200)
       .end((err, res) => {
         const algorithm = res.body.app.algorithms[0];
-        console.log(JSON.stringify(algorithm));
         expect(algorithm).to.have.property("parameters");
         expect(algorithm.parameters.length).to.be.equal(2);
         expect(algorithm.parameters[0]).to.be.deep.equal(

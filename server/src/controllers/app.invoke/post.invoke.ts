@@ -69,7 +69,6 @@ export async function invokeAlgorithm(req: Request, res: Response, next: NextFun
     }
   }
   catch (err) {
-    console.log(err);
     return res.json({ "Fatal Error": err.toString() });
   }
 
