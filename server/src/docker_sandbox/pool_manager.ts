@@ -124,6 +124,7 @@ export default class PoolManager {
       const idx = this.registeredContainers.indexOf(container.getIp());
       if (idx !== -1) {
         this._registerContainer(container);
+        this.registeredContainers.splice(idx, 1);
       }
     }
     catch (err) {
