@@ -33,7 +33,7 @@ export default class Container {
   /*
    * Executes a job inside the container
    */
-  public executeJob(job: Job) {  
+  public executeJob(job: Job) {
     const options = {
       url: `http://${this.ip}:3000/`,
       formData: job.request,
@@ -41,7 +41,7 @@ export default class Container {
     };
     return new Promise((resolve, reject) => {
       let code: any;
-      request
+      const stream = request
         .post(options)
         .on("response", (response) => {
           code = response.headers["exit-code"];
@@ -50,11 +50,12 @@ export default class Container {
           job.callback(err);
           reject(err);
         })
-        .on("end", () => {
+        .pipe(job.output);
+
+        stream.on("finish", () => {
           job.callback(null, code);
           resolve();
-        })
-        .pipe(job.output);
+        });
     });
   }
 

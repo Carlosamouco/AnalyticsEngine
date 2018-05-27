@@ -45,7 +45,7 @@ export default async function postUpdateEntryApp(req: Request, res: Response, ne
     if ((fileIndex === -1) && req.body.entryApp.localFile) {
       return res.status(400).json({ messages: [`\`algorithm.entryApp\` (${req.body.entryApp.localFile}) file not found!`] });
     }
-    
+
     algorithm.entryApp = {
       appName: req.body.entryApp.appName,
       localFile: req.body.entryApp.localFile

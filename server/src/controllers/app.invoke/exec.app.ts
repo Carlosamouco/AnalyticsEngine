@@ -66,7 +66,7 @@ export class ExecApp {
     return this._tempFiles;
   }
 
-  public spawnProcess(timeout: number) {    
+  public spawnProcess(timeout: number) {
     const process = new Spawn(this._command, this._args, timeout, {
       cwd: this._cwd,
       detached: true
@@ -119,7 +119,7 @@ export class ExecApp {
     const request = {
       command: this._command,
       args: JSON.stringify(this._args),
-      cwd: this._cwd ? this._cwd : '',
+      cwd: this._cwd ? this._cwd : "",
       mapping: JSON.stringify(this._mapping),
       files: fStreams
     };
@@ -129,21 +129,17 @@ export class ExecApp {
         .then((code: number) => {
           decompress(zipFile, this._tempDir)
             .then((dFiles: any) => {
-              const fArray: string[] = [];
-              dFiles.forEach((f: any) => {
-                fArray.push(f.path);
-              });
               fs.unlink(zipFile, (err) => {
-                if (err) reject(err);
+                if (err) return reject(err);
               });
               const errorPath = path.join(this._tempDir, "error");
               fs.readFile(path.join(this._tempDir, "error"), "utf8", (err, data) => {
                 if (err) {
-                  reject(err);
+                  return reject(err);
                 }
 
                 if (data.length > 0) {
-                  reject(data);
+                  return reject(data);
                 }
 
                 resolve({
@@ -187,7 +183,7 @@ export class ExecApp {
     const appDir = path.join(process.cwd(), "uploads", appId, algorithm._id.toString());
     const app = algorithm.entryApp.appName;
 
-    this._cwd = algorithm.files.length !== 0 ? appDir : null;   
+    this._cwd = algorithm.files.length !== 0 ? appDir : null;
     this._command = algorithm.entryApp.localFile ? path.join(appDir, app) : app;
   }
 
@@ -208,10 +204,10 @@ export class ExecApp {
         values = [path.join(this._tempDir, "files")];
       }
       else if (param.options.static) {
-        values = [param.options.default];        
+        values = [param.options.default];
       }
       else {
-        if (!args.hasOwnProperty(param.name) && param.options.required) {          
+        if (!args.hasOwnProperty(param.name) && param.options.required) {
           values = [param.options.default];
         }
         else if (args.hasOwnProperty(param.name) && !args[param.name] && param.options.default) {
