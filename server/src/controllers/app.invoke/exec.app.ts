@@ -248,7 +248,7 @@ export class ExecApp {
             promisses.push(this.creatTempFile(fpath, data, file.encoding));
           }
 
-          this._mapping[hash] = this._args.length + files.length;
+          this._mapping[hash] = this._args.length + files.length + (param.flag ? 1 : 0);
           files.push(fpath);
         }
 
