@@ -180,7 +180,7 @@ export class InvokeAppComponent implements OnInit {
       if (param.options.static) {
         continue;
       }
-      
+
       if (param.options.required && !((<any>param).useDefault || (<any>param).useEndpoint)) {
         if (param.type === ParamTypes.Primitive && !(<any>param).value) {
           return true;
@@ -195,6 +195,7 @@ export class InvokeAppComponent implements OnInit {
 
   public invokeApp() {
     const args = {};
+    const files: File[] = [];
     const promises: Promise<{}>[] = [];
     this.requestDataError = [];
 
@@ -209,6 +210,9 @@ export class InvokeAppComponent implements OnInit {
     this.animationEnded = false;
 
     for (const param of this.app.algorithm.parameters) {
+      if (param.options.static) {
+        continue;
+      }
       if ((<any>param).useEndpoint) {
         const params = {};
 
@@ -255,30 +259,37 @@ export class InvokeAppComponent implements OnInit {
           args[param.name] = (<any>param).value;
         } else if (param.type === ParamTypes.File) {
           args[param.name] = (<any>param).value.file;
+          if ((<any>param).value.file.fileRef) {
+            files.push((<any>param).value.state.fileInput.files[0]);
+          }
         }
       }
-    } 
+    }
 
     Promise.all(promises.map(p => p.catch(e => {
       this.requestDataError.push(e);
       throw e;
     })))
       .then(() => {
-        this.http.post('/api/invoke', {
-          app_id: this.app._id,
-          version_id: this.app.algorithm._id,
-          args,
-          options: {
-            output: {
-              stderr: true,
-              stdout: true,
-              files: true,
-              mode: this.outputMode.value
-            },
-            secure: this.secure,
-            timeout: this.timeout
-          }
-        })
+        const formData: FormData = new FormData();
+
+        formData.append('options', JSON.stringify({
+          output: {
+            stderr: true,
+            stdout: true,
+            files: true,
+            mode: this.outputMode.value
+          },
+          secure: this.secure,
+          timeout: this.timeout
+        }));
+        formData.append('args', JSON.stringify(args));
+        formData.append('app_id', this.app._id);
+        formData.append('version_id', this.app.algorithm._id);
+        for (const file of files) {
+          formData.append('files', file, file.name);
+        }
+        this.http.post('/api/invoke/form', formData)
           .subscribe((data) => {
             this.processingResult = this.prepareResultData(data);
             this.onInvoke = false;

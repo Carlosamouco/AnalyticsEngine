@@ -4,6 +4,7 @@ import * as path from "path";
 import { FileParser as PluginFileParser } from "../../plugins/parser";
 import * as csv2json from "./csv2json";
 import * as json2json from "./json2json";
+import * as xml2json from "./xm2json";
 
 type Options = {
   format: string
@@ -15,7 +16,8 @@ export class FileParser {
 
   private _parsers: { [key: string]: any } = {
     csv: new csv2json.Parser(),
-    json: new json2json.Parser()
+    json: new json2json.Parser(),
+    xml2json: new xml2json.Parser()
   };
 
   private constructor() { }

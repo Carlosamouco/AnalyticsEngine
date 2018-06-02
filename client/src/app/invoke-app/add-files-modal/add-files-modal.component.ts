@@ -74,15 +74,15 @@ export class AddFilesModalComponent implements OnInit, AfterViewInit {
               fileInput: this.fileInput.nativeElement
             },
             data: {
-              rawData: base64result,
-              encoding: 'base64',
-              extention: file.name.split('.').pop()
+              fileRef: {
+                name: file.name,
+                size: file.size
+              }
             },
             name: file.name
           });
         };
         reader.onerror = (error) => {
-          console.log('Error: ', error);
           this.bsModalRef.hide();
         };
         break;

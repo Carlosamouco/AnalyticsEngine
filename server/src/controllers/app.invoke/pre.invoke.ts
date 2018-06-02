@@ -1,4 +1,4 @@
-import { isString } from "util";
+import { isString, isNumber } from "util";
 import { Request, Response, NextFunction } from "express";
 import * as mongoose from "mongoose";
 
@@ -74,7 +74,7 @@ function addError(errObj: any, msg: string, key: string, value?: any) {
   }
 }
 
-function validateParamConstraints(parameters: ParameterModel[], args: Arguments, files: string[]) {
+function validateParamConstraints(parameters: ParameterModel[], args: Arguments, files: string[], uploads: Express.Multer.File[]) {
   const errors: any = {};
 
   for (const arg in args) {
@@ -115,8 +115,8 @@ function validateParamConstraints(parameters: ParameterModel[], args: Arguments,
           file.extention = file.extention || "";
           file.encoding = file.encoding || "utf8";
 
-          if (!file.data && !file.rawData) {
-            addError(errors, "Missing properties `data` and/or `rawData`.", "");
+          if (!file.data && !file.rawData && !file.fileRef) {
+            addError(errors, "Missing properties `data`, `rawData` or `fileRef`.", "");
           }
 
           if (!isString(file.encoding)) {
@@ -130,6 +130,29 @@ function validateParamConstraints(parameters: ParameterModel[], args: Arguments,
           if (!isString(file.rawData) && file.rawData) {
             addError(errors, "`rawData` property must be of type string.", `args.${arg}.${n}.rawData`, file.rawData);
           }
+
+          if (file.fileRef) {
+            if (!isString(file.fileRef.name) || !isNumber(file.fileRef.size)) {
+              addError(errors, "`name` and/or `size` properties are missing.", `args.${arg}.${n}.fileRef`, file.fileRef);
+            }
+
+            if (!uploads) {
+              addError(errors, `'${file.fileRef.name}' file not found`, `args.${arg}.${n}`, file);
+              return;
+            }
+
+            const fUploaded = uploads.find(f => {
+              if (f.originalname === file.fileRef.name && f.size === file.fileRef.size) {
+                return true;
+              }
+              return false;
+            });
+
+            if (!fUploaded) {
+              addError(errors, `'${file.fileRef}' file not found`, `args.${arg}.${n}`, file);
+            }
+          }
+
           n++;
         });
       }
@@ -147,7 +170,8 @@ function validateParamConstraints(parameters: ParameterModel[], args: Arguments,
 }
 
 export async function preInvokeAlgorithm(req: Request, res: Response, next: NextFunction) {
-  const call: InvokeModel = req.body;
+  const call = <InvokeModel>req.body;
+  const uploads = <Express.Multer.File[]>req.files;
 
   setDefaults(call);
   let errors = validateDataTypes(call);
@@ -191,7 +215,7 @@ export async function preInvokeAlgorithm(req: Request, res: Response, next: Next
 
   const algorithm = <AlgorithmModel>existingApp[0].algorithms;
 
-  errors = validateParamConstraints(algorithm.parameters, call.args, algorithm.files);
+  errors = validateParamConstraints(algorithm.parameters, call.args, algorithm.files, uploads);
 
   if (Object.keys(errors).length !== 0) {
     res.status(400).json({ errors });

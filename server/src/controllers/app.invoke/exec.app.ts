@@ -29,6 +29,7 @@ export type ProcessOutput = {
 export class ExecApp {
   private _appId: string;
   private _algorithm: AlgorithmModel;
+  private _uploads: Express.Multer.File[];
 
   private _tempDir: string;
   private _command: string;
@@ -39,16 +40,23 @@ export class ExecApp {
 
   private _tempFiles: string[] = [];
 
-  constructor(appId: string, algorithm: AlgorithmModel) {
+  constructor(appId: string, algorithm: AlgorithmModel, uploadedFiles: Express.Multer.File[]) {
     this._appId = appId;
     this._algorithm = algorithm;
+    this._uploads = uploadedFiles;
     this._mapping = {};
   }
 
   public async compileArgs(args: Arguments) {
     this._tempDir = await this._prepareFs(this._algorithm._id.toString());
     this._compileCommand(this._appId, this._algorithm);
-    await this._compileArgs(args);
+    try {
+      await this._compileArgs(args);
+    }
+    catch (err) {
+      console.log(err);
+    }
+    console.log("ARGS COMPILED");
     return;
   }
 
@@ -233,22 +241,39 @@ export class ExecApp {
             files.push(`.${path.sep}${file}`);
             continue;
           }
-          let hash = crypto.createHash("md5").update(JSON.stringify(file.data || file.rawData)).digest("hex");
-          hash += (file.extention !== "" ? "." + file.extention : "");
-          const fpath = path.join(this._tempDir, hash);
+          let fpath: string;
+          let fName: string;
 
-          if (file.rawData) {
-            promisses.push(this.creatTempFile(fpath, file.rawData, file.encoding));
-          }
-          else if (parser.isParsable(file.extention)) {
-            promisses.push(this.creatTempFile(fpath, parser.parse(file.extention, file.data), file.encoding));
+          if (file.fileRef) {
+            const fUploaded = this._uploads.find(f => {
+              if (f.originalname === file.fileRef.name && f.size === file.fileRef.size) {
+                return true;
+              }
+              return false;
+            });
+            const fExtention = fUploaded.originalname.split(".").pop();
+            fName = fUploaded.filename + (fExtention !== "" ? "." + fExtention : "");
+            fpath = path.join(this._tempDir, fName);
+            promisses.push(this.moveFile(fUploaded, fpath));
           }
           else {
-            const data: string = isPrimitive(file.data) ? file.data : JSON.stringify(file.data);
-            promisses.push(this.creatTempFile(fpath, data, file.encoding));
+            fName = crypto.createHash("md5").update(JSON.stringify(file.data || file.rawData)).digest("hex");
+            fName += (file.extention !== "" ? "." + file.extention : "");
+            fpath = path.join(this._tempDir, fName);
+
+            if (file.rawData) {
+              promisses.push(this.creatTempFile(fpath, file.rawData, file.encoding));
+            }
+            else if (parser.isParsable(file.extention)) {
+              promisses.push(this.creatTempFile(fpath, parser.parse(file.extention, file.data), file.encoding));
+            }
+            else {
+              const data: string = isPrimitive(file.data) ? file.data : JSON.stringify(file.data);
+              promisses.push(this.creatTempFile(fpath, data, file.encoding));
+            }
           }
 
-          this._mapping[hash] = this._args.length + files.length + (param.flag ? 1 : 0);
+          this._mapping[fName] = this._args.length + files.length + (param.flag ? 1 : 0);
           files.push(fpath);
         }
 
@@ -257,6 +282,22 @@ export class ExecApp {
     }
 
     return Promise.all(promisses);
+  }
+
+  private moveFile(file: Express.Multer.File, destination: string) {
+    return new Promise((resolve, reject) => {
+      fs.rename(file.path, destination, (error) => {
+        if (error) {
+          fs.unlink(file.path, (rr) => {
+            return reject(error);
+          });
+        }
+        else {
+          this._tempFiles.push(destination);
+          resolve();
+        }
+      });
+    });
   }
 
   private buildArg(flag: string, values: string[]) {

@@ -24,7 +24,9 @@ export function setup(app: Express) {
   app.post("/api/create/streams", applicationControler.postupdateStreams);
   app.post("/api/create/entry", applicationControler.postUpdateEntryApp);
   app.post("/api/create/output", applicationControler.postUpdateOutput);
+
   app.post("/api/invoke/", applicationControler.invokeAlgorithm);
+  app.post("/api/invoke/form",  upload.array("files"), applicationControler.invokeAlgorithmFormData);
 
   app.get("/api/applications", applicationControler.getApplications);
   app.get("/api/application/:app_id/:version_id", applicationControler.getApplicationVersion);

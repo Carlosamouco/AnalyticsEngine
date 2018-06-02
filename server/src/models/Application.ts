@@ -44,6 +44,10 @@ export type FileOutputModel = {
 export type File = {
   data: any,
   rawData: string
+  fileRef: {
+    name: string,
+    size: number
+  },
   extention: string,
   encoding: string,
 };

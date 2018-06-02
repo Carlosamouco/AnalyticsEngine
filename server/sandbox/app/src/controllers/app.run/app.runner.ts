@@ -56,7 +56,7 @@ export async function invokeAlgorithm(req: Request, res: Response, next: NextFun
       error.write(JSON.stringify(err));
       closeStreams([stdout, stderr, error]);
       archiveData(outDir, null, res, next);
-    });  
+    });
 }
 
 function closeStreams(streams: fs.WriteStream[]) {

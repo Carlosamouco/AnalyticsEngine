@@ -39,23 +39,22 @@ export enum OutputMode {
   ParsedS = "1"
 }
 
+export async function invokeAlgorithmFormData(req: Request, res: Response, next: NextFunction) {
+  req.body.args = JSON.parse(req.body.args);
+  req.body.options = JSON.parse(req.body.options);
 
-/*
-  TODO:
-    1.  File parsing is missing (input and output)
-    2.  Cach calls (save output to file)
-*/
+  invokeAlgorithm(req, res, next);
+}
+
 
 export async function invokeAlgorithm(req: Request, res: Response, next: NextFunction) {
-  let data;
-
-  data = await preInvokeAlgorithm(req, res, next);
+  const data = await preInvokeAlgorithm(req, res, next);
 
   if (!data) {
     return;
   }
 
-  const app = new ExecApp(data.call.app_id, data.algorithm);
+  const app = new ExecApp(data.call.app_id, data.algorithm, <Express.Multer.File[]> req.files);
 
   let processOutput: ProcessOutput;
 

@@ -8,10 +8,7 @@ const decompress = require("decompress");
 import { default as Application, ApplicationModel, AlgorithmModel } from "../../models/Application";
 import { isBool, mkdirsSync } from "../../utils";
 
-/*
-    TODO:
-        1.  Suport files with same name (rename duplicates)
-*/
+
 export default async function postUpload(req: Request, res: Response, next: NextFunction) {
   const errors: string[] = [];
 
