@@ -1,16 +1,18 @@
 const spawn = require("child_process").spawn;
 const fs = require("fs");
+const path = require("path");
 
-if (process.argv.length < 4) {
+if (process.argv.length < 5) {
     console.log(`usage: ${process.argv[0]} ${process.argv[1]} <HRV App> <JSON File>`);
     process.exit(1);
 }
 
 const entry = process.argv[2];
 const json = process.argv[3];
+const outDir = process.argv[4];
 
 const file = JSON.parse(fs.readFileSync(json, "utf8"));
-const rr = fs.createWriteStream("./intervals.rr");
+const rr = fs.createWriteStream(path.join(outDir, "intervals.rr"));
 
 for (const row of file.data) {
     rr.write(row.Value + "\n");

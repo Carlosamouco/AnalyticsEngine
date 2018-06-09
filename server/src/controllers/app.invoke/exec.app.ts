@@ -56,7 +56,6 @@ export class ExecApp {
     catch (err) {
       console.log(err);
     }
-    console.log("ARGS COMPILED");
     return;
   }
 
