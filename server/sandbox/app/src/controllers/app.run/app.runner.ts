@@ -49,20 +49,28 @@ export async function invokeAlgorithm(req: Request, res: Response, next: NextFun
 
   child.runChild
     .then((code) => {
-      closeStreams([stdout, stderr, error]);
-      archiveData(outDir, code, res, next);
+      closeStreams([stdout, stderr, error])
+        .then(() => {
+          archiveData(outDir, code, res, next);
+        });
     })
     .catch((err) => {
       error.write(JSON.stringify(err));
-      closeStreams([stdout, stderr, error]);
-      archiveData(outDir, null, res, next);
+      closeStreams([stdout, stderr, error])
+        .then(() => {
+          archiveData(outDir, null, res, next);
+        });
     });
 }
 
 function closeStreams(streams: fs.WriteStream[]) {
+  const promises: Promise<void>[] = [];
+
   streams.forEach((stream) => {
-    stream.close();
+    promises.push(new Promise((resolve, reject) => stream.end(() => { resolve(); })));
   });
+
+  return Promise.all(promises);
 }
 
 function archiveData(outDir: string, code: string, res: Response, next: NextFunction) {

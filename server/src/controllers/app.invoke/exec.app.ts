@@ -67,6 +67,14 @@ export class ExecApp {
     return this._tempFiles;
   }
 
+  private _closeStreams(streams: fs.WriteStream[]) {
+    return BPromise.map(streams, (stream) => {
+      return new Promise((resolve, reject) => {
+        stream.end(() => { resolve(); });
+      });
+    });
+  }
+
   public spawnProcess(timeout: number) {
     const process = new Spawn(this._command, this._args, timeout, {
       cwd: this._cwd,
@@ -87,14 +95,15 @@ export class ExecApp {
     return new BPromise<ProcessOutput | Error>((resolve, reject) => {
       process.runChild
         .then((code) => {
-          fOutStream.close();
-          fErrStream.close();
-          resolve({
-            exit_code: code,
-            stdout: path.join(this._tempDir, "stdout"),
-            stderr: path.join(this._tempDir, "stderr"),
-            files: path.join(this._tempDir, "files")
-          });
+          this._closeStreams([fOutStream, fErrStream])
+            .then(() => {
+              resolve({
+                exit_code: code,
+                stdout: path.join(this._tempDir, "stdout"),
+                stderr: path.join(this._tempDir, "stderr"),
+                files: path.join(this._tempDir, "files")
+              });
+            });
         })
         .catch((err: Error) => {
           fOutStream.close();
