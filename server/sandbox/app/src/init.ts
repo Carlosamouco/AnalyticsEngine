@@ -11,14 +11,14 @@ export function registerWorker() {
   try {
     mkdirsSync(outDir);
   }
-  catch(err) {
+  catch (err) {
     if (err.code !== "EEXIST") {
       return process.exit(1);
     }
-  }  
+  }
 
   child.exec("awk 'END{print $1}' /etc/hosts", (err, stdout, stderr) => {
-   const postData = JSON.stringify({ip:stdout});
+    const postData = JSON.stringify({ ip: stdout });
 
     child.exec("/sbin/ip route|awk '/default/ { print $3 }'", (err, stdout, stderr) => {
       const options: http.RequestOptions = {

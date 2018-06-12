@@ -50,13 +50,7 @@ export class ExecApp {
   public async compileArgs(args: Arguments) {
     this._tempDir = await this._prepareFs(this._algorithm._id.toString());
     this._compileCommand(this._appId, this._algorithm);
-    try {
-      await this._compileArgs(args);
-    }
-    catch (err) {
-      console.log(err);
-    }
-    return;
+    await this._compileArgs(args);
   }
 
   private deleteTempFiles() {
