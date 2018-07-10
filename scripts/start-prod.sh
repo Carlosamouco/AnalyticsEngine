@@ -11,4 +11,4 @@ echo "Removing running docker-sandbox containers..."
 docker rm -f $(docker ps -a -q --filter ancestor=docker-sandbox)
 
 echo "Starting containers..."
-docker-compose up -f ../docker-compose.prod.yml
+docker-compose -f ../docker-compose.prod.yml up
