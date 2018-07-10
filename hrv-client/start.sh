@@ -1,0 +1,1 @@
+ng serve --port 4500 --proxy-config .\proxy.config.json --disable-host-check --host 0.0.0.0
