@@ -17,7 +17,7 @@ export class FileParser {
   private _parsers: { [key: string]: any } = {
     csv: new csv2json.Parser(),
     json: new json2json.Parser(),
-    xml2json: new xml2json.Parser()
+    xml: new xml2json.Parser()
   };
 
   private constructor() { }

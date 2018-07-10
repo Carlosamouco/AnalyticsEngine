@@ -41,7 +41,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - matlab:/usr/local/MATLAB
     environment:
-      - HOST_DIR=${PWD}/server
       - NODE_ENV=production
     network_mode: "bridge"    
     ports: 

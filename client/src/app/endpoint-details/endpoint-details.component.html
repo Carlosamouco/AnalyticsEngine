@@ -80,13 +80,11 @@
 
       <div class="card text-white" style="background-color:#609dd0!important;" *ngIf="param.edit">
         <h6 class="card-header" style="font-weight: bold;">
-          <input type="text" class="form-control" placeholder="Parameter Name" [(ngModel)]="param.name" [disabled]="param.name=='outputDir'"
-          />
+          <input type="text" class="form-control" placeholder="Parameter Name" [(ngModel)]="param.name" />
         </h6>
         <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
           <div style="margin-bottom:5px">
-            <textarea name="Text1" class="form-control form-control-sm" rows="2" placeholder="Parameter Descriptions" [(ngModel)]="param.description"
-              [disabled]="param.name=='outputDir'"></textarea>
+            <textarea name="Text1" class="form-control form-control-sm" rows="2" placeholder="Parameter Descriptions" [(ngModel)]="param.description"></textarea>
           </div>
           <div class="btn-group btn-group-sm" role="group" style="margin-bottom:10px">
             <button class="btn btn-primary" (click)="saveParameter(param)" [disabled]="!param.name">Save</button>

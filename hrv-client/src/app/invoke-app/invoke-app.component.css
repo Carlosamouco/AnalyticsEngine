@@ -1,0 +1,186 @@
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 55px;
+  height: 27px;
+  margin: 0;
+  top: 3px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 21px;
+  width: 21px;
+  left: 4px;
+  top: 3px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.files-box {
+  width: calc(100% - 95px);
+  float: right;
+}
+
+.file-item {
+  margin: 1px 4px 1px 1px;
+  display: inline-block;
+  border: solid 2px #77797d;
+  background-color: #17a2b8;
+  color: #fff;
+  border-radius: 0.25rem;
+  padding: 3px 5px;
+  height: 32px;
+  font-size: 0.925rem;
+}
+
+.options-box {
+  margin: auto;
+  padding: 5px;
+  background-color: #343a40;
+  color: #fff;
+  font-weight: bolder;
+}
+
+.pt-page-moveFromRightFade {
+	-webkit-animation: moveFromRightFade .7s ease both;
+	animation: moveFromRightFade .7s ease both;
+}
+
+.pt-page-rotateFoldLeft {
+	-webkit-transform-origin: 100% 50%;
+	transform-origin: 100% 50%;
+	-webkit-animation: rotateFoldLeft .7s both ease;
+	animation: rotateFoldLeft .7s both ease;
+}
+
+.pt-page-rotateFoldRight {
+	-webkit-transform-origin: 0% 50%;
+	transform-origin: 0% 50%;
+	-webkit-animation: rotateFoldRight .7s both ease;
+	animation: rotateFoldRight .7s both ease;
+}
+
+.pt-page-moveFromLeftFade {
+	-webkit-animation: moveFromLeftFade .7s ease both;
+	animation: moveFromLeftFade .7s ease both;
+}
+
+@-webkit-keyframes moveFromRightFade {
+	from { opacity: 0.3; -webkit-transform: translateX(100%); }
+}
+@keyframes moveFromRightFade {
+	from { opacity: 0.3; -webkit-transform: translateX(100%); transform: translateX(100%); }
+}
+
+@-webkit-keyframes rotateFoldLeft {
+	from { }
+	to { opacity: 0; -webkit-transform: translateX(-100%) rotateY(-90deg); }
+}
+@keyframes rotateFoldLeft {
+	from { }
+	to { opacity: 0; -webkit-transform: translateX(-100%) rotateY(-90deg); transform: translateX(-100%) rotateY(-90deg); }
+}
+
+@-webkit-keyframes rotateFoldRight {
+	from { }
+	to { opacity: 0; -webkit-transform: translateX(100%) rotateY(90deg); }
+}
+@keyframes rotateFoldRight {
+	from { }
+	to { opacity: 0; -webkit-transform: translateX(100%) rotateY(90deg); transform: translateX(100%) rotateY(90deg); }
+}
+
+@-webkit-keyframes moveFromLeftFade {
+	from { opacity: 0.3; -webkit-transform: translateX(-100%); }
+}
+@keyframes moveFromLeftFade {
+	from { opacity: 0.3; -webkit-transform: translateX(-100%); transform: translateX(-100%); }
+}
+
+.hide {
+  display: none;
+}
+
+.dropdown-menu .dropdown-item.active {
+  color: #fff;
+}
+
+.striped:nth-child(even) {
+  background-color: #e9ecef;
+  border: solid 1px #686c73!important;
+  color: #686c73;
+}
+
+.striped:nth-child(odd) {
+  background-color: #848c9a;
+  border: solid 1px #43454a!important;
+}
+
+.striped input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(52,58,64,.25);
+  border-color: white;
+}
+
+.btn.side-btn {
+  border-radius: 0 .2rem .2rem 0!important;
+}
+
+
+.btn.side-btn:focus {
+  box-shadow: -0.26rem 0 0 -0.025rem #fff,
+    0 0 0 0.2rem rgba(52,58,64,.25)!important;
+}
+
+.combined-input {
+  border-radius: .2rem 0 0 .2rem;
+}
+
+.dropdown-item {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

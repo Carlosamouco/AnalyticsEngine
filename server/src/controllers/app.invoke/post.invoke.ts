@@ -1,14 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import * as fs from "fs";
-import * as path from "path";
-
-import * as uuid from "uuid/v4";
-
-import { default as Spawn } from "./spawn";
 import { PipeRawOutput, PipeParsedOutput } from "./pipe.raw";
 import { ExecApp, ProcessOutput } from "./exec.app";
 import { preInvokeAlgorithm } from "./pre.invoke";
-import { AlgorithmModel } from "../../models/Application";
+
+import * as mongoose from "mongoose";
+import { AlgorithmModel, default as Application } from "../../models/Application";
 
 type Arguments = {
   [key: string]: any
@@ -46,6 +42,70 @@ export async function invokeAlgorithmFormData(req: Request, res: Response, next:
   invokeAlgorithm(req, res, next);
 }
 
+export async function testAlgorithm(req: Request, res: Response, next: NextFunction) {
+  let existingApp: any;
+  const appId = req.body.app_id ? req.body.app_id : "5b2e95acd6e1df02393fe08a";
+  const algorithmId = req.body.version_id ? req.body.version_id : "5b2e95b3d6e1df02393fe08b";
+  const repNumb = req.body.num ? req.body.num : 1;
+  const mode = req.body.mode ? req.body.mode : "0";
+
+  try {
+    existingApp = await Application.aggregate([
+      {
+        $match: {
+          _id: mongoose.Types.ObjectId(appId)
+        }
+      },
+      {
+        $unwind: "$algorithms"
+      },
+      {
+        $match: {
+          "algorithms._id": mongoose.Types.ObjectId(algorithmId)
+        }
+      },
+    ]);
+  }
+  catch (err) {
+    next(err);
+  }
+  res.json({ status: "started" });
+  const promises = [];
+  const times: number[] = [];
+  for (let i = 0; i < repNumb; i++) {
+    promises.push(new Promise((resolve, reject) => {
+      const start = new Date().getTime();
+      const app = new ExecApp(appId, existingApp[0].algorithms, []);
+      app.compileArgs({})
+        .then(() => {
+          if (mode === "0") {
+            app.spawnProcess(60000)
+            .then(() => {
+              times.push(new Date().getTime() - start);
+              app.deleteTempFiles();
+              resolve();
+            });
+          }
+          else {
+            app.spawnRemoteProcess(60000)
+            .then(() => {
+              times.push(new Date().getTime() - start);
+              app.deleteTempFiles();
+              resolve();
+            });
+          }
+        });
+    }));
+  }
+
+  const average = (arr: number[]) => arr.reduce((p, c) => p + c, 0) / arr.length;
+
+  Promise.all(promises).then(() => {
+    console.log(average(times));
+  });
+}
+
+
 
 export async function invokeAlgorithm(req: Request, res: Response, next: NextFunction) {
   const data = await preInvokeAlgorithm(req, res, next);
@@ -54,7 +114,7 @@ export async function invokeAlgorithm(req: Request, res: Response, next: NextFun
     return;
   }
 
-  const app = new ExecApp(data.call.app_id, data.algorithm, <Express.Multer.File[]> req.files);
+  const app = new ExecApp(data.call.app_id, data.algorithm, <Express.Multer.File[]>req.files);
 
   let processOutput: ProcessOutput;
 
@@ -73,11 +133,13 @@ export async function invokeAlgorithm(req: Request, res: Response, next: NextFun
 
   switch (data.call.options.output.mode) {
     case OutputMode.Parsed: case OutputMode.ParsedS:
-      new PipeParsedOutput(res).initOutput(data.call.options.output, processOutput, data.algorithm.output);
+      await new PipeParsedOutput(res).initOutput(data.call.options.output, processOutput, data.algorithm.output);
       break;
     case OutputMode.Raw: case OutputMode.RawS: default:
-      new PipeRawOutput(res).initOutput(data.call.options.output, processOutput, data.algorithm.output);
+      await new PipeRawOutput(res).initOutput(data.call.options.output, processOutput, data.algorithm.output);
       break;
   }
+
+  app.deleteTempFiles();
 }
 

@@ -1,0 +1,39 @@
+.dropdown-menu {
+  top: 197px;
+  left: 16px;
+  position: absolute; 
+  overflow-y: visible;
+  max-height: 205px;
+  overflow-y: auto;
+  user-select: none;
+}
+
+@media (min-width: 576px) { 
+  .dropdown-menu {
+    top: 149px;
+  }
+}
+
+.open {
+  display: block;
+}
+
+/* width */
+.dropdown-menu::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+.dropdown-menu::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* Handle */
+.dropdown-menu::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

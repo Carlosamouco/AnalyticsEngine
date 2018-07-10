@@ -1,10 +1,8 @@
 "use strict";
 
-import * as _ from "lodash";
 import * as async from "async";
 import * as request from "request";
 import * as Docker from "dockerode";
-import * as BPromise from "bluebird";
 
 import { Job } from "./job";
 
@@ -33,12 +31,13 @@ export default class Container {
   /*
    * Executes a job inside the container
    */
-  public executeJob(job: Job) {
+  public async executeJob(job: Job) {
     const options = {
       url: `http://${this.ip}:3000/`,
       formData: job.request,
       timeout: job.timeout
     };
+
     return new Promise((resolve, reject) => {
       let code: any;
       const stream = request
@@ -52,10 +51,15 @@ export default class Container {
         })
         .pipe(job.output);
 
-        stream.on("finish", () => {
-          job.callback(null, code);
-          resolve();
-        });
+      stream.on("close", () => {
+        job.callback(null, code);
+        resolve();
+      });
+
+      stream.on("error", (err: any) => {
+        job.callback(err);
+        resolve();
+      });
     });
   }
 

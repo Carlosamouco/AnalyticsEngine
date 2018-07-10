@@ -29,7 +29,7 @@ mongoose.connect(mongoUrl).catch(err => {
 
 const MongoStore = mongo(session);
 
-Sandbox.getInstance({ poolSize: 1 });
+Sandbox.getInstance({ poolSize: 30 });
 Parsers.getInstance().catch((err) => {
   console.warn("Failed to load some plugins." + err);
 });
@@ -41,7 +41,7 @@ const app = express();
 app.set("port", process.env.PORT || 3000);
 app.use(compression());
 app.use(logger("dev"));
-app.use(bodyParser.json({limit: "2mb"}));
+app.use(bodyParser.json({ limit: "2mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({

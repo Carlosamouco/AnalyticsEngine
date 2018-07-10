@@ -22,7 +22,6 @@ export const default_options: Docker.ContainerCreateOptions = {
     MemorySwap: -1,
     Privileged: false,
     Binds: [
-      `${process.env.HOST_DIR.replace(/\\/g, "/").replace(":", "")}/uploads:/usr/src/app/uploads:ro`,
       `matlab:/usr/local/MATLAB:ro`
     ]
   },
@@ -59,7 +58,11 @@ export class Sandbox {
   public static getInstance(options?: SandboxOpts) {
     if (!this.instance) {
       this.instance = new Sandbox(options);
+      console.time("Sandbox Initialized");
       this.instance.initialize()
+        .then(() => {
+          console.timeEnd("Sandbox Initialized");
+        })
         .catch((err) => {
           console.error(`Unable to initialize the sandbox container swarm:\n\t${err}`);
           process.exit();
@@ -79,9 +82,9 @@ export class Sandbox {
   /*
    * Runs the specifed code
    */
-  public run(output: fs.WriteStream, timeout: number, request: any) {
+  public run(output: fs.WriteStream, timeout: number, archive: string, request: any) {
     return new BPromise((resolve, reject) => {
-      const job = new Job(output, request, timeout, (err: any, code: any) => {
+      const job = new Job(output, archive, request, timeout, (err: any, code: any) => {
         if (err) reject(err);
         resolve(code);
       });

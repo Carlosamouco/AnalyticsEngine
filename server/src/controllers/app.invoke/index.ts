@@ -1,1 +1,1 @@
-export { invokeAlgorithm, invokeAlgorithmFormData } from "./post.invoke";
+export { invokeAlgorithm, invokeAlgorithmFormData, testAlgorithm } from "./post.invoke";

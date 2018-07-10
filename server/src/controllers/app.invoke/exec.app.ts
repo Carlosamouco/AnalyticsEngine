@@ -2,18 +2,15 @@ import * as fs from "fs";
 import * as crypto from "crypto";
 import * as path from "path";
 import { isPrimitive, isString } from "util";
-import { Response } from "express";
 import * as BPromise from "bluebird";
 import * as uuid from "uuid/v4";
-const decompress = require("decompress");
+import * as unzip from "unzip";
 
 import { JsonParser } from "../json.parser/json.parsers";
 import { default as Spawn } from "./spawn";
 import { AlgorithmModel, ParameterType, File } from "../../models/Application";
-import { mkdirsSync } from "../../utils";
 import * as rimraf from "rimraf";
 import { Sandbox } from "../../docker_sandbox/sandbox";
-import { AnalysisSchemeLanguage } from "aws-sdk/clients/cloudsearch";
 
 type Arguments = {
   [key: string]: any,
@@ -53,8 +50,8 @@ export class ExecApp {
     await this._compileArgs(args);
   }
 
-  private deleteTempFiles() {
-    rimraf(`${this._tempDir}`, (err) => {
+  public deleteTempFiles() {
+    rimraf(`${this._tempDir}`, { "maxBusyTries": 5 }, (err) => {
       if (err) throw err;
     });
   }
@@ -92,7 +89,7 @@ export class ExecApp {
       fOutStream.write(data);
     });
 
-    return new BPromise<ProcessOutput | Error>((resolve, reject) => {
+    return new Promise<ProcessOutput | Error>((resolve, reject) => {
       process.runChild
         .then((code) => {
           this._closeStreams([fOutStream, fErrStream])
@@ -106,14 +103,11 @@ export class ExecApp {
             });
         })
         .catch((err: Error) => {
-          fOutStream.close();
-          fErrStream.close();
-          reject(err);
+          this._closeStreams([fOutStream, fErrStream]).then(() => {
+            reject(err);
+          });
         });
-    })
-      .finally(() => {
-        this.deleteTempFiles();
-      });
+    });
   }
 
   public spawnRemoteProcess(timeout: number) {
@@ -126,57 +120,58 @@ export class ExecApp {
       fStreams.push(fs.createReadStream(fpath));
     });
 
+    const archive = this._cwd ? path.join(this._cwd, "app_files.tar") : null;
+
     const request = {
       command: this._command,
       args: JSON.stringify(this._args),
-      cwd: this._cwd ? this._cwd : "",
       mapping: JSON.stringify(this._mapping),
-      files: fStreams
+      cwd: this._cwd ? "/usr/src/app/run" : null,
+      files: fStreams,
+      app: fs.createReadStream(archive)
     };
 
-    return new BPromise<ProcessOutput | Error>((resolve, reject) => {
-      Sandbox.getInstance().run(zipStream, timeout, request)
+    return new Promise<ProcessOutput | Error>((resolve, reject) => {
+      Sandbox.getInstance().run(zipStream, timeout, archive, request)
         .then((code: number) => {
-          decompress(zipFile, this._tempDir)
-            .then((dFiles: any) => {
-              fs.unlink(zipFile, (err) => {
-                if (err) return reject(err);
-              });
-              const errorPath = path.join(this._tempDir, "error");
-              fs.readFile(path.join(this._tempDir, "error"), "utf8", (err, data) => {
-                if (err) {
-                  return reject(err);
-                }
-
-                if (data.length > 0) {
-                  return reject(data);
-                }
-
-                resolve({
-                  exit_code: code,
-                  stdout: path.join(this._tempDir, "stdout"),
-                  stderr: path.join(this._tempDir, "stderr"),
-                  files: path.join(this._tempDir, "files")
-                });
-              });
-            })
-            .catch((err: any) => {
-              reject(err);
+          const unzipStream = unzip.Extract({ path: this._tempDir });
+          fs.createReadStream(zipFile).pipe(unzipStream);
+          unzipStream.on("close", () => {
+            fs.unlink(zipFile, (err) => {
+              if (err) return reject(err);
             });
+
+            fs.readFile(path.join(this._tempDir, "error"), "utf8", (err, data) => {
+              if (err) {
+                return reject(err);
+              }
+
+              if (data.length > 0) {
+                return reject(data);
+              }
+
+              resolve({
+                exit_code: code,
+                stdout: path.join(this._tempDir, "stdout"),
+                stderr: path.join(this._tempDir, "stderr"),
+                files: path.join(this._tempDir, "files")
+              });
+            });
+          });
+
+          unzipStream.on("error", (err: any) => {
+            reject(err);
+          });
+
         })
         .catch((err) => {
           reject(err);
         });
-    })
-      .finally(() => {
-        this.deleteTempFiles();
-      });
+    });
   }
 
   private _prepareFs(algorithm_id: string) {
-    const ms = new Date().getMilliseconds();
-    const hash = crypto.createHash("md5").update(ms + algorithm_id).digest("hex");
-    const tempDir = path.join(process.cwd(), "temp", hash);
+    const tempDir = path.join(process.cwd(), "temp", uuid());
 
     return new Promise<string>((resolve, reject) => {
       fs.mkdir(tempDir, (err) => {
@@ -195,6 +190,9 @@ export class ExecApp {
 
     this._cwd = algorithm.files.length !== 0 ? appDir : null;
     this._command = algorithm.entryApp.localFile ? path.join(appDir, app) : app;
+    if (algorithm.entryApp.localFile) {
+      this._mapping[app] = -1;
+    }
   }
 
   private async _compileArgs(args: Arguments) {

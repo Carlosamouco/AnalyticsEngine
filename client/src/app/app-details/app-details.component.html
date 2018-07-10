@@ -203,7 +203,7 @@
                 </td>
               </tr>
               <tr *ngIf="app.algorithm.output.stdout.extention">
-                <th scope="row" style="padding-left:10px;">Extention</th>
+                <th scope="row" style="padding-left:10px;">Parser</th>
                 <td style="text-align:center;">{{app.algorithm.output.stdout.extention}}</td>
               </tr>
             </tbody>
@@ -226,9 +226,9 @@
                 </td>
               </tr>
               <tr>
-                <th scope="row" style="padding-left:10px;">Extention</th>
+                <th scope="row" style="padding-left:10px;">Parser</th>
                 <td style="text-align:center;">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="app.algorithm.output.stdout.extention" />
+                  <input type="text" placeholder="ex.: csv" class="form-control form-control-sm" [(ngModel)]="app.algorithm.output.stdout.extention" />
                 </td>
               </tr>
             </tbody>
@@ -259,10 +259,6 @@
                 <td style="text-align:center;">
                   {{app.algorithm.output.stderr.alias}}
                 </td>
-              </tr>
-              <tr *ngIf="app.algorithm.output.stderr.extention">
-                <th scope="row" style="padding-left:10px;">Extention</th>
-                <td style="text-align:center;">{{app.algorithm.output.stderr.extention}}</td>
               </tr>
             </tbody>
           </table>
@@ -324,7 +320,7 @@
                   <td style="text-align:center;">{{fout.encoding}}</td>
                 </tr>
                 <tr *ngIf="fout.extention">
-                  <th scope="row" style="padding-left:10px;">Extention</th>
+                  <th scope="row" style="padding-left:10px;">Parser</th>
                   <td style="text-align:center;">{{fout.extention}}</td>
                 </tr>
               </tbody>
@@ -344,7 +340,7 @@
                 <tr>
                   <th scope="row" style="padding-left:10px;">Regex</th>
                   <td style="text-align:center;color:aquamarine;">
-                    <input type="text" placeholder="ex.: teste.txt" class="form-control form-control-sm" [(ngModel)]="fout.fileRgx" />
+                    <input type="text" placeholder="ex.: filename.csv" class="form-control form-control-sm" [(ngModel)]="fout.fileRgx" />
                   </td>
                 </tr>
                 <tr>
@@ -354,9 +350,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row" style="padding-left:10px;">Extention</th>
+                  <th scope="row" style="padding-left:10px;">Parser</th>
                   <td style="text-align:center;">
-                    <input type="text" placeholder="ex.: txt" class="form-control form-control-sm" [(ngModel)]="fout.extention" />
+                    <input type="text" placeholder="ex.: csv" class="form-control form-control-sm" [(ngModel)]="fout.extention" />
                   </td>
                 </tr>
               </tbody>

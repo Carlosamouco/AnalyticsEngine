@@ -146,12 +146,14 @@
         <ng-container *ngFor="let file of item.value">
           <h5 *ngIf="file.length > 0" style="margin-top:20px">File Reference - {{item.key}}</h5>
           <ng-container *ngFor="let fileData of file">
-            <h6>{{fileData.key}}</h6>
+            <button type="button" class="btn btn-light" style="margin-bottom:5px;font-weight:500;" (click)="downloadFile(fileData)">
+              <img src="../assets/save.svg" alt="" style="position:relative;top:-1px;width:20px;margin-right:5px"> {{fileData.key}}
+            </button>
             <textarea class="form-control" rows="5" readonly name="{{fileData.key}}" [value]="fileData.value"></textarea>
           </ng-container>
         </ng-container>
       </ng-container>
-      
+
     </ng-container>
   </div>
 

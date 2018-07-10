@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 // Routes Setup
 const upload = multer({ dest: "./temp/" });
 
-app.post("/", upload.array("files"), invokeAlgorithm);
+app.post("/", upload.fields([{ name: "files" }, { name: "app", maxCount: 1 }]), invokeAlgorithm);
 
 
 app.listen(app.get("port"), () => {

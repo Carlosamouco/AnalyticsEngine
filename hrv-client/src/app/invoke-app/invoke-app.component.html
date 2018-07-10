@@ -1,0 +1,114 @@
+<div class="container-fluid" *ngIf="app" (webkitAnimationEnd)="hideResultsContainer($event.animationName)" [ngClass]="{ 'pt-page-rotateFoldLeft': showResults, 'pt-page-moveFromLeftFade': hideResults, 'hide': hideMainContainer }"
+  style="position:absolute;height:100%;overflow-y:auto;">
+  <h1 class="border-bottom border-info" style="padding: 10px;"> Analyse Data - {{app.name}} </h1>
+  <div style="font-size: 18px;margin-bottom: 25px;">{{app.description}}</div>
+  <form (ngSubmit)="invokeApp()">
+    <h5>Options</h5>
+    <div class="row" style="margin-bottom:20px" (webkitTransitionEnd)="hideResultsContainer('cenas')">
+      <div class="col-md-6 col-lg-4">
+        <div class="row border options-box" style="margin:auto">
+          <div class="col align-self-center">Secure Mode</div>
+          <div class="col align-self-center" style="text-align: right;">
+            <label class="switch">
+              <input type="checkbox" name="secure" [(ngModel)]="secure">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h5>Parameters</h5>
+    <div class="row" style="margin-bottom:10px">
+      <ng-container *ngFor="let param of app.algorithm.parameters">
+        <ng-container *ngIf="!param.options.static">
+
+          <ng-container *ngIf="param.options.endpoint">
+            <ng-container *ngFor="let endP of param.options.endpoint.parameters">
+              <div class="col-md-6">
+                <div style="margin-bottom: 10px;padding: 10px;" class="border border-info">
+                  <div style="margin-bottom: 5px;font-weight: bold;padding-left: 5px;">
+                    {{endP.name}}
+                    <i *ngIf="param.options.required" style="color:red;font-size:13px;position:relative;top:-5px;" class="fa fas fa-asterisk"></i>
+                  </div>
+                  <div style="margin-bottom: 5px;" *ngIf="endP.description">
+                    {{endP.description}}
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12 align-self-center">
+                      <input type="text" class="form-control" placeholder="some text..." [name]="endP.name" [(ngModel)]="endP.value" />
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+
+          <div class="col-md-6" *ngIf="!param.options.endpoint">
+            <div style="margin-bottom: 10px;padding: 10px;" class="border border-info">
+              <div style="margin-bottom: 5px;font-weight: bold;padding-left: 5px;">
+                {{param.name}}
+                <i *ngIf="param.options.required" style="color:red;font-size:13px;position:relative;top:-5px;" class="fa fas fa-asterisk"></i>
+                <div *ngIf="param.options.default && !param.useEndpoint" class="form-check" style="float:right;font-weight:normal;">
+                  <input type="checkbox" class="form-check-input" id="default_{{param.name}}" name="defaultOpt" [(ngModel)]="param.useDefault"
+                    (change)="setDefault(param)">
+                  <label class="form-check-label" for="default_{{param.name}}">Use Default</label>
+                </div>
+              </div>
+              <div style="margin-bottom: 5px;" *ngIf="param.description">
+                {{param.description}}
+              </div>
+              <ng-container *ngIf="!param.useEndpoint">
+                <div class="row" *ngIf="param.type == '0'">
+                  <div class="col-12 align-self-center">
+                    <input type="text" class="form-control" placeholder="some text..." [name]="param.name" [(ngModel)]="param.value" [readonly]="param.useDefault"
+                    />
+                  </div>
+                </div>
+
+                <div class="row" *ngIf="param.type == '1'">
+                  <div class="col-12">
+                    <button type="button" class="btn btn-secondary" (click)="openAddFilesModal(param)" [disabled]="param.useDefault">Add File</button>
+                    <input type="text" class="form-control files-box" placeholder="Choose File..." [name]="param.name" [(ngModel)]="param.value.name"
+                      readonly/>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+        </ng-container>
+      </ng-container>
+    </div>
+    <button type="submit" class="btn btn-info btn-lg btn-block" style="margin-bottom:20px" [disabled]="validateForm()">Analyse Data</button>
+  </form>
+</div>
+
+<div class="container-fluid" (webkitAnimationEnd)="hideResultsContainer($event.animationName)" [ngClass]="{ 'pt-page-moveFromRightFade': showResults, 'pt-page-rotateFoldRight': hideResults, 'hide': hideSecundaryContainer }"
+  style="position: absolute;height:100%;overflow-y:auto;">
+
+  <div style="margin-bottom: 20px;" *ngIf="processingResult && !onInvoke">
+    <h2 style="margin-top:5px">Processing Result</h2>
+    <div *ngIf="!requestDataError" #hrvChartT style="width:100%;height:55vh;min-height:400px"></div>
+    <div *ngIf="!requestDataError" #hrvChartF style="width:100%;height:55vh;min-height:400px"></div>
+  </div>
+
+  <ng-container *ngIf="requestDataError && !onInvoke">
+    <div *ngFor="let error of requestDataError" class="alert alert-danger" role="alert" style="margin-top:20px">
+      <div style="display:inline-block;font-weight:bold;">Error {{error.status}}:</div> {{error.message}}
+    </div>
+  </ng-container>
+
+  <button *ngIf="!onInvoke" (click)="onNewRun()" style="margin-bottom:20px" type="button" class="btn btn-info btn-lg btn-block">
+    <i class="fa fas fa-arrow-left"></i> New Run</button>
+
+  <div class="sk-folding-cube" style="transform:scale(1.25, 1.25);position:absolute;top:calc(50% - 45px);left:calc(50% - 27px);"
+    *ngIf="onInvoke">
+    <div class="sk-cube1 sk-cube"></div>
+    <div class="sk-cube2 sk-cube"></div>
+    <div class="sk-cube4 sk-cube"></div>
+    <div class="sk-cube3 sk-cube"></div>
+  </div>
+</div>

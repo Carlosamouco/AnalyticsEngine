@@ -23,6 +23,7 @@
     "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\""
   },
   "dependencies": {
+    "archiver": "^2.1.1",
     "async": "^2.6.0",
     "bcrypt-nodejs": "^0.0.3",
     "bluebird": "^3.5.1",
@@ -53,10 +54,12 @@
     "request": "^2.85.0",
     "rimraf": "^2.6.2",
     "tree-kill": "^1.2.0",
+    "unzip": "^0.1.11",
     "uuid": "^3.2.1",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
+    "@types/archiver": "^2.1.1",
     "@types/async": "^2.0.47",
     "@types/bcrypt-nodejs": "0.0.30",
     "@types/bluebird": "^3.5.20",
@@ -88,6 +91,7 @@
     "@types/rimraf": "^2.0.2",
     "@types/shelljs": "^0.7.8",
     "@types/supertest": "^2.0.4",
+    "@types/unzip": "^0.1.1",
     "@types/uuid": "^3.4.3",
     "@types/xml2js": "^0.4.2",
     "chai": "^4.1.2",

@@ -8,6 +8,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ApplicationDetails } from '../app-details/app-details.types';
 import { AddFilesModalComponent } from './add-files-modal/add-files-modal.component';
 import { isObject } from 'util';
+import * as FileSaver from 'file-saver';
 
 enum ParamTypes {
   Primitive = '0',
@@ -340,4 +341,8 @@ export class InvokeAppComponent implements OnInit {
     });
   }
 
+  public downloadFile(fileData) {
+    const file = new File([fileData.value], fileData.key, {type: 'text/plain;charset=utf-8'});
+    FileSaver.saveAs(file);
+  }
 }

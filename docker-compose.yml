@@ -13,17 +13,28 @@ services:
       - "27017:27017"
     env_file:
       - ./mongodb/.env
-        
+      
+#  hrv-client:
+#    build: 
+#      context: ./hrv-client
+#      dockerfile: Dockerfile
+#    volumes:
+#      - ./hrv-client:/usr/src/app
+#      - /usr/src/app/node_modules
+#    network_mode: "bridge"
+#    ports: 
+#      - "4500:4500" 
+      
   client:
     build: 
       context: ./client
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     volumes:
       - ./client:/usr/src/app
       - /usr/src/app/node_modules
     network_mode: "bridge"
     ports: 
-      - "4200:4200"
+      - "4200:4200" 
 
 
   server:
@@ -37,7 +48,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - matlab:/usr/local/MATLAB
     environment:
-      - HOST_DIR=${PWD}/server
       - NODE_ENV=production
     network_mode: "bridge"    
     ports: 
@@ -53,3 +63,4 @@ services:
     links:
       - client
       - server
+#      - hrv-client

@@ -1,9 +1,14 @@
 import * as Papa from "papaparse";
-import * as fs from "fs";
-import { FileOutputParser, FileOptions } from "./file.output.parser";
+import { FileOutputParser } from "./file.output.parser";
 
 export class Parser implements FileOutputParser {
   public parse(data: string) {
+    if (data[data.length - 1] === "\n") {
+      data = data.slice(0, -1);
+      if (data[data.length - 1] === "\r") {
+        data = data.slice(0, -1);
+      }
+    }
     const obj = Papa.parse(data, { header: true });
     if (obj.errors.length > 0) {
       throw obj.errors;

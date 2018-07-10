@@ -4,6 +4,8 @@ import * as fs from "fs";
 import * as path from "path";
 import * as rimraf from "rimraf";
 const decompress = require("decompress");
+import * as archiver from "archiver";
+import * as uuid from "uuid/v4";
 
 import { default as Application, ApplicationModel, AlgorithmModel } from "../../models/Application";
 import { isBool, mkdirsSync } from "../../utils";
@@ -75,6 +77,8 @@ export default async function postUpload(req: Request, res: Response, next: Next
       fs.chmodSync(path.join(process.cwd(), "uploads", existingApp._id.toString(), algorithm._id.toString(), algorithm.entryApp.appName), 0o777);
     }
 
+    archiveAppFiles(appPath, appPath);
+
     const app = existingApp.toObject();
     app.algorithms = [algorithm];
     delete app.__v;
@@ -84,7 +88,7 @@ export default async function postUpload(req: Request, res: Response, next: Next
 }
 
 function moveFiles(files: Express.Multer.File[], fPath: string) {
-  const extentions = [".zip", ".gz", ".bz2", ".tgz"];
+  const extentions = [".zip", ".gz", ".bz2", ".tgz", ".tar"];
 
   return promises.map(files, (file) => {
     return new Promise((resolve, reject) => {
@@ -164,4 +168,30 @@ function isDir(fPath: string): boolean {
   return false;
 }
 
+function archiveAppFiles(source: string, dest: string) {
+  return new Promise((resolve, reject) => {
+    fs.unlink(path.join(dest, "app_files.tar"), (err) => {
+      if (err && err.code != "ENOENT") return reject(err);
 
+      const archiveDir = path.join(process.cwd(), "temp", `${uuid()}.tar`);
+      const output = fs.createWriteStream(archiveDir);
+      const archive = archiver("tar");
+
+      archive.pipe(output);
+      archive.directory(source, "run");
+      archive.finalize();
+
+      output.on("close", () => {
+        fs.rename(archiveDir, path.join(dest, "app_files.tar"), (err) => {
+          if (err) return reject(err);
+          resolve();
+        });
+        resolve();
+      });
+
+      archive.on("error", (err) => {
+        reject(err);
+      });
+    });
+  });
+}

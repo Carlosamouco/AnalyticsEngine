@@ -3,8 +3,6 @@ import * as child from "child_process";
 import * as fs from "fs";
 import * as path from "path";
 
-//  import * as console from "./logger";
-
 export function registerWorker() {
   const outDir = path.join(process.cwd(), "temp", "output", "files");
 
