@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
@@ -240,6 +240,9 @@ export class InvokeAppComponent implements OnInit, AfterViewInit {
                 params
               });
             } else {
+              const headers = new HttpHeaders({
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF8',
+              });
               request = this.http.post(url, [params]);
             }
             request.subscribe((data) => {
