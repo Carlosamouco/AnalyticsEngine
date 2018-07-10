@@ -216,6 +216,7 @@ export class InvokeAppComponent implements OnInit, AfterViewInit {
       if (param.options.static) {
         continue;
       }
+
       if (param.options.endpoint) {
         const params = {};
 
@@ -230,8 +231,6 @@ export class InvokeAppComponent implements OnInit, AfterViewInit {
         if (!(url.startsWith('http://') || url.startsWith('https://'))) {
           url = 'http://' + url;
         }
-
-        url = '/api/gethrv';
 
         promises.push(new Promise(
           (resolve, reject) => {

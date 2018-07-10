@@ -29,7 +29,7 @@ mongoose.connect(mongoUrl).catch(err => {
 
 const MongoStore = mongo(session);
 
-Sandbox.getInstance({ poolSize: 30 });
+Sandbox.getInstance({ poolSize: 1 });
 Parsers.getInstance().catch((err) => {
   console.warn("Failed to load some plugins." + err);
 });

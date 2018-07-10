@@ -20,7 +20,7 @@ services:
   client:
     build: 
       context: ./client
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     volumes:
       - ./client:/usr/src/app
       - /usr/src/app/node_modules
@@ -32,7 +32,7 @@ services:
   server:
     build:
       context: ./server
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile
     privileged: true
     volumes:
       - ./server:/usr/src/app
