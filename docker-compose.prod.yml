@@ -43,7 +43,7 @@ services:
   server:
     build:
       context: ./server
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     privileged: true
     volumes:
       - ./server:/usr/src/app
