@@ -241,9 +241,9 @@ export class InvokeAppComponent implements OnInit, AfterViewInit {
               });
             } else {
               const headers = new HttpHeaders({
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF8',
+                'Content-Type': 'application/json; charset=utf-8',
               });
-              request = this.http.post(url, [params]);
+              request = this.http.post(url, [params], { headers: headers });
             }
             request.subscribe((data) => {
               if (param.type === ParamTypes.File) {
@@ -271,63 +271,63 @@ export class InvokeAppComponent implements OnInit, AfterViewInit {
         }
 
       }
-
-      Promise.all(promises.map(p => p.catch(e => {
-        this.requestDataError.push(e);
-        throw e;
-      })))
-        .then(() => {
-          const formData: FormData = new FormData();
-
-          formData.append('options', JSON.stringify({
-            output: {
-              stderr: true,
-              stdout: true,
-              files: true,
-              mode: '1'
-            },
-            secure: this.secure,
-            timeout: 60000
-          }));
-          formData.append('args', JSON.stringify(args));
-          formData.append('app_id', this.app._id);
-          formData.append('version_id', this.app.algorithm._id);
-          for (const file of files) {
-            formData.append('files', file, file.name);
-          }
-          this.http.post('/api/invoke/form', formData)
-            .subscribe((data) => {
-              this.processingResult = true;
-              this.onInvoke = false;
-              this.requestDataError = null;
-              setTimeout(() => {
-                const res = [];
-                let error = true;
-                Object.keys(data).forEach(elem => {
-                  if (this.isFileRef(elem) && (<any>data)[elem][0] && Object.keys((<any>data)[elem][0]).length > 0) {
-                    const file = Object.keys((<any>data)[elem][0])[0];
-                    this.buildChartT((<any>data)[elem][0][file]);
-                    this.buildChartF((<any>data)[elem][0][file]);
-                    error = false;
-                    return;
-                  }
-                  if ((<any>data)[elem] && !isArray((<any>data)[elem])) {
-                    res.push({
-                      status: elem,
-                      message: (<any>data)[elem]
-                    });
-                  }
-                });
-                if (error) {
-                  this.requestDataError = res;
-                }
-              }, 0);
-            });
-        })
-        .catch(() => {
-          this.onInvoke = false;
-        });
     }
+
+    Promise.all(promises.map(p => p.catch(e => {
+      this.requestDataError.push(e);
+      throw e;
+    })))
+      .then(() => {
+        const formData: FormData = new FormData();
+
+        formData.append('options', JSON.stringify({
+          output: {
+            stderr: true,
+            stdout: true,
+            files: true,
+            mode: '1'
+          },
+          secure: this.secure,
+          timeout: 60000
+        }));
+        formData.append('args', JSON.stringify(args));
+        formData.append('app_id', this.app._id);
+        formData.append('version_id', this.app.algorithm._id);
+        for (const file of files) {
+          formData.append('files', file, file.name);
+        }
+        this.http.post('/api/invoke/form', formData)
+          .subscribe((data) => {
+            this.processingResult = true;
+            this.onInvoke = false;
+            this.requestDataError = null;
+            setTimeout(() => {
+              const res = [];
+              let error = true;
+              Object.keys(data).forEach(elem => {
+                if (this.isFileRef(elem) && (<any>data)[elem][0] && Object.keys((<any>data)[elem][0]).length > 0) {
+                  const file = Object.keys((<any>data)[elem][0])[0];
+                  this.buildChartT((<any>data)[elem][0][file]);
+                  this.buildChartF((<any>data)[elem][0][file]);
+                  error = false;
+                  return;
+                }
+                if ((<any>data)[elem] && !isArray((<any>data)[elem])) {
+                  res.push({
+                    status: elem,
+                    message: (<any>data)[elem]
+                  });
+                }
+              });
+              if (error) {
+                this.requestDataError = res;
+              }
+            }, 0);
+          });
+      })
+      .catch(() => {
+        this.onInvoke = false;
+      });
   }
 
   private buildChartF(hrvData) {

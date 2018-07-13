@@ -41,7 +41,7 @@ export function setup(app: Express) {
   app.post("/api/delete/endpoint", endpointControler.postDeleteEndpoint);
   app.post("/api/update/endpoint", endpointControler.postUpdateEndpoint);
 
-  app.get("/api/gethrv", (req: Request, res: Response, next: NextFunction) => {
+  app.post("/api/gethrv", (req: Request, res: Response, next: NextFunction) => {
     res.sendFile(process.cwd() + "/event372_teste.json");
   });
 

@@ -4,7 +4,7 @@ ENV HOME=/home/app
 
 WORKDIR $HOME
 
-RUN npm install -g --unsafe-perm @angular/cli
+RUN npm install -g @angular/cli
 
 RUN mkdir -p /usr/src/app
 
@@ -16,5 +16,5 @@ RUN npm install
 
 EXPOSE 4500
 
-CMD ["ng", "serve", "--disable-host-check", "--host", "0.0.0.0", "--poll=1000", "--port", "4500", "--base-href='/hrv/'" ]
+CMD ["ng", "serve", "--disable-host-check", "--host", "0.0.0.0", "--poll=1000", "--port", "4500", "--base-href=/hrv/" ]
 

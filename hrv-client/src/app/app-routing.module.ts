@@ -19,7 +19,7 @@ export class AppDetailsResolver implements Resolve<ApplicationDetails> {
     state: RouterStateSnapshot
   ): Observable<any> | Promise<any> | any {
     return this.http.get('/api/applications', { params: { q: 'HRV' } })
-      .catch(() => {
+      .catch((err) => {
         return Observable.of(null);
       });
   }

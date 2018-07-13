@@ -393,7 +393,6 @@ In that file you'll find two sections:
 | lusca                           | CSRF middleware.                                                      |
 | mongoose                        | MongoDB ODM.                                                          |
 | morgan                          | Express 4 middleware.                                                 |
-| nodemailer                      | Node.js library for sending emails.                                   |
 | passport                        | Simple and elegant authentication library for node.js                 |
 | passport-facebook               | Sign-in with Facebook plugin.                                         |
 | passport-local                  | Sign-in with Username and Password plugin.                            |
