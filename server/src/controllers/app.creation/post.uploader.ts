@@ -66,16 +66,13 @@ export default async function postUpload(req: Request, res: Response, next: Next
 
     try {
       const fRes = await moveFiles(<Express.Multer.File[]>req.files, appPath);
-      updateAlgorithmFiles(algorithm, <string[][]>fRes, { override: req.body.override });
+      await updateAlgorithmFiles(existingApp, algorithm, <string[][]>fRes, { override: req.body.override });
       await existingApp.save();
     }
     catch (err) {
       return next(err);
     }
 
-    if (algorithm.entryApp && algorithm.entryApp.localFile) {
-      fs.chmodSync(path.join(process.cwd(), "uploads", existingApp._id.toString(), algorithm._id.toString(), algorithm.entryApp.appName), 0o777);
-    }
 
     archiveAppFiles(appPath, appPath);
 
@@ -145,20 +142,34 @@ function deleteFiles(files: Express.Multer.File[]) {
   });
 }
 
-function updateAlgorithmFiles(algorithm: AlgorithmModel, files: string[][], options: { override: boolean }) {
+function updateAlgorithmFiles(existingApp: ApplicationModel, algorithm: AlgorithmModel, files: string[][], options: { override: boolean }) {
+  const promises = [];
+
   if (!options.override) {
     algorithm.files = [];
   }
 
   for (const fset of files) {
     for (const fPath of fset) {
-      if (isDir(fPath))
+      if (isDir(fPath)) {
         continue;
+      }
+      promises.push(new Promise((resolve, reject) => {
+        fs.chmod(path.join(process.cwd(), "uploads", existingApp._id.toString(), algorithm._id.toString(), fPath), 0o777, (err) => {
+          if (err) {
+            return reject(err);
+          }
+          resolve();
+        });
+      }));
+
       if (algorithm.files.indexOf(fPath) === -1) {
         algorithm.files.push(fPath);
       }
     }
   }
+
+  return Promise.all(promises);
 }
 
 function isDir(fPath: string): boolean {
