@@ -4,7 +4,7 @@ ENV HOME=/home/app
 
 WORKDIR $HOME
 
-RUN npm install -g --unsafe-perm @angular/cli
+RUN npm install -g @angular/cli
 
 RUN mkdir -p /usr/src/app
 
