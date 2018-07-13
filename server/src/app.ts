@@ -9,6 +9,8 @@ import * as mongo from "connect-mongo";
 import * as mongoose from "mongoose";
 import * as passport from "passport";
 import * as bluebird from "bluebird";
+import * as fs from "fs";
+import * as path from "path";
 
 import * as routes from "./routes";
 import { Sandbox } from "./docker_sandbox/sandbox";
@@ -32,6 +34,20 @@ const MongoStore = mongo(session);
 Sandbox.getInstance({ poolSize: 1 });
 Parsers.getInstance().catch((err) => {
   console.warn("Failed to load some plugins." + err);
+});
+
+fs.mkdir(path.join(process.cwd(), "uploads"), (err) => {
+  if (err && err.code !== "EEXIST") {
+    console.log(err);
+    process.exit();
+  }
+
+  fs.chmod(path.join(process.cwd(), "uploads"), 0o777, (err) => {
+    if (err) {
+      console.log(err);
+      process.exit();
+    }
+  });
 });
 
 // Create Express server
