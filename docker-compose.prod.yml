@@ -28,6 +28,17 @@ services:
     ports: 
       - "4200:4200"
 
+  hrv-client:
+    build: 
+      context: ./hrv-client
+      dockerfile: Dockerfile
+    volumes:
+      - ./hrv-client:/usr/src/app
+      - /usr/src/app/node_modules
+    network_mode: "bridge"
+    ports: 
+      - "4500:4500" 
+
 
   server:
     build:
@@ -56,3 +67,4 @@ services:
     links:
       - client
       - server
+      - hrv-client
