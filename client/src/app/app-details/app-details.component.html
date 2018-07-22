@@ -1,7 +1,7 @@
 <div class="container-fluid" style="margin-bottom:20px;">
   <h1 class="border-bottom border-info" style="padding: 10px;">
     <img src="../assets/rocket.svg" width="35" height="35" style="position: relative;top: 8px;" class="d-inline-block align-top"
-    alt=""> Application Configuration</h1>
+      alt=""> Application Configuration</h1>
   <h2>{{app.name}}</h2>
   <div style="font-size: 20px;margin-bottom:10px;"> {{app.description}}</div>
   <div>Published By:
@@ -51,7 +51,17 @@
   <h5 class="sub-title">Parameters:</h5>
   <button type="button" class="btn btn-info" (click)="addParameter()" style="display:block;margin-bottom:10px;">
     <i class="fa fas fa-plus"></i> Add Parameter</button>
-  <div class="card-columns">
+  <div class="card-columns" style="-webkit-column-break-inside: avoid;">
+    
+    <div #selectFileMenu class="dropdown dropdown-menu" [ngClass]="{'open': showMenu}" (mouseleave)="mouseOverMenu = false" (mouseover)="mouseOverMenu = true">
+      <div class="dropdown-item" [ngClass]="{'active': menuIndex == i}" (click)="selectItem()" (mouseover)="menuIndex = i" *ngFor="let item of menuItems; let i = index">
+        {{item}}
+      </div>
+      <div class="dropdown-item" *ngIf="menuItems.length == 0">
+        No matching files.
+      </div>
+    </div>
+
     <ng-container *ngFor="let param of app.algorithm.parameters">
       <div class="card text-white bg-success" style="background-color:#1a8198!important" *ngIf="!param.edit">
         <div class="card-header" style="font-weight: bold;">
@@ -163,9 +173,10 @@
               <div class="col-8 table-td" style="padding: 0 5px;">
                 <input type="text" *ngIf="param.type !== '1'" placeholder="Some text..." [(ngModel)]="param.options.default" [disabled]="param.name == 'outputDir'"
                   class="form-control form-control-sm" />
-                <input type="text" *ngIf="param.type === '1'" placeholder="Some text..." [typeahead]="app.algorithm.files" [(ngModel)]="param.options.default"
-                  [disabled]="param.name == 'outputDir'" (change)="onDefaultChange(param.options)" class="form-control form-control-sm"
-                />
+               
+                <input class="form-control" *ngIf="param.type === '1'" type="text" autocomplete="off" placeholder="Search file" [(ngModel)]="param.options.default"
+                  [disabled]="param.name == 'outputDir'" (input)="filterMenu($event.target.value, app.algorithm.files)" (keydown)="menuNavigate($event, param.options)"
+                  (focus)="openMenu($event.target, param.options, app.algorithm.files)" (focusout)="hideMenu()">
               </div>
             </div>
           </div>
@@ -228,7 +239,8 @@
               <tr>
                 <th scope="row" style="padding-left:10px;">Parser</th>
                 <td style="text-align:center;">
-                  <input type="text" placeholder="ex.: csv" class="form-control form-control-sm" [(ngModel)]="app.algorithm.output.stdout.extention" />
+                  <input type="text" placeholder="ex.: csv" class="form-control form-control-sm" [(ngModel)]="app.algorithm.output.stdout.extention"
+                  />
                 </td>
               </tr>
             </tbody>

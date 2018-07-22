@@ -155,3 +155,29 @@ input:checked + .slider:before {
   text-align: center;
   margin: auto;
 }
+
+.open {
+  display: block;
+  max-height: 205px;
+  overflow-y: auto;
+}
+
+/* width */
+.open.dropdown-menu::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+.open.dropdown-menu::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+/* Handle */
+.open.dropdown-menu::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.open.dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

@@ -232,6 +232,8 @@ export class InvokeAppComponent implements OnInit, AfterViewInit {
           url = 'http://' + url;
         }
 
+        url = '/api/gethrv';
+
         promises.push(new Promise(
           (resolve, reject) => {
             let request;

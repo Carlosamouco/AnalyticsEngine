@@ -9,6 +9,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 import { AppDetailsComponent } from './app-details.component';
 import { UploadModalComponent } from './upload-modal/upload-modal.component';
@@ -26,6 +27,7 @@ import { UploadModalComponent } from './upload-modal/upload-modal.component';
     FormsModule,
     TooltipModule,
     TypeaheadModule,
+    BsDropdownModule,
     RouterModule
   ],
   bootstrap: [UploadModalComponent]

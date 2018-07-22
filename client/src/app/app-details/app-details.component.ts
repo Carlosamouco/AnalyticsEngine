@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
@@ -24,10 +24,16 @@ export class AppDetailsComponent implements OnInit {
   public parameters: Parameter[];
   public endpoints: Endpoint[];
 
+  public menuItems: String[];
+  public menuIndex: number;
+  public mouseOverMenu: boolean;
+  public showMenu: boolean;
+  public currentItem: any;
+  @ViewChild('selectFileMenu') public selectFileMenu: ElementRef;
+
   private copyFout: any;
   private copyParam: Parameter;
   private copyStream: any;
-  private copyApp: string;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private modalService: BsModalService) {
 
@@ -41,6 +47,11 @@ export class AppDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.menuIndex = 0;
+    this.menuItems = [];
+    this.mouseOverMenu = false;
+    this.showMenu = false;
+
     this.route.params.subscribe(params => {
       this.http.get<ApplicationDetails>(`/api/application/${params['appId']}/${params['versionId']}`)
         .subscribe((data) => {
@@ -50,6 +61,73 @@ export class AppDetailsComponent implements OnInit {
           this.prepareData(data);
         });
     });
+  }
+
+  public filterMenu(value, items) {
+    const str = value;
+    this.menuItems = [];
+
+    for (const item of items) {
+      if (item.match(new RegExp(str, 'i'))) {
+        this.menuItems.push(item);
+      }
+    }
+
+    this.menuIndex = this.menuIndex >= this.menuItems.length ? this.menuIndex = this.menuItems.length - 1 : this.menuIndex;
+    this.menuIndex = this.menuIndex < 0 ? 0 : this.menuIndex;
+  }
+
+  public menuNavigate(event, model) {
+    switch (event.key) {
+      case 'ArrowDown':
+        this.menuIndex = ++this.menuIndex % this.menuItems.length;
+        break;
+      case 'ArrowUp':
+        this.menuIndex = --this.menuIndex < 0 ? this.menuItems.length - 1 : this.menuIndex;
+        break;
+      case 'Enter':
+        model.default = this.menuItems[this.menuIndex];
+        event.target.blur();
+        break;
+    }
+
+    const elem = this.selectFileMenu.nativeElement;
+    const height = elem.clientHeight;
+    const top = elem.children[this.menuIndex].offsetTop + 32;
+    const itemHeight = elem.children[this.menuIndex].clientHeight;
+    const scroll = elem.scrollTop;
+
+    if (this.menuIndex === 0) {
+      elem.scrollTop = 0;
+    } else if (this.menuIndex === this.menuItems.length - 1) {
+      elem.scrollTop = elem.scrollHeight;
+    } else if (height + scroll < top) {
+      elem.scrollTop = scroll + itemHeight;
+    } else if (scroll > top - itemHeight) {
+      elem.scrollTop = scroll - itemHeight;
+    }
+  }
+
+  public openMenu(target, model, items) {
+    this.currentItem = model;
+    this.showMenu = true;
+
+    this.filterMenu(model.default ? model.default : '', items);
+
+    const elem = this.selectFileMenu.nativeElement;
+    elem.style.top = (target.getBoundingClientRect().top + window.scrollY + target.clientHeight + 3) + 'px';
+    elem.style.left = (target.getBoundingClientRect().left + window.scrollX) + 'px';
+  }
+
+  public hideMenu() {
+    if (!this.mouseOverMenu) {
+      this.showMenu = false;
+    }
+  }
+
+  public selectItem() {
+    this.currentItem.default = this.menuItems[this.menuIndex];
+    this.showMenu = false;
   }
 
   private prepareData(data) {

@@ -238,7 +238,7 @@ export class InvokeAppComponent implements OnInit {
               });
             } else {
               const headers = new HttpHeaders({
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF8',
+                'Content-Type': 'application/json; charset=UTF8',
               });
               request = this.http.post(url, params);
             }
@@ -345,7 +345,7 @@ export class InvokeAppComponent implements OnInit {
   }
 
   public downloadFile(fileData) {
-    const file = new File([fileData.value], fileData.key, {type: 'text/plain;charset=utf-8'});
+    const file = new File([fileData.value], fileData.key, { type: 'text/plain;charset=utf-8' });
     FileSaver.saveAs(file);
   }
 }
