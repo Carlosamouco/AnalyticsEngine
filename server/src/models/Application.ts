@@ -79,7 +79,6 @@ export enum ParameterType {
  *  static: Ignores values of the request and uses default values.
  *  localFile: If true, the values must refere to a name of a file present in the uploaded files.
  */
-
 const parameterSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -286,5 +285,8 @@ algorithmSchema.pre("validate", function validate(next) {
   next();
 });
 
+/**
+ * Mongoose model discribing the Application data fields and their constraints.
+ */
 const Application = mongoose.model("Application", appSchema);
 export default Application;

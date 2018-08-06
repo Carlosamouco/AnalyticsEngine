@@ -2,6 +2,9 @@ import { Request, Response, NextFunction } from "express";
 
 import { default as Endpoint, EndpointModel, EndpointParamModel } from "../../models/Endpoint";
 
+/**
+ * Updates the parameters of an Endpoint.
+ */
 export default async function postUpdateEndpointParams(req: Request, res: Response, next: NextFunction) {
   let existingEndpoint: EndpointModel;
 
@@ -55,6 +58,9 @@ export default async function postUpdateEndpointParams(req: Request, res: Respon
   }
 }
 
+/**
+ * Converts errors detected when saving the posted data to a JSON format that will be returned to the client as a response to the request reporting the operation result.
+ */
 function handleValidationError(err: any, res: any) {
   for (const property in err.errors) {
     if (err.errors.hasOwnProperty(property)) {

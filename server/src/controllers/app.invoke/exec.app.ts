@@ -6,7 +6,7 @@ import * as BPromise from "bluebird";
 import * as uuid from "uuid/v4";
 import * as unzip from "unzip";
 
-import { JsonParser } from "../json.parser/json.parsers";
+import { JsonParsers } from "../json.parser/json.parsers";
 import { default as Spawn } from "./spawn";
 import { AlgorithmModel, ParameterType, File } from "../../models/Application";
 import * as rimraf from "rimraf";
@@ -23,6 +23,9 @@ export type ProcessOutput = {
   files: string;
 };
 
+/**
+ * Class responsible for managing the execution environment of an application.
+ */
 export class ExecApp {
   private _appId: string;
   private _algorithm: AlgorithmModel;
@@ -44,26 +47,43 @@ export class ExecApp {
     this._mapping = {};
   }
 
+  /**
+   * Creates a temporary folder for the input files and compiles the argument vector of an applicaion based on the values provided by the client in the request.
+   * @param args Request aguments.
+   */
   public async compileArgs(args: Arguments) {
-    this._tempDir = await this._prepareFs(this._algorithm._id.toString());
+    this._tempDir = await this._prepareFs();
     this._compileCommand(this._appId, this._algorithm);
     await this._compileArgs(args);
   }
 
+  /**
+   * Deletes all folders inside a directory.
+   */
   public deleteTempFiles() {
     rimraf(`${this._tempDir}`, { "maxBusyTries": 5 }, (err) => {
       if (err) throw err;
     });
   }
 
+  /**
+   * Returns the path to the output directory of an application.
+   */
   public getOutputDir() {
     return this._tempDir;
   }
 
+  /**
+   * Returns the path to the directory that holds the input files of an application.
+   */
   public getTempFiles() {
     return this._tempFiles;
   }
 
+  /**
+   * Ends a set of write strems.
+   * @param streams List of Write Streams
+   */
   private _closeStreams(streams: fs.WriteStream[]) {
     return BPromise.map(streams, (stream) => {
       return new Promise((resolve, reject) => {
@@ -72,6 +92,10 @@ export class ExecApp {
     });
   }
 
+  /**
+   * Spawns a local process, redirecting the data of the stdout and stderr streams of an application to temporary files.
+   * @param timeout Max. allowed execution time.
+   */
   public spawnProcess(timeout: number) {
     const process = new Spawn(this._command, this._args, timeout, {
       cwd: this._cwd,
@@ -110,6 +134,13 @@ export class ExecApp {
     });
   }
 
+  /**
+   * Spawns a process inside a container. Prepares the request with all the input data and application files
+   * requerid to run the application remotly.
+   * A Write stream is created to hold the response of the container as a .zip file. The content is then extracted,
+   * it's verified if any error was reported by the container and the returned promise is then resolved.
+   * @param timeout Max. allowed time that the request to the containers has to be processed.
+   */
   public spawnRemoteProcess(timeout: number) {
     const zipFile = path.join(process.cwd(), "temp", `${uuid()}.zip`);
     const zipStream = fs.createWriteStream(zipFile);
@@ -132,29 +163,29 @@ export class ExecApp {
     };
 
     return new Promise<ProcessOutput | Error>((resolve, reject) => {
-      Sandbox.getInstance().run(zipStream, timeout, archive, request)
+      Sandbox.getInstance().run(zipStream, timeout, request)
         .then((code: number) => {
           const unzipStream = unzip.Extract({ path: this._tempDir });
           fs.createReadStream(zipFile).pipe(unzipStream);
           unzipStream.on("close", () => {
             fs.unlink(zipFile, (err) => {
               if (err) return reject(err);
-            });
 
-            fs.readFile(path.join(this._tempDir, "error"), "utf8", (err, data) => {
-              if (err) {
-                return reject(err);
-              }
+              fs.readFile(path.join(this._tempDir, "error"), "utf8", (err, data) => {
+                if (err) {
+                  return reject(err);
+                }
 
-              if (data.length > 0) {
-                return reject(data);
-              }
+                if (data.length > 0) {
+                  return reject(data);
+                }
 
-              resolve({
-                exit_code: code,
-                stdout: path.join(this._tempDir, "stdout"),
-                stderr: path.join(this._tempDir, "stderr"),
-                files: path.join(this._tempDir, "files")
+                resolve({
+                  exit_code: code,
+                  stdout: path.join(this._tempDir, "stdout"),
+                  stderr: path.join(this._tempDir, "stderr"),
+                  files: path.join(this._tempDir, "files")
+                });
               });
             });
           });
@@ -164,13 +195,23 @@ export class ExecApp {
           });
 
         })
-        .catch((err) => {
-          reject(err);
+        .catch((sErr: any) => {
+          zipStream.end(() => {
+            fs.unlink(zipFile, (err) => {
+              if (err) {
+                return reject(err);
+              }
+              return reject(sErr);
+            });
+          });
         });
     });
   }
 
-  private _prepareFs(algorithm_id: string) {
+  /**
+   * Creates the temporary folder where the input and output files of an apllication will be saved.
+   */
+  private _prepareFs() {
     const tempDir = path.join(process.cwd(), "temp", uuid());
 
     return new Promise<string>((resolve, reject) => {
@@ -184,6 +225,12 @@ export class ExecApp {
     });
   }
 
+  /**
+   * Prepares the command that will be executed. The command can be an application pre-installed on the system or a executable file.
+   * The process cwd is set to the directory where the input files are saved.
+   * @param appId ID of the application that will be executed.
+   * @param algorithm Application version configurations.
+   */
   private _compileCommand(appId: string, algorithm: AlgorithmModel) {
     const appDir = path.join(process.cwd(), "uploads", appId, algorithm._id.toString());
     const app = algorithm.entryApp.appName;
@@ -195,6 +242,11 @@ export class ExecApp {
     }
   }
 
+  /**
+   * Compiles the argument vectore that will be passed to the process when spawning it.
+   * Data of parameters of type File encoded in JSON are converted to file format and uploaded input files are moved to the input temporary folder.
+   * @param args Request argument values.
+   */
   private async _compileArgs(args: Arguments) {
     this._args = [];
 
@@ -234,7 +286,7 @@ export class ExecApp {
       }
       else /*if (param.type == ParameterType.File)*/ {
         const files: string[] = [];
-        const parser = await JsonParser.getInstance();
+        const parser = await JsonParsers.getInstance();
 
         for (const file of <(File | string)[]>values) {
           if (isString(file)) {
@@ -284,6 +336,11 @@ export class ExecApp {
     return Promise.all(promisses);
   }
 
+  /**
+   * Realocates a file to a diferent directory.
+   * @param file File to be moved.
+   * @param destination Destination Folder.
+   */
   private moveFile(file: Express.Multer.File, destination: string) {
     return new Promise((resolve, reject) => {
       fs.rename(file.path, destination, (error) => {
@@ -300,9 +357,13 @@ export class ExecApp {
     });
   }
 
+  /**
+   * Compiles the value of an argument that will be included in the argument vector.
+   * @param flag Flag of the parameter, e.g. --flag
+   * @param values value sended in the request for a given parameter by the client.
+   */
   private buildArg(flag: string, values: string[]) {
     let args: string[] = [];
-    const errors: any = {};
 
     if (flag) args.push(flag);
     args = args.concat(values);
@@ -310,6 +371,12 @@ export class ExecApp {
     return args;
   }
 
+  /**
+   * Writes some data present in the client request relative to a File parameter to a temporary file.
+   * @param fPath Path where the file will be created
+   * @param data Data to be written.
+   * @param encoding Encoding applied when writing the data.
+   */
   private creatTempFile(fPath: string, data: string, encoding: string) {
     return new Promise((resolve, reject) => {
       fs.writeFile(fPath, data, encoding, (err) => {

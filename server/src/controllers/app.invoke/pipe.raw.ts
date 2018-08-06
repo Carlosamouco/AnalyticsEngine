@@ -2,8 +2,11 @@ import * as fs from "fs";
 import { PipeOutput } from "./pipe.output";
 import { Response } from "express";
 
-import { FileParser } from "../file.parser/file.parsers";
+import { FileParsers } from "../file.parser/file.parsers";
 
+/**
+ * Pipes the data of the output files to the client.
+ */
 export class PipeRawOutput extends PipeOutput {
 
   private pipeRawFileData(fPath: string, encoding: string) {
@@ -23,12 +26,15 @@ export class PipeRawOutput extends PipeOutput {
   }
 }
 
+/**
+ * Pipes the data of the output files to the client in a JSON format. The file data is parsed before being piped.
+ */
 export class PipeParsedOutput extends PipeOutput {
-  private parser: FileParser;
+  private parser: FileParsers;
 
   constructor(res: Response) {
     super(res);
-    this.parser = FileParser.getInstance();
+    this.parser = FileParsers.getInstance();
   }
 
   private readFileData(fPath: string, encoding: string) {

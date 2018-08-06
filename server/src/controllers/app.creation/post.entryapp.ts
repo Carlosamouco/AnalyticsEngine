@@ -1,10 +1,14 @@
-import * as fs from "fs";
-import * as path from "path";
 import { Request, Response, NextFunction } from "express";
 
-import { isBool, isInteger, isString } from "../../utils";
+import { isBool } from "../../utils";
 import { default as Application, ApplicationModel } from "../../models/Application";
 
+/**
+ * Configures the command that shloud be executed when invoking an application.
+ * @param req Express Request.
+ * @param res Express Response.
+ * @param next Express NextFunction.
+ */
 export default async function postUpdateEntryApp(req: Request, res: Response, next: NextFunction) {
   const errors: string[] = [];
 
@@ -12,7 +16,7 @@ export default async function postUpdateEntryApp(req: Request, res: Response, ne
     errors.push("`entryApp.appName` not specified.");
   }
 
-  if (!isBool(req.body.entryApp.localFile) && req.body.entryApp.localFile) {
+  if (!req.body.entryApp || !isBool(req.body.entryApp.localFile) && req.body.entryApp.localFile) {
     errors.push("`entryApp.localFile` must be of type boolean.");
   }
   else {
@@ -80,6 +84,9 @@ export default async function postUpdateEntryApp(req: Request, res: Response, ne
   }
 }
 
+/**
+ * Handles errors detecting during the validation of the application command posted by the client.
+ */
 function handleValidationError(err: any, res: any) {
   for (const property in err.errors) {
     if (err.errors.hasOwnProperty(property)) {

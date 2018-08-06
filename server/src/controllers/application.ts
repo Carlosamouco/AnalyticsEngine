@@ -2,11 +2,14 @@ import { Request, Response, NextFunction } from "express";
 import * as mongoose from "mongoose";
 
 import { default as Application } from "../models/Application";
-import { Sandbox } from "../docker_sandbox/sandbox";
 
 export * from "./app.creation/";
 export * from "./app.invoke/";
 
+/**
+ * Get the base information about the installed aplications.
+ * If q (query) is specified only the matching applications are returned.
+ */
 export function getApplications(req: Request, res: Response, next: NextFunction) {
   Application.find({}, { algorithms: { $slice: -1 } })
     .select("author name description id algorithms._id algorithms.version algorithms.description algorithms.entryApp")
@@ -24,6 +27,11 @@ export function getApplications(req: Request, res: Response, next: NextFunction)
     });
 }
 
+/**
+ * Checks if a list of worlds contain a set of tockens.
+ * @param names Words to be matched.
+ * @param tokens Tockens that the worlds must contain.
+ */
 function containsSubstr(names: string[], tokens: string[]) {
   for (const name of names) {
     for (let i = 0; i < tokens.length; ++i) {
@@ -35,6 +43,9 @@ function containsSubstr(names: string[], tokens: string[]) {
   return tokens.length === 0;
 }
 
+/**
+ * Gets all the information about a specific application.
+ */
 export function getApplication(req: Request, res: Response, next: NextFunction) {
   Application.find({ _id: req.params.app_id })
     .select("-__v")
@@ -47,6 +58,9 @@ export function getApplication(req: Request, res: Response, next: NextFunction) 
     });
 }
 
+/**
+ * Gets all the information about a specific version of an application, including associated endpoints.
+ */
 export function getApplicationVersion(req: Request, res: Response, next: NextFunction) {
   Application.aggregate([
     { $match: { _id: mongoose.Types.ObjectId(req.params.app_id), "algorithms._id": mongoose.Types.ObjectId(req.params.version_id) } },

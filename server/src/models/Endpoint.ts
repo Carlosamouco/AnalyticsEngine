@@ -47,10 +47,13 @@ endpointSchema.pre("remove", function (next) {
   },
     { $unset: { "algorithms.$[].parameters.$[].options.endpointId": 1 } },
     { multi: true },
-    (res: any, res2: any) => {
+    () => {
       next();
     });
 });
 
+/**
+ * Mongoose model discribing the Endpoint data fields and their constraints.
+ */
 const Endpoint = mongoose.model("Endpoint", endpointSchema);
 export default Endpoint;

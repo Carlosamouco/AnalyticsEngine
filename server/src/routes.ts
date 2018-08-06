@@ -1,11 +1,14 @@
-import { Express, Request, Response, NextFunction } from "express";
+import { Express } from "express";
 import * as multer from "multer";
 
-// Controllers (route handlers)
 import * as applicationControler from "./controllers/application";
 import * as endpointControler from "./controllers/endpoint";
 import * as sandboxControler from "./controllers/sandbox";
 
+/**
+ * Sets up all the server routes. Public routes must strat with '/api' because of the NGINX server.
+ * @param app  Express app variable.
+ */
 export function setup(app: Express) {
   const upload = multer({ dest: "./temp/" });
 
@@ -25,8 +28,8 @@ export function setup(app: Express) {
   app.post("/api/create/entry", applicationControler.postUpdateEntryApp);
   app.post("/api/create/output", applicationControler.postUpdateOutput);
 
-  app.post("/api/invoke/", applicationControler.invokeAlgorithm);
-  app.post("/api/invoke/form",  upload.array("files"), applicationControler.invokeAlgorithmFormData);
+  app.post("/api/invoke", applicationControler.invokeAlgorithm);
+  app.post("/api/invoke/form", upload.array("files"), applicationControler.invokeAlgorithmFormData);
 
   app.get("/api/applications", applicationControler.getApplications);
   app.get("/api/application/:app_id/:version_id", applicationControler.getApplicationVersion);
@@ -40,10 +43,6 @@ export function setup(app: Express) {
 
   app.post("/api/delete/endpoint", endpointControler.postDeleteEndpoint);
   app.post("/api/update/endpoint", endpointControler.postUpdateEndpoint);
-
-  app.post("/api/gethrv", (req: Request, res: Response, next: NextFunction) => {
-    res.sendFile(process.cwd() + "/event372_teste.json");
-  });
 
   app.post("/api/test", applicationControler.testAlgorithm);
 }

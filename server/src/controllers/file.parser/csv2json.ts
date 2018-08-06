@@ -2,6 +2,10 @@ import * as Papa from "papaparse";
 import { FileOutputParser } from "./file.output.parser";
 
 export class Parser implements FileOutputParser {
+  /**
+   * Converts a string with some file content to JSON string.
+   * @param data CSV file data to be converted.
+   */
   public parse(data: string) {
     if (data[data.length - 1] === "\n") {
       data = data.slice(0, -1);
@@ -13,7 +17,7 @@ export class Parser implements FileOutputParser {
     if (obj.errors.length > 0) {
       throw obj.errors;
     }
-    return JSON.stringify(obj.data);
+    return obj.data;
   }
 }
 

@@ -3,7 +3,12 @@ import { isArray, isString } from "util";
 
 import { default as Application, ApplicationModel, ParameterModel, ParameterType, OutputModel } from "../../models/Application";
 
-
+/**
+ * Configures the output files of an application.
+ * @param req Express Request
+ * @param res Express Response
+ * @param next Express NextFucntion
+ */
 export default async function postUpdateOutput(req: Request, res: Response, next: NextFunction) {
   let existingApp: ApplicationModel;
 
@@ -52,6 +57,9 @@ export default async function postUpdateOutput(req: Request, res: Response, next
   return res.json({ app });
 }
 
+/**
+ * Handles errors detecting during the validation of the application output files configurations posted by the client.
+ */
 function handleValidationError(err: any, res: any) {
   for (const property in err.errors) {
     if (err.errors.hasOwnProperty(property)) {

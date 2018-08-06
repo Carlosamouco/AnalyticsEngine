@@ -3,6 +3,9 @@ import { Request, Response, NextFunction } from "express";
 import { default as Endpoint, EndpointModel } from "../../models/Endpoint";
 import { isString } from "util";
 
+/**
+ * Adds a new endpoint providing the basic information.
+ */
 export async function postCreateEndpoint(req: Request, res: Response, next: NextFunction) {
   const errors: string[] = [];
 
@@ -81,6 +84,9 @@ export async function postDeleteEndpoint(req: Request, res: Response, next: Next
   }
 }
 
+/**
+ * Updates an endpoint basic information.
+ */
 export async function postUpdateEndpoint(req: Request, res: Response, next: NextFunction) {
   const errors: string[] = [];
 

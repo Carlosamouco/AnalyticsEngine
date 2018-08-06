@@ -6,30 +6,36 @@ import * as Docker from "dockerode";
 
 import { Job } from "./job";
 
-//  let fs      = require('fs-extra')
-//  let log     = require('winston')
-
-/*
+/**
  * A class representing a Docker container.
  *
  * The "instance" field corresponds to a Dockerode container instance
  */
 export default class Container {
+  /**
+   * Indicates whether the container was deleted or not.
+   */
   private cleanedUp: boolean;
+  /**
+   * Container's IP adress.
+   */
   private ip: string;
-  private id: string;
 
+  /**
+   * Docker Container.
+   */
   public vm: Docker.Container;
 
-  constructor(id: string, instance: Docker.Container) {
-    this.id = id;
+  constructor(instance: Docker.Container) {
     this.vm = instance;
     this.ip = "";
     this.cleanedUp = false;
   }
 
-  /*
+  /**
    * Executes a job inside the container
+   * @param job Job to be executed inside the container.
+   * @returns Returnes a Promise when the request to the container as terminated.
    */
   public async executeJob(job: Job) {
     const options = {
@@ -67,6 +73,9 @@ export default class Container {
     return this.ip;
   }
 
+  /**
+   * Gets the container's IP adress.
+   */
   public getNewIp() {
     return new Promise((resolve, reject) => {
       this.vm.inspect((err: any, data: any) => {
@@ -80,9 +89,10 @@ export default class Container {
     });
   }
 
-  /*
-  * Cleans up the resources used by the container.
-  */
+  /**
+   * Cleans up the resources used by the container.
+   * @param ignore Igores an error callback.
+   */
   public cleanup(ignore: boolean = false) {
     if (this.cleanedUp === true) {
       return new Promise((resolve) => {

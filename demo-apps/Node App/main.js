@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 if (process.argv.length < 5) {
-    console.log(`Usage: ${rocess.argv[0]} ${rocess.argv[1]} <File> <Encoding> <OutDir>`);
+    console.log(`Usage: ${process.argv[0]} ${process.argv[1]} <File> <Encoding> <OutDir>`);
 }
 
 test(process.argv[2], process.argv[3], process.argv[4]);

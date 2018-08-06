@@ -11,7 +11,10 @@ type Arguments = {
   [key: string]: any
 };
 
-
+/**
+ * Sets the default execution options before invoking an application.
+ * @param req Client request data which contains parameters and options.
+ */
 function setDefaults(req: InvokeModel) {
   req.options = <any>req.options || {};
   req.options.output = <any>req.options.output || {};
@@ -25,6 +28,10 @@ function setDefaults(req: InvokeModel) {
   req.args = <any>req.args || [];
 }
 
+/**
+ * Validate the data types of the options filed in a client execution request.
+ * @param req Client request with the parameters and execution options.
+ */
 function validateDataTypes(req: InvokeModel) {
   const errors: any = {};
 
@@ -65,6 +72,13 @@ function validateDataTypes(req: InvokeModel) {
   return errors;
 }
 
+/**
+ * Manages error mesagens to be returned to the client detected in the execution request.
+ * @param errObj Object that contains all errors where the new error will be added.
+ * @param msg Error message.
+ * @param key Key where the error message will be added.
+ * @param value Input value provided by the client that originated the request.
+ */
 function addError(errObj: any, msg: string, key: string, value?: any) {
   if (!errObj[key]) {
     errObj[key] = { messages: [msg], value: value };
@@ -74,6 +88,13 @@ function addError(errObj: any, msg: string, key: string, value?: any) {
   }
 }
 
+/**
+ * Validates the provided parameters and their format and values on a execution request of an application.
+ * @param parameters Configured parameters information.
+ * @param args Arguments and their values provided in the client request.
+ * @param files Files uploaded during the configuration phase.
+ * @param uploads List of files uploaded to be passed to the application.
+ */
 function validateParamConstraints(parameters: ParameterModel[], args: Arguments, files: string[], uploads: Express.Multer.File[]) {
   const errors: any = {};
 
@@ -169,6 +190,12 @@ function validateParamConstraints(parameters: ParameterModel[], args: Arguments,
   return errors;
 }
 
+/**
+ * Validates the data provided on a request to execut a given application.
+ * @param req Express Request.
+ * @param res Express Response.
+ * @param next Express NextFunction.
+ */
 export async function preInvokeAlgorithm(req: Request, res: Response, next: NextFunction) {
   const call = <InvokeModel>req.body;
   const uploads = <Express.Multer.File[]>req.files;

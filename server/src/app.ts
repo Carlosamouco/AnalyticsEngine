@@ -1,5 +1,5 @@
 import * as express from "express";
-import * as compression from "compression";  // compresses requests
+import * as compression from "compression";
 import * as session from "express-session";
 import * as bodyParser from "body-parser";
 import * as logger from "morgan";
@@ -9,9 +9,6 @@ import * as mongo from "connect-mongo";
 import * as mongoose from "mongoose";
 import * as passport from "passport";
 import * as bluebird from "bluebird";
-import * as fs from "fs";
-import * as path from "path";
-
 import * as routes from "./routes";
 import { Sandbox } from "./docker_sandbox/sandbox";
 import { Parsers } from "./controllers/parsers";
@@ -20,7 +17,6 @@ process.umask(0);
 
 dotenv.config({ path: ".env.example" });
 
-// Connect to MongoDB
 const mongoUrl = process.env.MONGOLAB_URI;
 (<any>mongoose).Promise = bluebird;
 
@@ -32,14 +28,13 @@ mongoose.connect(mongoUrl).catch(err => {
 const MongoStore = mongo(session);
 
 Sandbox.getInstance({ poolSize: 1 });
+
 Parsers.getInstance().catch((err) => {
   console.warn("Failed to load some plugins." + err);
 });
 
-// Create Express server
 const app = express();
 
-// Express configuration
 app.set("port", process.env.PORT || 3000);
 app.use(compression());
 app.use(logger("dev"));

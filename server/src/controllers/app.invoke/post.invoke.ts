@@ -4,7 +4,7 @@ import { ExecApp, ProcessOutput } from "./exec.app";
 import { preInvokeAlgorithm } from "./pre.invoke";
 
 import * as mongoose from "mongoose";
-import { AlgorithmModel, default as Application } from "../../models/Application";
+import { default as Application } from "../../models/Application";
 
 type Arguments = {
   [key: string]: any
@@ -35,6 +35,12 @@ export enum OutputMode {
   ParsedS = "1"
 }
 
+/**
+ * Application invoke handler for multipart/form-data requests.
+ * @param req Express Request
+ * @param res Express Response
+ * @param next Express NextFunction
+ */
 export async function invokeAlgorithmFormData(req: Request, res: Response, next: NextFunction) {
   req.body.args = JSON.parse(req.body.args);
   req.body.options = JSON.parse(req.body.options);
@@ -42,10 +48,14 @@ export async function invokeAlgorithmFormData(req: Request, res: Response, next:
   invokeAlgorithm(req, res, next);
 }
 
+/**
+ * Tests the perfomance of the system with multiple applications running at the same time.
+ * Handler for testing porpouse only.
+ */
 export async function testAlgorithm(req: Request, res: Response, next: NextFunction) {
   let existingApp: any;
-  const appId = req.body.app_id ? req.body.app_id : "5b2e95acd6e1df02393fe08a";
-  const algorithmId = req.body.version_id ? req.body.version_id : "5b2e95b3d6e1df02393fe08b";
+  const appId = req.body.app_id;
+  const algorithmId = req.body.version_id;
   const repNumb = req.body.num ? req.body.num : 1;
   const mode = req.body.mode ? req.body.mode : "0";
 
@@ -105,8 +115,12 @@ export async function testAlgorithm(req: Request, res: Response, next: NextFunct
   });
 }
 
-
-
+/**
+ * Handles a request of a client to invoke an application. The data is validated and a process is spawn according to the execution options.
+ * @param req Express Request.
+ * @param res Express Response.
+ * @param next Express NextFunction.
+ */
 export async function invokeAlgorithm(req: Request, res: Response, next: NextFunction) {
   const data = await preInvokeAlgorithm(req, res, next);
 
@@ -128,6 +142,7 @@ export async function invokeAlgorithm(req: Request, res: Response, next: NextFun
     }
   }
   catch (err) {
+    app.deleteTempFiles();
     return res.json({ "Fatal Error": err.toString() });
   }
 

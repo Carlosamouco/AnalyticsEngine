@@ -1,8 +1,9 @@
 import { FileInputParser } from "./file.input.parser";
 
 export class Parser implements FileInputParser {
-  private _lastLineData: string;
-
+  /**
+   * Parses JSON to a string of RR format.
+   */
   public parse(intervals: any) {
     let res = "";
 

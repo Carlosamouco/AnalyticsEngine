@@ -5,6 +5,9 @@ import { default as Endpoint } from "../models/Endpoint";
 
 export * from "./endpoint.creation/";
 
+/**
+ * Returns a list with the basic information about the available endpoints of the system.
+ */
 export function getEndpoints(req: Request, res: Response, next: NextFunction) {
   Endpoint.find({})
     .select("url description method")
@@ -14,6 +17,9 @@ export function getEndpoints(req: Request, res: Response, next: NextFunction) {
     });
 }
 
+/**
+ * Returns all the information about a specific endpoint.
+ */
 export function getEndpoint(req: Request, res: Response, next: NextFunction) {
   try {
     Endpoint.find({ _id: req.params.endpoint_id })

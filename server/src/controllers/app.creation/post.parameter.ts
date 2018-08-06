@@ -1,8 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 
-import { isBool, isInteger, isString } from "../../utils";
 import { default as Application, ApplicationModel, ParameterModel, ParameterType, File } from "../../models/Application";
 
+/**
+ * Configures the parameters of a given application version.
+ * @param req Express Request
+ * @param res Express Response
+ * @param next Express NenxFunction
+ */
 export default async function postUpdateParameters(req: Request, res: Response, next: NextFunction) {
   let existingApp: ApplicationModel;
 
@@ -25,7 +30,6 @@ export default async function postUpdateParameters(req: Request, res: Response, 
     req.body.parameters = req.body.parameters ? req.body.parameters : [];
 
     if (req.body.parameters instanceof Array) {
-      const errors: any[] = [];
       let pos: number = 0;
 
       req.body.parameters.forEach((parameter: ParameterModel) => {
@@ -64,6 +68,11 @@ export default async function postUpdateParameters(req: Request, res: Response, 
   }
 }
 
+/**
+ * Sets the default values for a set of filed for a given parameter
+ * @param parameter Parameter model.
+ * @param pos Parameter position in the argument vector.
+ */
 function paramSetDefaults(parameter: ParameterModel, pos: number) {
   parameter.type = parameter.type == undefined ? ParameterType.Primitive : parameter.type;
   parameter.position = pos;
@@ -72,6 +81,9 @@ function paramSetDefaults(parameter: ParameterModel, pos: number) {
   parameter.options.required = parameter.options.required || false;
 }
 
+/**
+ * Handles error detected during the validation of the data posted by the client when configuring the application parameters
+ */
 function handleValidationError(err: any, res: any) {
   for (const property in err.errors) {
     if (err.errors.hasOwnProperty(property)) {
@@ -85,7 +97,12 @@ function handleValidationError(err: any, res: any) {
   }
 }
 
-
+/**
+ * Checks the parameters configured contraints for error detection.
+ * @param params List of parameters and their configurations.
+ * @param res Object where errors are written to be then returned to the client.
+ * @param files List of uploaded files.
+ */
 function checkParamConstraints(params: ParameterModel[], res: any, files?: string[]) {
   for (let i = 0; i < params.length; i++) {
     const err = validateParamConstraints(params[i], files);
@@ -100,6 +117,11 @@ function checkParamConstraints(params: ParameterModel[], res: any, files?: strin
   }
 }
 
+/**
+ * Validates the configurations defined for a given parameter.
+ * @param param Parameter Model.
+ * @param files Uploaded Files.
+ */
 function validateParamConstraints(param: ParameterModel, files?: string[]) {
   const errors: any = { "": { messages: [], value: param } };
 

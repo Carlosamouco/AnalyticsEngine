@@ -1,9 +1,13 @@
 import { Request, Response, NextFunction } from "express";
-import { isArray, isString } from "util";
 
 import { default as Application, ApplicationModel, ParameterModel, ParameterType, OutputModel } from "../../models/Application";
 
-
+/**
+ * Configures the output streams of an application. The data is saved on the database after validation.
+ * @param req Express Request.
+ * @param res Express Response.
+ * @param next Express NextFunction.
+ */
 export default async function postCreateStreams(req: Request, res: Response, next: NextFunction) {
   let existingApp: ApplicationModel;
 
@@ -22,8 +26,15 @@ export default async function postCreateStreams(req: Request, res: Response, nex
     return elem._id == req.body.version_id;
   });
 
-  algorithm.output.stderr = req.body.stderr;
-  algorithm.output.stdout = req.body.stdout;
+  if (req.body.stderr) {
+    req.body.stderr.alias = req.body.stderr.alias ? req.body.stderr.alias : algorithm.output.stderr.alias;
+    algorithm.output.stderr = req.body.stderr;
+  }
+
+  if (req.body.stdout) {
+    req.body.stdout.alias = req.body.stdout.alias ? req.body.stdout.alias : algorithm.output.stdout.alias;
+    algorithm.output.stdout = req.body.stdout;
+  }
 
   const resObj: any = {};
 
@@ -52,6 +63,9 @@ export default async function postCreateStreams(req: Request, res: Response, nex
   return res.json({ app });
 }
 
+/**
+ * Handles the errors that where detected when sending the request to the server.
+ */
 function handleValidationError(err: any, res: any) {
   for (const property in err.errors) {
     if (err.errors.hasOwnProperty(property)) {

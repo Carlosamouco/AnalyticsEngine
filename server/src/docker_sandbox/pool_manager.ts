@@ -1,17 +1,37 @@
 import * as _ from "lodash";
-import * as async from "async";
 import * as Docker from "dockerode";
 import * as uuid from "uuid/v4";
 
 import { default as Container } from "./container";
 import { Job } from "./job";
 
+/**
+ * Class responsible for managing a pool of containers. Does CRD operations over a set of containers.
+ */
 export default class PoolManager {
+  /**
+   * Jobs in queue to be performed when a contianer is available.
+   */
   private waitingJobs: Job[];
+  /**
+   * Containers ready to receive requests.
+   */
   private availableContainers: Container[];
+  /**
+   * Containers in booting process.
+   */
   private bootingContainers: Container[];
+  /**
+   * Containers registered when ready after booting.
+   */
   private registeredContainers: string[];
+  /**
+   * Docker API manager.
+   */
   private docker: Docker;
+  /**
+   * Container booting options.
+   */
   private options: any;
 
   constructor(docker: Docker, options: Docker.ContainerCreateOptions) {
@@ -23,12 +43,9 @@ export default class PoolManager {
     this.options = options;
   }
 
-  /*
+  /**
    * Start a number of containers equals to the size of the pool.
-   *
-   * After creating the containers, the call to the user callback will be
-   * intentionally delayed to give the containers the time to initialize and be
-   * ready
+   * @param size Number of containers of the pool.
    */
   public initialize(size: number) {
     if (size <= 0)
@@ -43,8 +60,9 @@ export default class PoolManager {
     return Promise.all(promises);
   }
 
-  /*
+  /**
    * Asynchronously runs a job in the pool.
+   * @param job Job to be executed.
    */
   public executeJob(job: Job) {
     if (_.isEmpty(this.availableContainers)) {
@@ -55,10 +73,10 @@ export default class PoolManager {
     }
   }
 
-  /*
-   * Private method.
+  /**
    * Assumes there is at least one container available, and runs
    * the job in it
+   * @param job Job to be executed.
    */
   private async _executeJob(job: Job) {
     if (_.isEmpty(this.availableContainers))
@@ -104,8 +122,7 @@ export default class PoolManager {
   }
 
 
-  /*
-   * Private method
+  /**
    * Initializes a new container and adds it to the pool
    *
    * 1) Create the container
@@ -138,24 +155,23 @@ export default class PoolManager {
   }
 
 
-  /*
-   * Private method
+  /**
    * Initializes a new container
    */
   private _initializeContainer() {
     return new Promise((resolve, reject) => {
       this.docker.createContainer(this.options, (err, instance) => {
         if (err) return reject(err);
-        const container = new Container(uuid(), instance);
+        const container = new Container(instance);
         this.bootingContainers.push(container);
         resolve(container);
       });
     });
   }
 
-  /*
-   * Private method
+  /**
    * Starts the specified container
+   * @param container Container to be booted.
    */
   private _startContainer(container: Container) {
     return new Promise((resolve, reject) => {
@@ -168,15 +184,20 @@ export default class PoolManager {
     });
   }
 
-  /*
-   * Private method
-   * Retrieves info of a container
+  /**
+   * Retrieves info of a container.
+   * @param container Container of where the info will be retrived.
    */
   private _getContainerInfo(container: Container) {
     return container.getNewIp();
   }
 
 
+  /**
+   * Informes that a container is ready to receive requests.
+   * The new booted conteiner is then added to the pool.
+   * @param ip IP of the new ready container.
+   */
   public registerContainer(ip: string) {
     const container: Container = this.bootingContainers.find((c) => {
       return c.getIp() === ip;
@@ -190,8 +211,9 @@ export default class PoolManager {
     }
   }
 
-  /*
-   * Registers a container to the pool
+  /**
+   * Registers a container to the pool.
+   * @param container Newly booted container.
    */
   private _registerContainer(container: Container) {
     const index = this.bootingContainers.indexOf(container);

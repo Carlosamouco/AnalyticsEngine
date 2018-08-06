@@ -3,10 +3,15 @@ import * as path from "path";
 import { Request, Response, NextFunction } from "express";
 import * as rimraf from "rimraf";
 
-import { isString, mkdirsSync } from "../../utils/utils";
+import { isString } from "../../utils/utils";
 import { default as Application, ApplicationModel, AlgorithmModel } from "../../models/Application";
 
-
+/**
+ * Creates a new application based on name, author and description. The data is validated, saved in mongoDB and returned to the client.
+ * @param req Express client request.
+ * @param res Express client response.
+ * @param next Express NextFunction for error handling.
+ */
 export async function postCreateApp(req: Request, res: Response, next: NextFunction) {
   const errors: string[] = [];
 
@@ -52,6 +57,12 @@ export async function postCreateApp(req: Request, res: Response, next: NextFunct
   return res.json(resApp);
 }
 
+/**
+ * Updates an application name, author and description. The data is validated, saved in mongoDB and returned to the client.
+ * @param req Express client request.
+ * @param res Express client response.
+ * @param next Express NextFunction for error handling.
+ */
 export async function postUpdateApp(req: Request, res: Response, next: NextFunction) {
   const errors: string[] = [];
 
@@ -113,6 +124,12 @@ export async function postUpdateApp(req: Request, res: Response, next: NextFunct
   }
 }
 
+/**
+ * Deletes an application based on its ID. The operation is saved in mongoDB and the deleted application is returned to the client.
+ * @param req Express client request.
+ * @param res Express client response.
+ * @param next Express NextFunction for error handling.
+ */
 export async function postDeleteApp(req: Request, res: Response, next: NextFunction) {
   const errors: string[] = [];
 
@@ -155,6 +172,12 @@ export async function postDeleteApp(req: Request, res: Response, next: NextFunct
   }
 }
 
+/**
+ * Creates a new application version (algorithm) in a given application based on its ID. The data is validated, saved in mongoDB and returned to the client.
+ * @param req Express client request.
+ * @param res Express client response.
+ * @param next Express NextFunction for error handling.
+ */
 export async function postCreatAlgorithm(req: Request, res: Response, next: NextFunction) {
   const errors: string[] = [];
 
@@ -223,6 +246,12 @@ export async function postCreatAlgorithm(req: Request, res: Response, next: Next
   }
 }
 
+/**
+ * Updates an application version (algorithm) basic information in a given application based on its ID. The data is validated, saved in mongoDB and returned to the client.
+ * @param req Express client request.
+ * @param res Express client response.
+ * @param next Express NextFunction for error handling.
+ */
 export async function postUpdateAlgorithm(req: Request, res: Response, next: NextFunction) {
   const errors: string[] = [];
 
@@ -249,14 +278,14 @@ export async function postUpdateAlgorithm(req: Request, res: Response, next: Nex
   let existingApp: ApplicationModel;
 
   try {
-    existingApp = <ApplicationModel>(await Application.findOne({ _id: req.body.app_id }));
+    existingApp = <ApplicationModel>(await Application.findOne({ _id: req.body.app_id, "algorithms._id": req.body.version_id }));
   }
   catch (err) {
     return next(err);
   }
 
   if (!existingApp) {
-    return res.status(400).json({ errors: ["There is no application with the specified id."] });
+    return res.status(400).json({ errors: ["`app_id` and/or `algorithms.id` are non registered."] });
   }
   else {
     const existingAlgo = existingApp.algorithms.find((elem) => {
@@ -291,6 +320,12 @@ export async function postUpdateAlgorithm(req: Request, res: Response, next: Nex
   }
 }
 
+/**
+ * Delets an application version (algorithm). The operation is saved in mongoDB and the deleted application is returned to the client.
+ * @param req Express client request.
+ * @param res Express client response.
+ * @param next Express NextFunction for error handling.
+ */
 export async function postDeleteAlgorithm(req: Request, res: Response, next: NextFunction) {
   const errors: string[] = [];
 

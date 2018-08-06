@@ -10,7 +10,12 @@ import * as uuid from "uuid/v4";
 import { default as Application, ApplicationModel, AlgorithmModel } from "../../models/Application";
 import { isBool, mkdirsSync } from "../../utils";
 
-
+/**
+ * Uploads application files to the system. The uploaded files are recorded in the database.
+ * @param req Express Request
+ * @param res Express Response
+ * @param next Express NextFunction
+ */
 export default async function postUpload(req: Request, res: Response, next: NextFunction) {
   const errors: string[] = [];
 
@@ -84,6 +89,12 @@ export default async function postUpload(req: Request, res: Response, next: Next
   }
 }
 
+/**
+ * Moves application files to a directory where the application will be installed.
+ * Compressed Files are decompressed to the destination directory.
+ * @param files Files uploaded.
+ * @param fPath Destination directory.
+ */
 function moveFiles(files: Express.Multer.File[], fPath: string) {
   const extentions = [".zip", ".gz", ".bz2", ".tgz", ".tar"];
 
@@ -91,7 +102,7 @@ function moveFiles(files: Express.Multer.File[], fPath: string) {
     return new Promise((resolve, reject) => {
       fs.rename(file.path, path.join(fPath, file.originalname), (error) => {
         if (error) {
-          fs.unlink(file.path, (rr) => {
+          fs.unlink(file.path, () => {
             return reject(error);
           });
         }
@@ -122,6 +133,10 @@ function moveFiles(files: Express.Multer.File[], fPath: string) {
   });
 }
 
+/**
+ * Deletes all files inside a given directory.
+ * @param dir Directory to be emptied.
+ */
 function emptyDir(dir: string) {
   return new Promise((resolve, reject) => {
     rimraf(`${dir}/*`, function (err) {
@@ -131,6 +146,10 @@ function emptyDir(dir: string) {
   });
 }
 
+/**
+ * Deletes a set of temporary uploaded files that are no longer necessary.
+ * @param files Files to be deleted.
+ */
 function deleteFiles(files: Express.Multer.File[]) {
   return promises.map(files, (file) => {
     new Promise((resolve, reject) => {
@@ -142,6 +161,14 @@ function deleteFiles(files: Express.Multer.File[]) {
   });
 }
 
+/**
+ * Saves a reference to the uploaded files in the database Model.
+ * Also sets execution permissions to the uploaded files so that an application can be executed in the future.
+ * @param existingApp Application Configurations.
+ * @param algorithm Application Version Configurations.
+ * @param files Application uploaded files.
+ * @param options Upload Options.
+ */
 function updateAlgorithmFiles(existingApp: ApplicationModel, algorithm: AlgorithmModel, files: string[][], options: { override: boolean }) {
   const promises = [];
 
@@ -172,6 +199,10 @@ function updateAlgorithmFiles(existingApp: ApplicationModel, algorithm: Algorith
   return Promise.all(promises);
 }
 
+/**
+ * Verifies if a file path corresponds to a directory or not.
+ * @param fPath File path to be tested.
+ */
 function isDir(fPath: string): boolean {
   if (fPath.slice(-1) === path.sep) {
     return true;
@@ -179,6 +210,12 @@ function isDir(fPath: string): boolean {
   return false;
 }
 
+/**
+ * Creates an archive with all the files upload of an application.
+ * This archive is send in a invokation request to a container to run the application remotly.
+ * @param source Root folder that holds the application files.
+ * @param dest Destination folder.
+ */
 function archiveAppFiles(source: string, dest: string) {
   return new Promise((resolve, reject) => {
     fs.unlink(path.join(dest, "app_files.tar"), (err) => {
