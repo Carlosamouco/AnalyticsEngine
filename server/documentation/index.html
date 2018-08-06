@@ -1,0 +1,1027 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>express-typescript-starter</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">express-typescript-starter</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> express-typescript-starter</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="typescript-node-starter">TypeScript Node Starter</h1>
+				<p><a href="https://david-dm.org/Microsoft/TypeScript-Node-Starter"><img src="https://david-dm.org/Microsoft/TypeScript-Node-Starter.svg" alt="Dependency Status"></a> <a href="https://travis-ci.org/Microsoft/TypeScript-Node-Starter"><img src="https://travis-ci.org/Microsoft/TypeScript-Node-Starter.svg?branch=master" alt="Build Status"></a> </p>
+				<h1 id="pre-reqs">Pre-reqs</h1>
+				<ul>
+					<li>Install <a href="https://nodejs.org/en/">Node.js</a></li>
+					<li>Install <a href="https://docs.mongodb.com/manual/installation/">MongoDB</a></li>
+					<li>Install <a href="https://code.visualstudio.com/">VS Code</a></li>
+				</ul>
+				<h1 id="getting-started">Getting started</h1>
+				<ul>
+					<li>Clone the repository<pre><code>git <span class="hljs-keyword">clone</span> <span class="hljs-title">--depth</span>=<span class="hljs-number">1</span> https://github.com/Microsoft/TypeScript-<span class="hljs-keyword">Node</span><span class="hljs-title">-Starter</span>.git <span class="hljs-tag">&lt;project_name&gt;</span>
+</code></pre></li>
+					<li>Install dependencies<pre><code><span class="hljs-keyword">cd</span> <span class="hljs-symbol">&lt;project_name&gt;</span>
+npm install
+</code></pre></li>
+					<li>Configure your mongoDB server<pre><code><span class="hljs-comment"># create the db directory</span>
+sudo mkdir -p <span class="hljs-regexp">/data/</span>db
+<span class="hljs-comment"># give the db correct read/write permissions</span>
+sudo chmod <span class="hljs-number">777</span> <span class="hljs-regexp">/data/</span>db
+</code></pre></li>
+					<li>Start your mongoDB server (you&#39;ll probably want another command prompt)<pre><code><span class="hljs-attribute">mongod</span>
+</code></pre></li>
+					<li>Build and run the project<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> build
+</span>npm start
+</code></pre>Navigate to <code>http://localhost:3000</code></li>
+				</ul>
+				<h1 id="typescript-node">TypeScript + Node</h1>
+				<p>The main purpose of this repository is to show a good end-to-end project setup and workflow for writing Node code in TypeScript.
+				I will try to keep this as up-to-date as possible, but community contributions and recommendations for improvements are encouraged and will be most welcome. </p>
+				<p>In the next few sections I will call out everything that changes when adding TypeScript to an Express project.
+				Note that all of this has already been setup for this project, but feel free to use this as a reference for converting other Node.js project to TypeScript.</p>
+				<blockquote>
+					<p><strong>Note on editors!</strong> - TypeScript has great support in <a href="http://www.typescriptlang.org/index.html#download-links">every editor</a>, but this project has been pre-configured for use with <a href="https://code.visualstudio.com/">VS Code</a>.
+					Throughout the README I&#39;ll try to call out specific places where VS code really shines or where this project has been setup to take advantage of specific features.</p>
+				</blockquote>
+				<h2 id="getting-typescript">Getting TypeScript</h2>
+				<p>TypeScript itself is simple to add to any project with <code>npm</code>.</p>
+				<pre><code>npm <span class="hljs-keyword">install</span> -D typescript
+</code></pre><p>If you&#39;re using VS Code then you&#39;re good to go!
+					VS Code will detect and use the TypeScript version you have installed in your <code>node_modules</code> folder.
+				For other editors, make sure you have the corresponding <a href="http://www.typescriptlang.org/index.html#download-links">TypeScript plugin</a>. </p>
+				<h2 id="project-structure">Project Structure</h2>
+				<p>The most obvious difference in a TypeScript + Node project is the folder structure.
+					In a TypeScript project, it&#39;s best to have separate <em>source</em>  and <em>distributable</em> files.
+					TypeScript (<code>.ts</code>) files live in your <code>src</code> folder and after compilation are output as JavaScript (<code>.js</code>) in the <code>dist</code> folder.
+				The <code>test</code> and <code>views</code> folders remain top level as expected. </p>
+				<p>The full folder structure of this app is explained below:</p>
+				<blockquote>
+					<p><strong>Note!</strong> Make sure you have already built the app using <code>npm run build</code></p>
+				</blockquote>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><strong>.vscode</strong></td>
+							<td>Contains VS Code specific settings</td>
+						</tr>
+						<tr>
+							<td><strong>dist</strong></td>
+							<td>Contains the distributable (or output) from your TypeScript build. This is the code you ship</td>
+						</tr>
+						<tr>
+							<td><strong>node_modules</strong></td>
+							<td>Contains all your npm dependencies</td>
+						</tr>
+						<tr>
+							<td><strong>src</strong></td>
+							<td>Contains your source code that will be compiled to the dist dir</td>
+						</tr>
+						<tr>
+							<td><strong>src/config</strong></td>
+							<td>Passport authentication strategies and login middleware. Add other complex config code here</td>
+						</tr>
+						<tr>
+							<td><strong>src/controllers</strong></td>
+							<td>Controllers define functions that respond to various http requests</td>
+						</tr>
+						<tr>
+							<td><strong>src/models</strong></td>
+							<td>Models define Mongoose schemas that will be used in storing and retrieving data from MongoDB</td>
+						</tr>
+						<tr>
+							<td><strong>src/public</strong></td>
+							<td>Static assets that will be used client side</td>
+						</tr>
+						<tr>
+							<td><strong>src/types</strong></td>
+							<td>Holds .d.ts files not found on DefinitelyTyped. Covered more in this <a href="#type-definition-dts-files">section</a></td>
+						</tr>
+						<tr>
+							<td><strong>src</strong>/server.ts</td>
+							<td>Entry point to your express app</td>
+						</tr>
+						<tr>
+							<td><strong>test</strong></td>
+							<td>Contains your tests. Seperate from source because there is a different build process.</td>
+						</tr>
+						<tr>
+							<td><strong>views</strong></td>
+							<td>Views define how your app renders on the client. In this case we&#39;re using pug</td>
+						</tr>
+						<tr>
+							<td>.env.example</td>
+							<td>API keys, tokens, passwords, database URI. Clone this, but don&#39;t check it in to public repos.</td>
+						</tr>
+						<tr>
+							<td>.travis.yml</td>
+							<td>Used to configure Travis CI build</td>
+						</tr>
+						<tr>
+							<td>.copyStaticAssets.ts</td>
+							<td>Build script that copies images, fonts, and JS libs to the dist folder</td>
+						</tr>
+						<tr>
+							<td>jest.config.js</td>
+							<td>Used to configure Jest</td>
+						</tr>
+						<tr>
+							<td>package.json</td>
+							<td>File that contains npm dependencies as well as <a href="#what-if-a-library-isnt-on-definitelytyped">build scripts</a></td>
+						</tr>
+						<tr>
+							<td>tsconfig.json</td>
+							<td>Config settings for compiling server code written in TypeScript</td>
+						</tr>
+						<tr>
+							<td>tsconfig.tests.json</td>
+							<td>Config settings for compiling tests written in TypeScript</td>
+						</tr>
+						<tr>
+							<td>tslint.json</td>
+							<td>Config settings for TSLint code style checking</td>
+						</tr>
+					</tbody>
+				</table>
+				<h2 id="building-the-project">Building the project</h2>
+				<p>It is rare for JavaScript projects not to have some kind of build pipeline these days, however Node projects typically have the least amount build configuration.
+					Because of this I&#39;ve tried to keep the build as simple as possible.
+				If you&#39;re concerned about compile time, the main watch task takes ~2s to refresh.</p>
+				<h3 id="configuring-typescript-compilation">Configuring TypeScript compilation</h3>
+				<p>TypeScript uses the file <code>tsconfig.json</code> to adjust project compile options.
+				Let&#39;s dissect this project&#39;s <code>tsconfig.json</code>, starting with the <code>compilerOptions</code> which details how your project is compiled. </p>
+				<pre><code class="lang-json">    &quot;compilerOptions&quot;: {
+        &quot;module&quot;: &quot;commonjs&quot;,
+        &quot;target&quot;: &quot;es6&quot;,
+        &quot;noImplicitAny&quot;: true,
+        &quot;moduleResolution&quot;: &quot;node&quot;,
+        &quot;sourceMap&quot;: true,
+        &quot;outDir&quot;: &quot;dist&quot;,
+        &quot;baseUrl&quot;: &quot;.&quot;,
+        &quot;paths&quot;: {
+            &quot;*&quot;: [
+                &quot;node_modules/*&quot;,
+                &quot;src/types/*&quot;
+            ]
+        }
+    },
+</code></pre>
+				<table>
+					<thead>
+						<tr>
+							<th><code>compilerOptions</code></th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><code>&quot;module&quot;: &quot;commonjs&quot;</code></td>
+							<td>The <strong>output</strong> module type (in your <code>.js</code> files). Node uses commonjs, so that is what we use</td>
+						</tr>
+						<tr>
+							<td><code>&quot;target&quot;: &quot;es6&quot;</code></td>
+							<td>The output language level. Node supports ES6, so we can target that here</td>
+						</tr>
+						<tr>
+							<td><code>&quot;noImplicitAny&quot;: true</code></td>
+							<td>Enables a stricter setting which throws errors when something has a default <code>any</code> value</td>
+						</tr>
+						<tr>
+							<td><code>&quot;moduleResolution&quot;: &quot;node&quot;</code></td>
+							<td>TypeScript attempts to mimic Node&#39;s module resolution strategy. Read more <a href="https://www.typescriptlang.org/docs/handbook/module-resolution.html#node">here</a></td>
+						</tr>
+						<tr>
+							<td><code>&quot;sourceMap&quot;: true</code></td>
+							<td>We want source maps to be output along side our JavaScript. See the <a href="#debugging">debugging</a> section</td>
+						</tr>
+						<tr>
+							<td><code>&quot;outDir&quot;: &quot;dist&quot;</code></td>
+							<td>Location to output <code>.js</code> files after compilation</td>
+						</tr>
+						<tr>
+							<td><code>&quot;baseUrl&quot;: &quot;.&quot;</code></td>
+							<td>Part of configuring module resolution. See <a href="#installing-dts-files-from-definitelytyped">path mapping section</a></td>
+						</tr>
+						<tr>
+							<td><code>paths: {...}</code></td>
+							<td>Part of configuring module resolution. See <a href="#installing-dts-files-from-definitelytyped">path mapping section</a></td>
+						</tr>
+					</tbody>
+				</table>
+				<p>The rest of the file define the TypeScript project context.
+					The project context is basically a set of options that determine which files are compiled when the compiler is invoked with a specific <code>tsconfig.json</code>.
+				In this case, we use the following to define our project context: </p>
+				<pre><code class="lang-json">    &quot;include&quot;: [
+        &quot;src/**/*&quot;
+    ]
+</code></pre>
+				<p><code>include</code> takes an array of glob patterns of files to include in the compilation.
+					This project is fairly simple and all of our .ts files are under the <code>src</code> folder.
+					For more complex setups, you can include an <code>exclude</code> array of glob patterns that removes specific files from the set defined with <code>include</code>.
+				There is also a <code>files</code> option which takes an array of individual file names which overrides both <code>include</code> and <code>exclude</code>.</p>
+				<h3 id="running-the-build">Running the build</h3>
+				<p>All the different build steps are orchestrated via <a href="https://docs.npmjs.com/misc/scripts">npm scripts</a>.
+					Npm scripts basically allow us to call (and chain) terminal commands via npm.
+					This is nice because most JavaScript tools have easy to use command line utilities allowing us to not need grunt or gulp to manage our builds.
+					If you open <code>package.json</code>, you will see a <code>scripts</code> section with all the different scripts you can call.
+					To call a script, simply run <code>npm run &lt;script-name&gt;</code> from the command line.
+					You&#39;ll notice that npm scripts can call each other which makes it easy to compose complex builds out of simple individual build scripts.
+				Below is a list of all the scripts this template has available:</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Npm Script</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><code>start</code></td>
+							<td>Does the same as &#39;npm run serve&#39;. Can be invoked with <code>npm start</code></td>
+						</tr>
+						<tr>
+							<td><code>build</code></td>
+							<td>Full build. Runs ALL build tasks (<code>build-sass</code>, <code>build-ts</code>, <code>tslint</code>, <code>copy-static-assets</code>)</td>
+						</tr>
+						<tr>
+							<td><code>serve</code></td>
+							<td>Runs node on <code>dist/server.js</code> which is the apps entry point</td>
+						</tr>
+						<tr>
+							<td><code>watch</code></td>
+							<td>Runs all watch tasks (TypeScript, Sass, Node). Use this if you&#39;re not touching static assets.</td>
+						</tr>
+						<tr>
+							<td><code>test</code></td>
+							<td>Runs tests using Jest test runner</td>
+						</tr>
+						<tr>
+							<td><code>build-ts</code></td>
+							<td>Compiles all source <code>.ts</code> files to <code>.js</code> files in the <code>dist</code> folder</td>
+						</tr>
+						<tr>
+							<td><code>watch-ts</code></td>
+							<td>Same as <code>build-ts</code> but continuously watches <code>.ts</code> files and re-compiles when needed</td>
+						</tr>
+						<tr>
+							<td><code>build-sass</code></td>
+							<td>Compiles all <code>.scss</code> files to <code>.css</code> files</td>
+						</tr>
+						<tr>
+							<td><code>watch-sass</code></td>
+							<td>Same as <code>build-sass</code> but continuously watches <code>.scss</code> files and re-compiles when needed</td>
+						</tr>
+						<tr>
+							<td><code>tslint</code></td>
+							<td>Runs TSLint on project files</td>
+						</tr>
+						<tr>
+							<td><code>copy-static-assets</code></td>
+							<td>Calls script that copies JS libs, fonts, and images to dist directory</td>
+						</tr>
+					</tbody>
+				</table>
+				<h2 id="type-definition-d-ts-files">Type Definition (<code>.d.ts</code>) Files</h2>
+				<p>TypeScript uses <code>.d.ts</code> files to provide types for JavaScript libraries that were not written in TypeScript.
+					This is great because once you have a <code>.d.ts</code> file, TypeScript can type check that library and provide you better help in your editor.
+					The TypeScript community actively shares all of the most up-to-date <code>.d.ts</code> files for popular libraries on a GitHub repository called <a href="https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types">DefinitelyTyped</a>.
+				Making sure that your <code>.d.ts</code> files are setup correctly is super important because once they&#39;re in place, you get an incredible amount high quality of type checking (and thus bug catching, IntelliSense, and other editor tools) for free.</p>
+				<blockquote>
+					<p><strong>Note!</strong> Because we&#39;re using <code>&quot;noImplicitAny&quot;: true</code>, we are required to have a <code>.d.ts</code> file for <strong>every</strong> library we use. While you could set <code>noImplicitAny</code> to <code>false</code> to silence errors about missing <code>.d.ts</code> files, it is a best practice to have a <code>.d.ts</code> file for every library. (Even if the <code>.d.ts</code> file is <a href="#writing-a-dts-file">basically empty!</a>) </p>
+				</blockquote>
+				<h3 id="installing-d-ts-files-from-definitelytyped">Installing <code>.d.ts</code> files from DefinitelyTyped</h3>
+				<p>For the most part, you&#39;ll find <code>.d.ts</code> files for the libraries you are using on DefinitelyTyped.
+					These <code>.d.ts</code> files can be easily installed into your project by using the npm scope <code>@types</code>.
+				For example, if we want the <code>.d.ts</code> file for jQuery, we can do so with <code>npm install --save-dev @types/jquery</code>.</p>
+				<blockquote>
+					<p><strong>Note!</strong> Be sure to add <code>--save-dev</code> (or <code>-D</code>) to your <code>npm install</code>. <code>.d.ts</code> files are project dependencies, but only used at compile time and thus should be dev dependencies.</p>
+				</blockquote>
+				<p>In this template, all the <code>.d.ts</code> files have already been added to <code>devDependencies</code> in <code>package.json</code>, so you will get everything you need after running your first <code>npm install</code>.
+					Once <code>.d.ts</code> files have been installed using npm, you should see them in your <code>node_modules/@types</code> folder.
+				The compiler will always look in this folder for <code>.d.ts</code> files when resolving JavaScript libraries.</p>
+				<h3 id="what-if-a-library-isn-t-on-definitelytyped-">What if a library isn&#39;t on DefinitelyTyped?</h3>
+				<p>If you try to install a <code>.d.ts</code> file from <code>@types</code> and it isn&#39;t found, or you check DefinitelyTyped and cannot find a specific library, you will want to create your own <code>.d.ts file</code>.
+				In the <code>src</code> folder of this project, you&#39;ll find the <code>types</code> folder which holds the <code>.d.ts</code> files that aren&#39;t on DefinitelyTyped (or weren&#39;t as of the time of this writing).</p>
+				<h4 id="setting-up-typescript-to-look-for-d-ts-files-in-another-folder">Setting up TypeScript to look for <code>.d.ts</code> files in another folder</h4>
+				<p>The compiler knows to look in <code>node_modules/@types</code> by default, but to help the compiler find our own <code>.d.ts</code> files we have to configure path mapping in our <code>tsconfig.json</code>.
+					Path mapping can get pretty confusing, but the basic idea is that the TypeScript compiler will look in specific places, in a specific order when resolving modules, and we have the ability to tell the compiler exactly how to do it.
+				In the <code>tsconfig.json</code> for this project you&#39;ll see the following:</p>
+				<pre><code class="lang-json">&quot;baseUrl&quot;: &quot;.&quot;,
+&quot;paths&quot;: {
+    &quot;*&quot;: [
+        &quot;node_modules/*&quot;,
+        &quot;src/types/*&quot;
+    ]
+}
+</code></pre>
+				<p>This tells the TypeScript compiler that in addition to looking in <code>node_modules/@types</code> for every import (<code>*</code>) also look in our own <code>.d.ts</code> file location <code>&lt;baseUrl&gt;</code> + <code>src/types/*</code>.
+				So when we write something like: </p>
+				<pre><code class="lang-ts"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> flash <span class="hljs-keyword">from</span> <span class="hljs-string">"express-flash"</span>;
+</code></pre>
+				<p>First the compiler will look for a <code>d.ts</code> file in <code>node_modules/@types</code> and then when it doesn&#39;t find one look in <code>src/types</code> and find our file <code>express-flash.d.ts</code>.</p>
+				<h4 id="using-dts-gen">Using <code>dts-gen</code></h4>
+				<p>Unless you are familiar with <code>.d.ts</code> files, I strongly recommend trying to use the tool <a href="https://github.com/Microsoft/dts-gen">dts-gen</a> first.
+					The <a href="https://github.com/Microsoft/dts-gen#dts-gen-a-typescript-definition-file-generator">README</a> does a great job explaining how to use the tool, and for most cases, you&#39;ll get an excellent scaffold of a <code>.d.ts</code> file to start with.
+				In this project, <code>bcrypt-nodejs.d.ts</code>, <code>fbgraph.d.ts</code>, and <code>lusca.d.ts</code> were all generated using <code>dts-gen</code>. </p>
+				<h4 id="writing-a-d-ts-file">Writing a <code>.d.ts</code> file</h4>
+				<p>If generating a <code>.d.ts</code> using <code>dts-gen</code> isn&#39;t working, <a href="https://www.surveymonkey.com/r/LN2CV82">you should tell me about it first</a>, but then you can create your own <code>.d.ts</code> file.</p>
+				<p>If you just want to silence the compiler for the time being, create a file called <code>&lt;some-library&gt;.d.ts</code> in your <code>types</code> folder and then add this line of code:</p>
+				<pre><code class="lang-ts"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> "&lt;some-library&gt;";
+</code></pre>
+				<p>If you want to invest some time into making a great <code>.d.ts</code> file that will give you great type checking and IntelliSense, the TypeScript website has great <a href="http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html">docs on authoring <code>.d.ts</code> files</a>. </p>
+				<h4 id="contributing-to-definitelytyped">Contributing to DefinitelyTyped</h4>
+				<p>The reason it&#39;s so easy to get great <code>.d.ts</code> files for most libraries is that developers like you contribute their work back to DefinitelyTyped.
+				Contributing <code>.d.ts</code> files is a great way to get into the open source community if it&#39;s something you&#39;ve never tried before, and as soon as your changes are accepted, every other developer in the world has access to your work.</p>
+				<p>If you&#39;re interested in giving it a shot, check out the <a href="https://github.com/definitelyTyped/DefinitelyTyped/#how-can-i-contribute">guidance on DefinitelyTyped</a>.
+				If you&#39;re not interested, <a href="https://www.surveymonkey.com/r/LN2CV82">you should tell me why</a> so we can help make it easier in the future!</p>
+				<h3 id="summary-of-d-ts-management">Summary of <code>.d.ts</code> management</h3>
+				<p>In general if you stick to the following steps you should have minimal <code>.d.ts</code> issues;</p>
+				<ol>
+					<li>After installing any npm package as a dependency or dev dependency, immediately try to install the <code>.d.ts</code> file via <code>@types</code>.</li>
+					<li>If the library has a <code>.d.ts</code> file on DefinitelyTyped, the install will succeed and you are done.
+					If the install fails because the package doesn&#39;t exist, continue to step 3.</li>
+					<li>Make sure you project is <a href="#setting-up-typescript-to-look-for-dts-files-in-another-folder">configured for supplying your own <code>d.ts</code> files</a></li>
+					<li>Try to <a href="#using-dts-gen">generate a <code>.d.ts</code> file with dts-gen</a>.
+						If it succeeds, you are done.
+					If not, continue to step 5.</li>
+					<li>Create a file called <code>&lt;some-library&gt;.d.ts</code> in your <code>types</code> folder.</li>
+					<li>Add the following code:<pre><code class="lang-ts"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">module</span> "&lt;some-library&gt;";
+</code></pre>
+					</li>
+					<li>At this point everything should compile with no errors and you can either improve the types in the <code>.d.ts</code> file by following this <a href="http://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html">guide on authoring <code>.d.ts</code> files</a> or continue with no types.</li>
+					<li>If you are still having issues, let me know by sending me an email or pinging me on twitter, I will help you.</li>
+				</ol>
+				<h2 id="debugging">Debugging</h2>
+				<p>Debugging TypeScript is exactly like debugging JavaScript with one caveat, you need source maps.</p>
+				<h3 id="source-maps">Source maps</h3>
+				<p>Source maps allow you to drop break points in your TypeScript source code and have that break point be hit by the JavaScript that is being executed at runtime. </p>
+				<blockquote>
+					<p><strong>Note!</strong> - Source maps aren&#39;t specific to TypeScript.
+					Anytime JavaScript is transformed (transpiled, compiled, optimized, minified, etc) you need source maps so that the code that is executed at runtime can be <em>mapped</em> back to the source that generated it.</p>
+				</blockquote>
+				<p>The best part of source maps is when configured correctly, you don&#39;t even know they exist! So let&#39;s take a look at how we do that in this project.</p>
+				<h4 id="configuring-source-maps">Configuring source maps</h4>
+				<p>First you need to make sure your <code>tsconfig.json</code> has source map generation enabled:</p>
+				<pre><code class="lang-json"><span class="hljs-string">"compilerOptions"</span> {
+    <span class="hljs-attr">"sourceMap"</span>: <span class="hljs-literal">true</span>
+} 
+</code></pre>
+				<p>With this option enabled, next to every <code>.js</code> file that the TypeScript compiler outputs there will be a <code>.map.js</code> file as well.
+				This <code>.map.js</code> file provides the information necessary to map back to the source <code>.ts</code> file while debugging.</p>
+				<blockquote>
+					<p><strong>Note!</strong> - It is also possible to generate &quot;inline&quot; source maps using <code>&quot;inlineSourceMap&quot;: true</code>.
+						This is more common when writing client side code because some bundlers need inline source maps to preserve the mapping through the bundle.
+					Because we are writing Node.js code, we don&#39;t have to worry about this. </p>
+				</blockquote>
+				<h3 id="using-the-debugger-in-vs-code">Using the debugger in VS Code</h3>
+				<p>Debugging is one of the places where VS Code really shines over other editors.
+					Node.js debugging in VS Code is easy to setup and even easier to use.
+				This project comes pre-configured with everything you need to get started.</p>
+				<p>When you hit <code>F5</code> in VS Code, it looks for a top level <code>.vscode</code> folder with a <code>launch.json</code> file.
+				In this file, you can tell VS Code exactly what you want to do:</p>
+				<pre><code class="lang-json">{
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"node"</span>,
+    <span class="hljs-attr">"request"</span>: <span class="hljs-string">"attach"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Attach by Process ID"</span>,
+    <span class="hljs-attr">"processId"</span>: <span class="hljs-string">"${command:PickProcess}"</span>,
+    <span class="hljs-attr">"protocol"</span>: <span class="hljs-string">"inspector"</span>
+}
+</code></pre>
+				<p>This is mostly identical to the &quot;Node.js: Attach by Process ID&quot; template with one minor change.
+				We added <code>&quot;protocol&quot;: &quot;inspector&quot;</code> which tells VS Code that we&#39;re using the latest version of Node which uses a new debug protocol.</p>
+				<p>With this file in place, you can hit <code>F5</code> to attach a debugger.
+					You will probably have multiple node processes running, so you need to find the one that shows <code>node dist/server.js</code>.
+				Now just set your breakpoints and go!</p>
+				<h2 id="testing">Testing</h2>
+				<p>For this project, I chose <a href="https://facebook.github.io/jest/">Jest</a> as our test framework.
+				While Mocha is probably more common, Mocha seems to be looking for a new maintainer and setting up TypeScript testing in Jest is wicked simple.</p>
+				<h3 id="install-the-components">Install the components</h3>
+				<p>To add TypeScript + Jest support, first install a few npm packages:</p>
+				<pre><code>npm <span class="hljs-keyword">install </span>-D <span class="hljs-keyword">jest </span>ts-<span class="hljs-keyword">jest</span>
+</code></pre><p><code>jest</code> is the testing framework itself, and <code>ts-jest</code> is just a simple function to make running TypeScript tests a little easier.</p>
+				<h3 id="configure-jest">Configure Jest</h3>
+				<p>Jest&#39;s configuration lives in <code>jest.config.js</code>, so let&#39;s open it up and add the following code:</p>
+				<pre><code class="lang-js"><span class="hljs-built_in">module</span>.exports = {
+    <span class="hljs-attr">globals</span>: {
+        <span class="hljs-string">'ts-jest'</span>: {
+            <span class="hljs-attr">tsConfigFile</span>: <span class="hljs-string">'tsconfig.json'</span>
+        }
+    },
+    <span class="hljs-attr">moduleFileExtensions</span>: [
+        <span class="hljs-string">'ts'</span>,
+        <span class="hljs-string">'js'</span>
+    ],
+    <span class="hljs-attr">transform</span>: {
+        <span class="hljs-string">'^.+\\.(ts|tsx)$'</span>: <span class="hljs-string">'./node_modules/ts-jest/preprocessor.js'</span>
+    },
+    <span class="hljs-attr">testMatch</span>: [
+        <span class="hljs-string">'**/test/**/*.test.(ts|js)'</span>
+    ],
+    <span class="hljs-attr">testEnvironment</span>: <span class="hljs-string">'node'</span>
+};
+</code></pre>
+				<p>Basically we are telling Jest that we want it to consume all files that match the pattern <code>&quot;**/test/**/*.test.(ts|js)&quot;</code> (all <code>.test.ts</code>/<code>.test.js</code> files in the <code>test</code> folder), but we want to preprocess the <code>.ts</code> files first.
+					This preprocess step is very flexible, but in our case, we just want to compile our TypeScript to JavaScript using our <code>tsconfig.json</code>.
+				This all happens in memory when you run the tests, so there are no output <code>.js</code> test files for you to manage.   </p>
+				<h3 id="running-tests">Running tests</h3>
+				<h3 id="writing-tests">Writing tests</h3>
+				<p>Writing tests for web apps has entire books dedicated to it and best practices are strongly influenced by personal style, so I&#39;m deliberately avoiding discussing how or when to write tests in this guide.
+				However, if prescriptive guidance on testing is something that you&#39;re interested in, <a href="https://www.surveymonkey.com/r/LN2CV82">let me know</a>, I&#39;ll do some homework and get back to you.</p>
+				<h2 id="tslint">TSLint</h2>
+				<p>TSLint is a code linter which mainly helps catch minor code quality and style issues.
+				TSLint is very similar to ESLint or JSLint but is built with TypeScript in mind.</p>
+				<h3 id="tslint-rules">TSLint rules</h3>
+				<p>Like most linters, TSLint has a wide set of configurable rules as well as support for custom rule sets.
+					All rules are configured through <code>tslint.json</code>.
+					In this project, we are using a fairly basic set of rules with no additional custom rules.
+				The settings are largely based off the TSLint settings that we use to develop TypeScript itself.</p>
+				<h3 id="running-tslint">Running TSLint</h3>
+				<p>Like the rest of our build steps, we use npm scripts to invoke TSLint.
+				To run TSLint you can call the main build script or just the TSLint task.</p>
+				<pre><code>npm <span class="hljs-keyword">run</span><span class="bash"> build   // runs full build including TSLint
+</span>npm <span class="hljs-keyword">run</span><span class="bash"> tslint  // runs only TSLint</span>
+</code></pre><p>Notice that TSLint is not a part of the main watch task.
+					It can be annoying for TSLint to clutter the output window while in the middle of writing a function, so I elected to only run it only during the full build.
+				If you are interesting in seeing TSLint feedback as soon as possible, I strongly recommend the <a href="">TSLint extension in VS Code</a>.</p>
+				<h3 id="vscode-extensions">VSCode Extensions</h3>
+				<p>To enhance your development experience while working in VSCode we also provide you a list of the suggested extensions for working with this project:</p>
+				<p><img src="https://user-images.githubusercontent.com/14539/34583539-6f290a30-f198-11e7-8804-30f40d418e20.png" alt="Suggested Extensions In VSCode"></p>
+				<ul>
+					<li><a href="https://marketplace.visualstudio.com/items?itemName=eg2.tslint">TSLint</a></li>
+					<li><a href="https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker">Code Spell Checker</a></li>
+					<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-cosmosdb">Azure Cosmos DB</a></li>
+				</ul>
+				<h1 id="dependencies">Dependencies</h1>
+				<p>Dependencies are managed through <code>package.json</code>.
+				In that file you&#39;ll find two sections:</p>
+				<h2 id="dependencies"><code>dependencies</code></h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Package</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>async</td>
+							<td>Utility library that provides asynchronous control flow.</td>
+						</tr>
+						<tr>
+							<td>bcrypt-nodejs</td>
+							<td>Library for hashing and salting user passwords.</td>
+						</tr>
+						<tr>
+							<td>body-parser</td>
+							<td>Express 4 middleware.</td>
+						</tr>
+						<tr>
+							<td>compression</td>
+							<td>Express 4 middleware.</td>
+						</tr>
+						<tr>
+							<td>connect-mongo</td>
+							<td>MongoDB session store for Express.</td>
+						</tr>
+						<tr>
+							<td>dotenv</td>
+							<td>Loads environment variables from .env file.</td>
+						</tr>
+						<tr>
+							<td>errorhandler</td>
+							<td>Express 4 middleware.</td>
+						</tr>
+						<tr>
+							<td>express</td>
+							<td>Node.js web framework.</td>
+						</tr>
+						<tr>
+							<td>express-flash</td>
+							<td>Provides flash messages for Express.</td>
+						</tr>
+						<tr>
+							<td>express-session</td>
+							<td>Express 4 middleware.</td>
+						</tr>
+						<tr>
+							<td>express-validator</td>
+							<td>Easy form validation for Express.</td>
+						</tr>
+						<tr>
+							<td>fbgraph</td>
+							<td>Facebook Graph API library.</td>
+						</tr>
+						<tr>
+							<td>lusca</td>
+							<td>CSRF middleware.</td>
+						</tr>
+						<tr>
+							<td>mongoose</td>
+							<td>MongoDB ODM.</td>
+						</tr>
+						<tr>
+							<td>morgan</td>
+							<td>Express 4 middleware.</td>
+						</tr>
+						<tr>
+							<td>passport</td>
+							<td>Simple and elegant authentication library for node.js</td>
+						</tr>
+						<tr>
+							<td>passport-facebook</td>
+							<td>Sign-in with Facebook plugin.</td>
+						</tr>
+						<tr>
+							<td>passport-local</td>
+							<td>Sign-in with Username and Password plugin.</td>
+						</tr>
+						<tr>
+							<td>pug (jade)</td>
+							<td>Template engine for Express.</td>
+						</tr>
+						<tr>
+							<td>request</td>
+							<td>Simplified HTTP request library.</td>
+						</tr>
+					</tbody>
+				</table>
+				<h2 id="devdependencies"><code>devDependencies</code></h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Package</th>
+							<th>Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>concurrently</td>
+							<td>Utility that manages multiple concurrent tasks. Used with npm scripts</td>
+						</tr>
+						<tr>
+							<td>jest</td>
+							<td>Testing library for JavaScript.</td>
+						</tr>
+						<tr>
+							<td>node-sass</td>
+							<td>Allows to compile .scss files to .css</td>
+						</tr>
+						<tr>
+							<td>supertest</td>
+							<td>HTTP assertion library.</td>
+						</tr>
+						<tr>
+							<td>ts-test</td>
+							<td>A preprocessor with sourcemap support to help use TypeScript wit Jest.</td>
+						</tr>
+						<tr>
+							<td>tslint</td>
+							<td>Linter (similar to ESLint) for TypeScript files</td>
+						</tr>
+						<tr>
+							<td>typescript</td>
+							<td>JavaScript compiler/type checker that boosts JavaScript productivity</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>To install or update these dependencies you can use <code>npm install</code> or <code>npm update</code>.</p>
+				<h1 id="other">Other</h1>
+				<p>Here is a section of miscellaneous tips. </p>
+				<h1 id="hackathon-starter-project">Hackathon Starter Project</h1>
+				<p>A majority of this quick start&#39;s content was inspired or adapted from Sahat&#39;s excellent <a href="https://github.com/sahat/hackathon-starter">Hackathon Starter project</a>.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="enums/httpmethod.html" class="tsd-kind-icon">HTTPMethod</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/outputmode.html" class="tsd-kind-icon">Output<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/parametertype.html" class="tsd-kind-icon">Parameter<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/container.html" class="tsd-kind-icon">Container</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/exampleparserplugin.html" class="tsd-kind-icon">Example<wbr>Parser<wbr>Plugin</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/execapp.html" class="tsd-kind-icon">Exec<wbr>App</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/fileparser.html" class="tsd-kind-icon">File<wbr>Parser</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/fileparsers.html" class="tsd-kind-icon">File<wbr>Parsers</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/job.html" class="tsd-kind-icon">Job</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/jsonparser.html" class="tsd-kind-icon">Json<wbr>Parser</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/jsonparsers.html" class="tsd-kind-icon">Json<wbr>Parsers</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/parser.html" class="tsd-kind-icon">Parser</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/parsers.html" class="tsd-kind-icon">Parsers</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/pipeoutput.html" class="tsd-kind-icon">Pipe<wbr>Output</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/pipeparsedoutput.html" class="tsd-kind-icon">Pipe<wbr>Parsed<wbr>Output</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/piperawoutput.html" class="tsd-kind-icon">Pipe<wbr>Raw<wbr>Output</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/poolmanager.html" class="tsd-kind-icon">Pool<wbr>Manager</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/sandbox.html" class="tsd-kind-icon">Sandbox</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/spawnwarper.html" class="tsd-kind-icon">Spawn<wbr>Warper</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/fileinputparser.html" class="tsd-kind-icon">File<wbr>Input<wbr>Parser</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/fileoutputparser.html" class="tsd-kind-icon">File<wbr>Output<wbr>Parser</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sandboxopts.html" class="tsd-kind-icon">Sandbox<wbr>Opts</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#algorithmmodel" class="tsd-kind-icon">Algorithm<wbr>Model</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#applicationmodel" class="tsd-kind-icon">Application<wbr>Model</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#arguments" class="tsd-kind-icon">Arguments</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#endpointmodel" class="tsd-kind-icon">Endpoint<wbr>Model</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#endpointparammodel" class="tsd-kind-icon">Endpoint<wbr>Param<wbr>Model</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#file" class="tsd-kind-icon">File</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#fileoptions" class="tsd-kind-icon">File<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#fileoutputmodel" class="tsd-kind-icon">File<wbr>Output<wbr>Model</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#filescreated" class="tsd-kind-icon">Files<wbr>Created</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#invokemodel" class="tsd-kind-icon">Invoke<wbr>Model</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#invokeoptions" class="tsd-kind-icon">Invoke<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#outputmodel" class="tsd-kind-icon">Output<wbr>Model</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#parametermodel" class="tsd-kind-icon">Parameter<wbr>Model</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#pipeoptions" class="tsd-kind-icon">Pipe<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#processoutput" class="tsd-kind-icon">Process<wbr>Output</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#stdoptions" class="tsd-kind-icon">std<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#application" class="tsd-kind-icon">Application</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#endpoint" class="tsd-kind-icon">Endpoint</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#mongostore" class="tsd-kind-icon">Mongo<wbr>Store</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#algorithmschema" class="tsd-kind-icon">algorithm<wbr>Schema</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#app" class="tsd-kind-icon">app</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#appschema" class="tsd-kind-icon">app<wbr>Schema</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#decompress" class="tsd-kind-icon">decompress</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#endpointschema" class="tsd-kind-icon">endpoint<wbr>Schema</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#fileoutputschema" class="tsd-kind-icon">file<wbr>Output<wbr>Schema</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#json2xml" class="tsd-kind-icon">json2xml</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#mongourl" class="tsd-kind-icon">mongo<wbr>Url</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#outputschema" class="tsd-kind-icon">output<wbr>Schema</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#parameterschema" class="tsd-kind-icon">parameter<wbr>Schema</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#server" class="tsd-kind-icon">server</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#adderror" class="tsd-kind-icon">add<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#archiveappfiles" class="tsd-kind-icon">archive<wbr>App<wbr>Files</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#checkparamconstraints" class="tsd-kind-icon">check<wbr>Param<wbr>Constraints</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#containssubstr" class="tsd-kind-icon">contains<wbr>Substr</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#deletefiles" class="tsd-kind-icon">delete<wbr>Files</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#emptydir" class="tsd-kind-icon">empty<wbr>Dir</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getapplication" class="tsd-kind-icon">get<wbr>Application</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getapplicationversion" class="tsd-kind-icon">get<wbr>Application<wbr>Version</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getapplications" class="tsd-kind-icon">get<wbr>Applications</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getendpoint" class="tsd-kind-icon">get<wbr>Endpoint</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getendpoints" class="tsd-kind-icon">get<wbr>Endpoints</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#handlevalidationerror" class="tsd-kind-icon">handle<wbr>Validation<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#invokealgorithm" class="tsd-kind-icon">invoke<wbr>Algorithm</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#invokealgorithmformdata" class="tsd-kind-icon">invoke<wbr>Algorithm<wbr>Form<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isbool" class="tsd-kind-icon">is<wbr>Bool</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#isdir" class="tsd-kind-icon">is<wbr>Dir</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isinteger" class="tsd-kind-icon">is<wbr>Integer</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isstring" class="tsd-kind-icon">is<wbr>String</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#mkdirssync" class="tsd-kind-icon">mkdirs<wbr>Sync</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#movefiles" class="tsd-kind-icon">move<wbr>Files</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#paramsetdefaults" class="tsd-kind-icon">param<wbr>Set<wbr>Defaults</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postcreatalgorithm" class="tsd-kind-icon">post<wbr>Creat<wbr>Algorithm</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postcreateapp" class="tsd-kind-icon">post<wbr>Create<wbr>App</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postcreateendpoint" class="tsd-kind-icon">post<wbr>Create<wbr>Endpoint</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postcreatestreams" class="tsd-kind-icon">post<wbr>Create<wbr>Streams</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postdeletealgorithm" class="tsd-kind-icon">post<wbr>Delete<wbr>Algorithm</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postdeleteapp" class="tsd-kind-icon">post<wbr>Delete<wbr>App</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postdeleteendpoint" class="tsd-kind-icon">post<wbr>Delete<wbr>Endpoint</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postupdatealgorithm" class="tsd-kind-icon">post<wbr>Update<wbr>Algorithm</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postupdateapp" class="tsd-kind-icon">post<wbr>Update<wbr>App</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postupdateendpoint" class="tsd-kind-icon">post<wbr>Update<wbr>Endpoint</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postupdateendpointparams" class="tsd-kind-icon">post<wbr>Update<wbr>Endpoint<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postupdateentryapp" class="tsd-kind-icon">post<wbr>Update<wbr>Entry<wbr>App</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postupdateoutput" class="tsd-kind-icon">post<wbr>Update<wbr>Output</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postupdateparameters" class="tsd-kind-icon">post<wbr>Update<wbr>Parameters</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postupload" class="tsd-kind-icon">post<wbr>Upload</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#preinvokealgorithm" class="tsd-kind-icon">pre<wbr>Invoke<wbr>Algorithm</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#registercontainer" class="tsd-kind-icon">register<wbr>Container</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#setdefaults" class="tsd-kind-icon">set<wbr>Defaults</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#setup" class="tsd-kind-icon">setup</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#testalgorithm" class="tsd-kind-icon">test<wbr>Algorithm</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#updatealgorithmfiles" class="tsd-kind-icon">update<wbr>Algorithm<wbr>Files</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#validatedatatypes" class="tsd-kind-icon">validate<wbr>Data<wbr>Types</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#validateparamconstraints" class="tsd-kind-icon">validate<wbr>Param<wbr>Constraints</a>
+					</li>
+					<li class=" tsd-kind-object-literal">
+						<a href="globals.html#default_options" class="tsd-kind-icon">default_<wbr>options</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
