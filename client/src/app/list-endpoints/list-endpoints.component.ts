@@ -7,6 +7,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { DeleteEndpointComponent } from './delete-endpoint/delete-endpoint.component';
 import { CreateEndpointComponent } from './create-endpoint/create-endpoint.component';
 import { Endpoint } from './list-endpoints.types';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-list-endpoints',
@@ -20,7 +21,7 @@ export class ListEndpointsComponent implements OnInit {
   public deleteEndpointModelRef: BsModalRef;
   public createEndpointModelRef: BsModalRef;
 
-  constructor(private route: ActivatedRoute, private modalService: BsModalService) {
+  constructor(private route: ActivatedRoute, private modalService: BsModalService, public auth: AuthService) {
     this.endpoints = route.snapshot.data['endpoints'];
   }
 

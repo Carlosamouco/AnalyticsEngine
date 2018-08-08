@@ -16,6 +16,15 @@
       <li class="nav-item" [ngClass]="{'active': currLink == 1}" (click)="currLink = 1">
         <a class="nav-link" routerLink="/endpoints">Endpoints</a>
       </li>
+      <li *ngIf="auth.isAuthenticated(true)" class="nav-item" [ngClass]="{'active': currLink == 2}" (click)="currLink = 2">
+        <a class="nav-link" routerLink="/register">Register</a>
+      </li>
+      <li *ngIf="!auth.isAuthenticated()" class="nav-item" [ngClass]="{'active': currLink == 2}" (click)="currLink = 2">
+        <a class="nav-link" routerLink="/login">Login</a>
+      </li>
+      <li *ngIf="auth.isAuthenticated()" class="nav-item">
+        <a class="nav-link" style="cursor:pointer;" (click)="logout()">Logout</a>
+      </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" (ngSubmit)="onSubmit()">
       <ng-template #customItemTemplate let-model="item" let-index="index">
@@ -28,6 +37,18 @@
   </div>
 </nav>
 <div *ngIf="!isCollapsed" class="modal-backdrop fade show" style="z-index: 1000;"></div>
-<div style="margin-top:56px;">
+<div class="container-fluid" style="position: fixed;top: 5pc;z-index:999;">
+  <div class="row justify-content-end" *ngFor="let msg of userMsg.getMessages(); let i = index">
+    <div class="col-xm-12 col-sm-9 col-md-6">
+      <div class="alert alert-success" style="margin-top:7px;" role="alert" style="width: 85%;float: right;">
+        {{msg}}
+        <button (click)="userMsg.removeMessage(i)" aria-label="Close" style="line-height:0.9" class="close pull-right" type="button">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="padding-top:56px;">
   <router-outlet></router-outlet>
 </div>

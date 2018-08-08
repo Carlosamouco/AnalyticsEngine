@@ -29,7 +29,7 @@
     <div class="card-body">
       <h5>
         {{app.algorithm.entryApp.appName}}
-        <i style="font-size:20px;float:right;cursor:pointer;top:6px;position:relative;" (click)="app.algorithm.entryApp.edit = true;copyApp=app.algorithm.entryApp.appName"
+        <i *ngIf="auth.isAuthenticated()" style="font-size:20px;float:right;cursor:pointer;top:6px;position:relative;" (click)="app.algorithm.entryApp.edit = true;copyApp=app.algorithm.entryApp.appName"
           class="fa fas fa-edit"></i>
       </h5>
     </div>
@@ -49,7 +49,7 @@
 
 
   <h5 class="sub-title">Parameters:</h5>
-  <button type="button" class="btn btn-info" (click)="addParameter()" style="display:block;margin-bottom:10px;">
+  <button *ngIf="auth.isAuthenticated()" type="button" class="btn btn-info" (click)="addParameter()" style="display:block;margin-bottom:10px;">
     <i class="fa fas fa-plus"></i> Add Parameter</button>
   <div class="card-columns" style="-webkit-column-break-inside: avoid;">
     
@@ -67,7 +67,7 @@
         <div class="card-header" style="font-weight: bold;">
           <h6 style="margin:0">
             {{param.name}}
-            <i style="font-size:20px;float:right;cursor:pointer;" (click)="editParameter(param)" class="fa fas fa-edit"></i>
+            <i *ngIf="auth.isAuthenticated()" style="font-size:20px;float:right;cursor:pointer;" (click)="editParameter(param)" class="fa fas fa-edit"></i>
           </h6>
         </div>
 
@@ -198,7 +198,7 @@
       <div class="card-header" style="font-weight: bold;">
         <h6 style="margin:0">
           Standard Output
-          <i style="font-size:20px;float:right;cursor:pointer;" (click)="editStream(app.algorithm.output.stdout)" class="fa fas fa-edit"></i>
+          <i *ngIf="auth.isAuthenticated()" style="font-size:20px;float:right;cursor:pointer;" (click)="editStream(app.algorithm.output.stdout)" class="fa fas fa-edit"></i>
         </h6>
       </div>
       <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
@@ -257,7 +257,7 @@
       <div class="card-header" style="font-weight: bold;">
         <h6 style="margin:0">
           Standard Error Output
-          <i style="font-size:20px;float:right;cursor:pointer;" (click)="editStream(app.algorithm.output.stderr)" class="fa fas fa-edit"></i>
+          <i *ngIf="auth.isAuthenticated()" style="font-size:20px;float:right;cursor:pointer;" (click)="editStream(app.algorithm.output.stderr)" class="fa fas fa-edit"></i>
         </h6>
       </div>
       <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
@@ -303,7 +303,7 @@
   </div>
 
   <h5 class="sub-title">File Output:</h5>
-  <button type="button" class="btn btn-info" style="display:block;margin-bottom:10px;" (click)="addFOut()">
+  <button *ngIf="auth.isAuthenticated()" type="button" class="btn btn-info" style="display:block;margin-bottom:10px;" (click)="addFOut()">
     <i class="fa fas fa-plus"></i> Add Output File</button>
   <div class="card-columns">
     <ng-container *ngFor="let fout of app.algorithm.output.files">
@@ -311,7 +311,7 @@
         <div class="card-header" style="font-weight: bold;">
           <h6 style="margin:0">
             {{fout.alias}}
-            <i style="font-size:20px;float:right;cursor:pointer;" (click)="editOutput(fout)" class="fa fas fa-edit"></i>
+            <i *ngIf="auth.isAuthenticated()" style="font-size:20px;float:right;cursor:pointer;" (click)="editOutput(fout)" class="fa fas fa-edit"></i>
           </h6>
         </div>
         <div class="card-body" style="padding-top: 10px;padding-bottom: 0px;">
@@ -383,7 +383,7 @@
 
   <div *ngIf="app.algorithm.files.lenght != 0">
     <h5 class="sub-title">Uploaded Files:</h5>
-    <button type="button" (click)="openUploadModal()" class="btn btn-info" style="display:block;margin-bottom:10px;">
+    <button *ngIf="auth.isAuthenticated()" type="button" (click)="openUploadModal()" class="btn btn-info" style="display:block;margin-bottom:10px;">
       <i class="fa fas fa-plus"></i> Add Files</button>
     <div style="display:inline-block;font-weight:bold;margin-right:10px;margin-bottom:10px;">Index Of</div>
     <div class="sub-path"></div>
@@ -398,18 +398,18 @@
     <div class="row">
       <div class="col-sm-6 col-md-4 col-xl-3" *ngIf="path.length > 0" style="margin-bottom:5px;">
         <div class="border border-dark folder back-folder file" (click)="travelBack(path.length - 2)">
-          <i style="font-size:20px;" class="fa fas fa-folder" aria-hidden="true"></i>
+          <i style="font-size:20px; margin-right:5px;" class="fa fas fa-folder" aria-hidden="true"></i>
           <div style="display:inline;"> ../</div>
         </div>
       </div>
       <ng-container *ngFor="let file of parent">
         <div class="col-sm-6 col-md-4 col-xl-3" style="margin-bottom:5px;">
           <div class="border border-dark folder forword-folder file" *ngIf="file.files" (click)="expandFolder(file)">
-            <i style="font-size:20px;" class="fa fas fa-folder-open" aria-hidden="true"></i>
+            <i style="font-size:20px; margin-right:5px;" class="fa fas fa-folder-open" aria-hidden="true"></i>
             <div style="display:inline;">{{file.path}}</div>
           </div>
           <div class="border border-dark file" *ngIf="!file.files">
-            <i style="font-size:20px;" class="fa fas fa-file" aria-hidden="true"></i>
+            <i style="font-size:20px; margin-right:5px;" class="fa fas fa-file" aria-hidden="true"></i>
             <div style="display:inline;">{{file.path}}</div>
           </div>
         </div>

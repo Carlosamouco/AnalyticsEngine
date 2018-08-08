@@ -4,7 +4,7 @@
   <div>Maintained By:
     <div style="display:inline; font-weight: bold; color: black;">{{app.author}}</div>
   </div>
-  <button style="margin: 15px 0" type="button" class="btn btn-info" (click)="openCreateVersionModal()">
+  <button *ngIf="auth.isAuthenticated()" style="margin: 15px 0" type="button" class="btn btn-info" (click)="openCreateVersionModal()">
     <i class="fa fas fa-plus"></i> Add Version</button>
   <h4 class="sub-title">Versions:</h4>
   <div *ngIf="app.algorithms.length === 0" style="width: 100%; text-align: center; margin-top: 50px;">
@@ -16,8 +16,8 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Version: {{algorithm.version}}
-              <i style="font-size:20px;float:right;cursor:pointer;top:5px;position:relative;" (click)="openDeleteVersionModal(algorithm)" class="fa fas fa-trash"></i>
-              <i style="font-size:20px;float:right;cursor:pointer;top:6px;position:relative;margin-right:10px;" (click)="openCreateVersionModal(algorithm)"
+              <i *ngIf="auth.isAuthenticated()" style="font-size:20px;float:right;cursor:pointer;top:5px;position:relative;" (click)="openDeleteVersionModal(algorithm)" class="fa fas fa-trash"></i>
+              <i *ngIf="auth.isAuthenticated()" style="font-size:20px;float:right;cursor:pointer;top:6px;position:relative;margin-right:10px;" (click)="openCreateVersionModal(algorithm)"
                 class="fa fas fa-edit"></i>
             </h5>
             <p class="card-text">{{algorithm.description}}</p>
@@ -33,7 +33,7 @@
               </div>
             </ng-container>
             <p *ngIf="!algorithm.entryApp" style="font-weight: 500;padding: 5px 5px 5px 30px; margin-bottom: 10px;background: #dc3545;color: #181919;">App version not configured yet.</p>
-            <a *ngIf="algorithm.entryApp" routerLink="/invoke/{{app._id}}/{{algorithm._id}}" class="card-link">Invoke</a>
+            <a *ngIf="algorithm.entryApp && auth.isAuthenticated()" routerLink="/invoke/{{app._id}}/{{algorithm._id}}" class="card-link">Invoke</a>
             <a routerLink="/app/{{app._id}}/{{algorithm._id}}" class="card-link">Details</a>
           </div>
         </div>

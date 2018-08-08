@@ -1,1 +1,1 @@
-export { isInteger, isBool, isString, mkdirsSync } from "./utils";
+export { isInteger, isBool, isString, mkdirsSync, isAuthorized } from "./utils";

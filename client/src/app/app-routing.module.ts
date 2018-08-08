@@ -1,5 +1,8 @@
 import { NgModule, Injectable } from '@angular/core';
-import { RouterModule, Routes, Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import {
+  RouterModule, Routes, Resolve, ActivatedRouteSnapshot,
+  RouterStateSnapshot, Router, CanActivate, ActivatedRoute
+} from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -12,20 +15,21 @@ import { AppOverviewComponent } from './app-overview/app-overview.component';
 import { InvokeAppComponent } from './invoke-app/invoke-app.component';
 import { ListEndpointsComponent } from './list-endpoints/list-endpoints.component';
 import { EndpointDetailsComponent } from './endpoint-details/endpoint-details.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 import { AppList } from './list-apps/list-apps.types';
 import { ApplicationDetails } from './app-details/app-details.types';
 import { Endpoint } from './list-endpoints/list-endpoints.types';
+
+import { AuthService } from './auth.service';
 
 
 @Injectable()
 export class AppListResolver implements Resolve<AppList[]> {
   constructor(private http: HttpClient) { }
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<any> | Promise<any> | any {
+  resolve(): Observable<any> | Promise<any> | any {
     return this.http.get<AppList[]>('/api/applications');
   }
 }
@@ -35,8 +39,7 @@ export class AppVersionDetailsResolver implements Resolve<ApplicationDetails> {
   constructor(private http: HttpClient, private router: Router) { }
 
   resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    route: ActivatedRouteSnapshot
   ): Observable<any> | Promise<any> | any {
     return this.http.get<ApplicationDetails>(`/api/application/${route.params['appId']}/${route.params['versionId']}`)
       .catch(() => {
@@ -50,8 +53,7 @@ export class AppOverviewResolver implements Resolve<ApplicationDetails> {
   constructor(private http: HttpClient, private router: Router) { }
 
   resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    route: ActivatedRouteSnapshot
   ): Observable<any> | Promise<any> | any {
     return this.http.get<ApplicationDetails>(`/api/application/${route.params['appId']}`)
       .catch(() => {
@@ -64,10 +66,7 @@ export class AppOverviewResolver implements Resolve<ApplicationDetails> {
 export class EndpointsResolver implements Resolve<Endpoint[]> {
   constructor(private http: HttpClient) { }
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<any> | Promise<any> | any {
+  resolve(): Observable<any> | Promise<any> | any {
     return this.http.get<Endpoint[]>('/api/endpoints');
   }
 }
@@ -77,16 +76,39 @@ export class EndpointResolver implements Resolve<Endpoint> {
   constructor(private http: HttpClient) { }
 
   resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    route: ActivatedRouteSnapshot
   ): Observable<any> | Promise<any> | any {
     return this.http.get<Endpoint>(`/api/endpoint/${route.params['endpointId']}`);
   }
 }
 
+@Injectable()
+export class AuthGuard implements CanActivate {
+  constructor(private auth: AuthService, private router: Router) { }
+
+  canActivate(route: ActivatedRouteSnapshot) {
+    if (route.url[0].path === 'login') {
+      if (this.auth.isAuthenticated()) {
+        this.router.navigate(['/']);
+      }
+      return true;
+    }
+
+    return this.auth.isAuthenticated();
+  }
+}
+
 const routes: Routes = [
   { path: '', redirectTo: '/apps', pathMatch: 'full' },
-  { path: 'invoke/:appId/:versionId', component: InvokeAppComponent, resolve: { apps: AppVersionDetailsResolver } },
+  { path: 'login', canActivate: [AuthGuard], component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'invoke/:appId/:versionId',
+    component: InvokeAppComponent,
+    data: { skipLogin: true },
+    canActivate: [AuthGuard],
+    resolve: { apps: AppVersionDetailsResolver }
+  },
   { path: 'apps', component: ListAppsComponent, resolve: { apps: AppListResolver } },
   { path: 'endpoints', component: ListEndpointsComponent, resolve: { endpoints: EndpointsResolver } },
   { path: 'app/:appId', component: AppOverviewComponent, resolve: { app: AppOverviewResolver } },
@@ -115,7 +137,8 @@ const routes: Routes = [
     AppOverviewResolver,
     AppVersionDetailsResolver,
     EndpointsResolver,
-    EndpointResolver
+    EndpointResolver,
+    AuthGuard
   ],
   declarations: []
 })

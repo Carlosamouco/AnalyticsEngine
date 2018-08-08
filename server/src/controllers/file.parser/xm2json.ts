@@ -19,6 +19,6 @@ export class Parser implements FileOutputParser {
     if (!error && !obj) {
       throw new Error("An unknown error occured while parsing the requested file.");
     }
-    return obj;
+    return JSON.stringify(obj);
   }
 }

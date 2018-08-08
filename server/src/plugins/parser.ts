@@ -24,8 +24,8 @@ export abstract class FileParser {
   public abstract register(): string;
 
   /**
-   * Converts a some file's data syncronously to an object.
+   * Converts a some file's data syncronously to a JSON string.
    * @param data Data of a file to be parsed.
    */
-  public abstract parse(data: string): any;
+  public abstract parse(data: string): string;
 }

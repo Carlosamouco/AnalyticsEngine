@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
+import { AuthService } from './auth.service';
+import { UserMessagesService } from './user-messages.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +22,8 @@ export class AppComponent {
 
   public currLink: number;
 
-  constructor(private router: Router, private http: HttpClient, private renderer: Renderer2) {
+  constructor(private router: Router, private http: HttpClient,
+    private renderer: Renderer2, public auth: AuthService, private userMsg: UserMessagesService) {
     this.selectedItem = false;
     this.dataSource = Observable.create((observer: any) => {
       observer.next(this.selected);
@@ -39,11 +42,23 @@ export class AppComponent {
           case 'endpoints': case 'endpoint':
             this.currLink = 1;
             break;
+          case 'login':
+            this.currLink = 2;
+            break;
           default:
             this.currLink = 0;
         }
       }
     });
+
+  }
+
+  public logout() {
+    this.auth.destroySession();
+    this.router.navigate(['/'])
+      .then(() => {
+        this.userMsg.addMesssage('Successfully logged out!');
+      });
   }
 
   public onSelect(event: TypeaheadMatch): void {

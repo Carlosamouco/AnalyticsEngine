@@ -7,7 +7,7 @@ export class Parser implements FileOutputParser {
    */
   public parse(data: string) {
     const obj = JSON.parse(data);
-    return obj;
+    return JSON.stringify(obj);
   }
 }
 

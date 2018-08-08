@@ -34,7 +34,7 @@ export class CreateAppComponent implements OnInit {
     }
   }
 
-  public onSubmit(fInput) {
+  public onSubmit() {
     let url = '/api/create/app';
     const req = {
       description: this.description,

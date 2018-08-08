@@ -73,6 +73,7 @@
 								<li class="tsd-kind-enum"><a href="enums/httpmethod.html" class="tsd-kind-icon">HTTPMethod</a></li>
 								<li class="tsd-kind-enum"><a href="enums/outputmode.html" class="tsd-kind-icon">Output<wbr>Mode</a></li>
 								<li class="tsd-kind-enum"><a href="enums/parametertype.html" class="tsd-kind-icon">Parameter<wbr>Type</a></li>
+								<li class="tsd-kind-enum"><a href="enums/userroles.html" class="tsd-kind-icon">User<wbr>Roles</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -122,6 +123,8 @@
 								<li class="tsd-kind-type-alias"><a href="globals.html#parametermodel" class="tsd-kind-icon">Parameter<wbr>Model</a></li>
 								<li class="tsd-kind-type-alias tsd-is-not-exported"><a href="globals.html#pipeoptions" class="tsd-kind-icon">Pipe<wbr>Options</a></li>
 								<li class="tsd-kind-type-alias"><a href="globals.html#processoutput" class="tsd-kind-icon">Process<wbr>Output</a></li>
+								<li class="tsd-kind-type-alias"><a href="globals.html#usermodel" class="tsd-kind-icon">User<wbr>Model</a></li>
+								<li class="tsd-kind-type-alias tsd-is-not-exported"><a href="globals.html#comparepasswordfunction" class="tsd-kind-icon">compare<wbr>Password<wbr>Function</a></li>
 								<li class="tsd-kind-type-alias tsd-is-not-exported"><a href="globals.html#stdoptions" class="tsd-kind-icon">std<wbr>Options</a></li>
 							</ul>
 						</section>
@@ -130,7 +133,8 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-variable"><a href="globals.html#application" class="tsd-kind-icon">Application</a></li>
 								<li class="tsd-kind-variable"><a href="globals.html#endpoint" class="tsd-kind-icon">Endpoint</a></li>
-								<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#mongostore" class="tsd-kind-icon">Mongo<wbr>Store</a></li>
+								<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#localstrategy" class="tsd-kind-icon">Local<wbr>Strategy</a></li>
+								<li class="tsd-kind-variable"><a href="globals.html#user" class="tsd-kind-icon">User</a></li>
 								<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#algorithmschema" class="tsd-kind-icon">algorithm<wbr>Schema</a></li>
 								<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#app" class="tsd-kind-icon">app</a></li>
 								<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#appschema" class="tsd-kind-icon">app<wbr>Schema</a></li>
@@ -142,6 +146,8 @@
 								<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#outputschema" class="tsd-kind-icon">output<wbr>Schema</a></li>
 								<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#parameterschema" class="tsd-kind-icon">parameter<wbr>Schema</a></li>
 								<li class="tsd-kind-variable"><a href="globals.html#server" class="tsd-kind-icon">server</a></li>
+								<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#superuser" class="tsd-kind-icon">super<wbr>User</a></li>
+								<li class="tsd-kind-variable tsd-is-not-exported"><a href="globals.html#userschema" class="tsd-kind-icon">user<wbr>Schema</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -150,7 +156,9 @@
 								<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#adderror" class="tsd-kind-icon">add<wbr>Error</a></li>
 								<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#archiveappfiles" class="tsd-kind-icon">archive<wbr>App<wbr>Files</a></li>
 								<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#checkparamconstraints" class="tsd-kind-icon">check<wbr>Param<wbr>Constraints</a></li>
+								<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#comparepassword" class="tsd-kind-icon">compare<wbr>Password</a></li>
 								<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#containssubstr" class="tsd-kind-icon">contains<wbr>Substr</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#createsuperuser" class="tsd-kind-icon">create<wbr>Super<wbr>User</a></li>
 								<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#deletefiles" class="tsd-kind-icon">delete<wbr>Files</a></li>
 								<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#emptydir" class="tsd-kind-icon">empty<wbr>Dir</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#getapplication" class="tsd-kind-icon">get<wbr>Application</a></li>
@@ -161,6 +169,8 @@
 								<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#handlevalidationerror" class="tsd-kind-icon">handle<wbr>Validation<wbr>Error</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#invokealgorithm" class="tsd-kind-icon">invoke<wbr>Algorithm</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#invokealgorithmformdata" class="tsd-kind-icon">invoke<wbr>Algorithm<wbr>Form<wbr>Data</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#isauthenticated" class="tsd-kind-icon">is<wbr>Authenticated</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#isauthorized" class="tsd-kind-icon">is<wbr>Authorized</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#isbool" class="tsd-kind-icon">is<wbr>Bool</a></li>
 								<li class="tsd-kind-function tsd-is-not-exported"><a href="globals.html#isdir" class="tsd-kind-icon">is<wbr>Dir</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#isinteger" class="tsd-kind-icon">is<wbr>Integer</a></li>
@@ -175,6 +185,7 @@
 								<li class="tsd-kind-function"><a href="globals.html#postdeletealgorithm" class="tsd-kind-icon">post<wbr>Delete<wbr>Algorithm</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#postdeleteapp" class="tsd-kind-icon">post<wbr>Delete<wbr>App</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#postdeleteendpoint" class="tsd-kind-icon">post<wbr>Delete<wbr>Endpoint</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#postlogin" class="tsd-kind-icon">post<wbr>Login</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#postupdatealgorithm" class="tsd-kind-icon">post<wbr>Update<wbr>Algorithm</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#postupdateapp" class="tsd-kind-icon">post<wbr>Update<wbr>App</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#postupdateendpoint" class="tsd-kind-icon">post<wbr>Update<wbr>Endpoint</a></li>
@@ -210,7 +221,7 @@
 					<div class="tsd-signature tsd-kind-icon">Algorithm<wbr>Model<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Application.ts#L13">models/Application.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Application.ts#L13">models/Application.ts:13</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -254,7 +265,7 @@
 					<div class="tsd-signature tsd-kind-icon">Application<wbr>Model<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Document</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Application.ts#L6">models/Application.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Application.ts#L6">models/Application.ts:6</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -264,9 +275,9 @@
 					<div class="tsd-signature tsd-kind-icon">Arguments<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/exec.app.ts#L15">controllers/app.invoke/exec.app.ts:15</a></li>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/pre.invoke.ts#L10">controllers/app.invoke/pre.invoke.ts:10</a></li>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/post.invoke.ts#L9">controllers/app.invoke/post.invoke.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/exec.app.ts#L15">controllers/app.invoke/exec.app.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/pre.invoke.ts#L10">controllers/app.invoke/pre.invoke.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/post.invoke.ts#L9">controllers/app.invoke/post.invoke.ts:9</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -284,7 +295,7 @@
 					<div class="tsd-signature tsd-kind-icon">Endpoint<wbr>Model<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Document</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Endpoint.ts#L3">models/Endpoint.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Endpoint.ts#L3">models/Endpoint.ts:3</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -294,7 +305,7 @@
 					<div class="tsd-signature tsd-kind-icon">Endpoint<wbr>Param<wbr>Model<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Endpoint.ts#L10">models/Endpoint.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Endpoint.ts#L10">models/Endpoint.ts:10</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -315,7 +326,7 @@
 					<div class="tsd-signature tsd-kind-icon">File<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Application.ts#L44">models/Application.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Application.ts#L44">models/Application.ts:44</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -353,7 +364,7 @@
 					<div class="tsd-signature tsd-kind-icon">File<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/file.parser/file.output.parser.ts#L3">controllers/file.parser/file.output.parser.ts:3</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/file.parser/file.output.parser.ts#L3">controllers/file.parser/file.output.parser.ts:3</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -371,7 +382,7 @@
 					<div class="tsd-signature tsd-kind-icon">File<wbr>Output<wbr>Model<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Application.ts#L37">models/Application.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Application.ts#L37">models/Application.ts:37</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -398,7 +409,7 @@
 					<div class="tsd-signature tsd-kind-icon">Files<wbr>Created<span class="tsd-signature-symbol">:</span> <a href="globals.html#fileoutputmodel" class="tsd-signature-type">FileOutputModel</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/pipe.output.ts#L15">controllers/app.invoke/pipe.output.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/pipe.output.ts#L15">controllers/app.invoke/pipe.output.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -408,7 +419,7 @@
 					<div class="tsd-signature tsd-kind-icon">Invoke<wbr>Model<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/post.invoke.ts#L13">controllers/app.invoke/post.invoke.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/post.invoke.ts#L13">controllers/app.invoke/post.invoke.ts:13</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -435,7 +446,7 @@
 					<div class="tsd-signature tsd-kind-icon">Invoke<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/post.invoke.ts#L20">controllers/app.invoke/post.invoke.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/post.invoke.ts#L20">controllers/app.invoke/post.invoke.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -473,7 +484,7 @@
 					<div class="tsd-signature tsd-kind-icon">Output<wbr>Model<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Application.ts#L26">models/Application.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Application.ts#L26">models/Application.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -510,7 +521,7 @@
 					<div class="tsd-signature tsd-kind-icon">Parameter<wbr>Model<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Application.ts#L55">models/Application.ts:55</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Application.ts#L55">models/Application.ts:55</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -557,7 +568,7 @@
 					<div class="tsd-signature tsd-kind-icon">Pipe<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/pipe.output.ts#L9">controllers/app.invoke/pipe.output.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/pipe.output.ts#L9">controllers/app.invoke/pipe.output.ts:9</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -581,7 +592,7 @@
 					<div class="tsd-signature tsd-kind-icon">Process<wbr>Output<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/exec.app.ts#L19">controllers/app.invoke/exec.app.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/exec.app.ts#L19">controllers/app.invoke/exec.app.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -602,13 +613,78 @@
 						</ul>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="usermodel" class="tsd-anchor"></a>
+					<h3>User<wbr>Model</h3>
+					<div class="tsd-signature tsd-kind-icon">User<wbr>Model<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Document</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-type">object</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in models/User.ts:4</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-is-not-exported">
+					<a name="comparepasswordfunction" class="tsd-anchor"></a>
+					<h3>compare<wbr>Password<wbr>Function</h3>
+					<div class="tsd-signature tsd-kind-icon">compare<wbr>Password<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in models/User.ts:20</li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>candidatePassword<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cb<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>candidatePassword: <span class="tsd-signature-type">string</span></h5>
+											</li>
+											<li>
+												<h5>cb: <span class="tsd-signature-type">function</span></h5>
+												<ul class="tsd-parameters">
+													<li class="tsd-parameter-siganture">
+														<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+															<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, isMatch<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+														</ul>
+														<ul class="tsd-descriptions">
+															<li class="tsd-description">
+																<h4 class="tsd-parameters-title">Parameters</h4>
+																<ul class="tsd-parameters">
+																	<li>
+																		<h5>err: <span class="tsd-signature-type">any</span></h5>
+																	</li>
+																	<li>
+																		<h5>isMatch: <span class="tsd-signature-type">boolean</span></h5>
+																	</li>
+																</ul>
+																<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+															</li>
+														</ul>
+													</li>
+												</ul>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-is-not-exported">
 					<a name="stdoptions" class="tsd-anchor"></a>
 					<h3>std<wbr>Options</h3>
 					<div class="tsd-signature tsd-kind-icon">std<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/pipe.output.ts#L23">controllers/app.invoke/pipe.output.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/pipe.output.ts#L23">controllers/app.invoke/pipe.output.ts:23</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -648,7 +724,7 @@
 					<div class="tsd-signature tsd-kind-icon">Application<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Model</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Document</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;mongoose.model(&quot;Application&quot;, appSchema)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Application.ts#L291">models/Application.ts:291</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Application.ts#L291">models/Application.ts:291</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -663,7 +739,7 @@
 					<div class="tsd-signature tsd-kind-icon">Endpoint<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Model</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Document</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;mongoose.model(&quot;Endpoint&quot;, endpointSchema)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Endpoint.ts#L58">models/Endpoint.ts:58</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Endpoint.ts#L58">models/Endpoint.ts:58</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -673,12 +749,22 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
-					<a name="mongostore" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> Mongo<wbr>Store</h3>
-					<div class="tsd-signature tsd-kind-icon">Mongo<wbr>Store<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">MongoStoreFactory</span><span class="tsd-signature-symbol"> =&nbsp;mongo(session)</span></div>
+					<a name="localstrategy" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Local<wbr>Strategy</h3>
+					<div class="tsd-signature tsd-kind-icon">Local<wbr>Strategy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Strategy</span><span class="tsd-signature-symbol"> =&nbsp;passportLocal.Strategy</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/app.ts#L28">app.ts:28</a></li>
+							<li>Defined in config/passport.ts:8</li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable">
+					<a name="user" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> User</h3>
+					<div class="tsd-signature tsd-kind-icon">User<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Model</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Document</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;mongoose.model(&quot;User&quot;, userSchema)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in models/User.ts:65</li>
 						</ul>
 					</aside>
 				</section>
@@ -688,7 +774,7 @@
 					<div class="tsd-signature tsd-kind-icon">algorithm<wbr>Schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Schema</span><span class="tsd-signature-symbol"> =&nbsp;new mongoose.Schema({version: {type: String,required: true},description: String,entryApp: {appName: String,localFile: Boolean,},files: [String],parameters: {type: [parameterSchema],validate: {validator: (params: ParameterModel[]) &#x3D;&gt; {for (let i &#x3D; 0; i &lt; params.length; i++) {for (let n &#x3D; i + 1; n &lt; params.length; n++) {if (params[i].name &#x3D;&#x3D;&#x3D; params[n].name) {return false;}}}return true;},message: &quot;Duplicate parameter name field&quot;}},output: {type: outputSchema,validate: {validator: (output: OutputModel) &#x3D;&gt; {const fout &#x3D; output.files;for (let i &#x3D; 0; i &lt; fout.length; i++) {for (let n &#x3D; i + 1; n &lt; fout.length; n++) {if (fout[i].alias &#x3D;&#x3D;&#x3D; fout[n].alias) {return false;}}}for (let i &#x3D; 0; i &lt; fout.length; i++) {if (fout[i].alias &#x3D;&#x3D;&#x3D; output.stdout.alias || fout[i].alias &#x3D;&#x3D;&#x3D; output.stderr.alias) {return false;}}return true;},message: &quot;Duplicate &#x60;alias&#x60; field name.&quot;}}})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Application.ts#L169">models/Application.ts:169</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Application.ts#L169">models/Application.ts:169</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -698,8 +784,8 @@
 					<div class="tsd-signature tsd-kind-icon">app<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&quot;./app&quot;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/app.ts#L36">app.ts:36</a></li>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/server.ts#L10">server.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/app.ts#L40">app.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/server.ts#L10">server.ts:10</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -714,7 +800,7 @@
 					<div class="tsd-signature tsd-kind-icon">app<wbr>Schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Schema</span><span class="tsd-signature-symbol"> =&nbsp;new mongoose.Schema({author: {type: String,required: true,minlength: 3},name: {type: String,required: true,minlength: 3},description: String,algorithms: [algorithmSchema]})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Application.ts#L220">models/Application.ts:220</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Application.ts#L220">models/Application.ts:220</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -724,7 +810,7 @@
 					<div class="tsd-signature tsd-kind-icon">decompress<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&quot;decompress&quot;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.uploader.ts#L6">controllers/app.creation/post.uploader.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.uploader.ts#L6">controllers/app.creation/post.uploader.ts:6</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -734,7 +820,7 @@
 					<div class="tsd-signature tsd-kind-icon">endpoint<wbr>Schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Schema</span><span class="tsd-signature-symbol"> =&nbsp;new mongoose.Schema({url: {type: String,required: true,unique: true},method: {type: String,required: true,enum: [HTTPMethod.GET, HTTPMethod.POST]},description: String,parameters: [parameterSchema]})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Endpoint.ts#L28">models/Endpoint.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Endpoint.ts#L28">models/Endpoint.ts:28</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -744,7 +830,7 @@
 					<div class="tsd-signature tsd-kind-icon">file<wbr>Output<wbr>Schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Schema</span><span class="tsd-signature-symbol"> =&nbsp;new mongoose.Schema({fileRgx: {type: String,required: true},extention: String,encoding: {default: &quot;utf-8&quot;,type: String,},alias: {type: String,required: true}}, { _id: false })</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Application.ts#L136">models/Application.ts:136</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Application.ts#L136">models/Application.ts:136</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -754,7 +840,7 @@
 					<div class="tsd-signature tsd-kind-icon">json2xml<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;require(&quot;js2xmlparser&quot;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/json.parser/json2xml.ts#L1">controllers/json.parser/json2xml.ts:1</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/json.parser/json2xml.ts#L1">controllers/json.parser/json2xml.ts:1</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -764,7 +850,7 @@
 					<div class="tsd-signature tsd-kind-icon">mongo<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;process.env.MONGOLAB_URI</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/app.ts#L20">app.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/app.ts#L20">app.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -774,7 +860,7 @@
 					<div class="tsd-signature tsd-kind-icon">output<wbr>Schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Schema</span><span class="tsd-signature-symbol"> =&nbsp;new mongoose.Schema({files: [fileOutputSchema],stdout: {alias: {default: &quot;stdout&quot;,type: String},extention: String},stderr: {alias: {default: &quot;stderr&quot;,type: String}}}, { _id: false })</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Application.ts#L152">models/Application.ts:152</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Application.ts#L152">models/Application.ts:152</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -784,8 +870,8 @@
 					<div class="tsd-signature tsd-kind-icon">parameter<wbr>Schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Schema</span><span class="tsd-signature-symbol"> =&nbsp;new mongoose.Schema({name: {type: String,required: true},type: {type: String,required: true,enum: [ParameterType.Primitive, ParameterType.File]},description: String,flag: {type: String},position: {type: Number,required: true},options: {static: {type: Boolean,required: true},required: {type: Boolean,required: true},endpointId: {type: mongoose.Schema.Types.ObjectId,validate: {isAsync: true,validator: (value: string, cb: any) &#x3D;&gt; {if (!value) {cb(true);}Endpoint.findOne({ _id: value }, (err, doc) &#x3D;&gt; {if (err) {return cb(false, err);}else if (doc) {return cb(true);}cb(false);});},message: &quot;Invalid endpoint _id.&quot;}},default: String}}, { _id: false })</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Endpoint.ts#L15">models/Endpoint.ts:15</a></li>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/models/Application.ts#L82">models/Application.ts:82</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Endpoint.ts#L15">models/Endpoint.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/models/Application.ts#L82">models/Application.ts:82</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -805,7 +891,7 @@
 					<div class="tsd-signature tsd-kind-icon">server<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;app.listen(app.get(&quot;port&quot;), () &#x3D;&gt; {console.log((&quot;  App is running at http://localhost:%d in %s mode&quot;), app.get(&quot;port&quot;), app.get(&quot;env&quot;));console.log(&quot;  Press CTRL-C to stop\n&quot;);})</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/server.ts#L17">server.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/server.ts#L17">server.ts:17</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -813,6 +899,26 @@
 							<p>Start Express server.</p>
 						</div>
 					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
+					<a name="superuser" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> super<wbr>User</h3>
+					<div class="tsd-signature tsd-kind-icon">super<wbr>User<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;process.env.ADMIN_USR.split(&quot;:&quot;)</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/app.ts#L28">app.ts:28</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-not-exported">
+					<a name="userschema" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> user<wbr>Schema</h3>
+					<div class="tsd-signature tsd-kind-icon">user<wbr>Schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Schema</span><span class="tsd-signature-symbol"> =&nbsp;new mongoose.Schema({username: {type: String,unique: true,required: true},password: {type: String,required: true},role: {type: String,required: true,enum: [UserRoles.Super, UserRoles.Admin, UserRoles.Normal],},tokens: Array}, { timestamps: true })</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in models/User.ts:22</li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -827,7 +933,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/pre.invoke.ts#L82">controllers/app.invoke/pre.invoke.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/pre.invoke.ts#L82">controllers/app.invoke/pre.invoke.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -876,7 +982,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.uploader.ts#L219">controllers/app.creation/post.uploader.ts:219</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.uploader.ts#L219">controllers/app.creation/post.uploader.ts:219</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -914,7 +1020,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.parameter.ts#L106">controllers/app.creation/post.parameter.ts:106</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.parameter.ts#L106">controllers/app.creation/post.parameter.ts:106</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -948,6 +1054,53 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-is-not-exported">
+					<a name="comparepassword" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> compare<wbr>Password</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-is-not-exported">
+						<li class="tsd-signature tsd-kind-icon">compare<wbr>Password<span class="tsd-signature-symbol">(</span>candidatePassword<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cb<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in models/User.ts:56</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>candidatePassword: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>cb: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, isMatch<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>err: <span class="tsd-signature-type">any</span></h5>
+														</li>
+														<li>
+															<h5>isMatch: <span class="tsd-signature-type">boolean</span></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-is-not-exported">
 					<a name="containssubstr" class="tsd-anchor"></a>
 					<h3>contains<wbr>Substr</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-is-not-exported">
@@ -957,7 +1110,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/application.ts#L35">controllers/application.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/application.ts#L35">controllers/application.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -984,6 +1137,37 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="createsuperuser" class="tsd-anchor"></a>
+					<h3>create<wbr>Super<wbr>User</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Super<wbr>User<span class="tsd-signature-symbol">(</span>username<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, password<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in controllers/user.ts:48</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a new Super User (Base Admin) of the system.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>username: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>password: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-is-not-exported">
 					<a name="deletefiles" class="tsd-anchor"></a>
 					<h3>delete<wbr>Files</h3>
@@ -994,7 +1178,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.uploader.ts#L153">controllers/app.creation/post.uploader.ts:153</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.uploader.ts#L153">controllers/app.creation/post.uploader.ts:153</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1025,7 +1209,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.uploader.ts#L140">controllers/app.creation/post.uploader.ts:140</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.uploader.ts#L140">controllers/app.creation/post.uploader.ts:140</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1056,7 +1240,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/application.ts#L49">controllers/application.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/application.ts#L49">controllers/application.ts:49</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1090,7 +1274,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/application.ts#L64">controllers/application.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/application.ts#L64">controllers/application.ts:64</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1124,7 +1308,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/application.ts#L13">controllers/application.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/application.ts#L13">controllers/application.ts:13</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1159,7 +1343,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/endpoint.ts#L23">controllers/endpoint.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/endpoint.ts#L23">controllers/endpoint.ts:23</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1193,7 +1377,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/endpoint.ts#L11">controllers/endpoint.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/endpoint.ts#L11">controllers/endpoint.ts:11</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1227,7 +1411,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.parameter.ts#L87">controllers/app.creation/post.parameter.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.parameter.ts#L87">controllers/app.creation/post.parameter.ts:87</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1258,7 +1442,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/post.invoke.ts#L124">controllers/app.invoke/post.invoke.ts:124</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/post.invoke.ts#L124">controllers/app.invoke/post.invoke.ts:124</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1301,7 +1485,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/post.invoke.ts#L44">controllers/app.invoke/post.invoke.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/post.invoke.ts#L44">controllers/app.invoke/post.invoke.ts:44</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1335,6 +1519,83 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isauthenticated" class="tsd-anchor"></a>
+					<h3>is<wbr>Authenticated</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Authenticated<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Request</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NextFunction</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in config/passport.ts:47</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Login Required middleware.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>req: <span class="tsd-signature-type">Request</span></h5>
+								</li>
+								<li>
+									<h5>res: <span class="tsd-signature-type">Response</span></h5>
+								</li>
+								<li>
+									<h5>next: <span class="tsd-signature-type">NextFunction</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="isauthorized" class="tsd-anchor"></a>
+					<h3>is<wbr>Authorized</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Authorized<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Request</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NextFunction</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/utils/utils.ts#L67">utils/utils.ts:67</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Checks if a request is authorized to preform restricted access operations based on the JWT.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>req: <span class="tsd-signature-type">Request</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Express Request</p>
+									</div>
+								</li>
+								<li>
+									<h5>res: <span class="tsd-signature-type">Response</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Express Response</p>
+									</div>
+								</li>
+								<li>
+									<h5>next: <span class="tsd-signature-type">NextFunction</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Express NextFunction</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="isbool" class="tsd-anchor"></a>
 					<h3>is<wbr>Bool</h3>
 					<ul class="tsd-signatures tsd-kind-function">
@@ -1344,7 +1605,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/utils/utils.ts#L21">utils/utils.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/utils/utils.ts#L23">utils/utils.ts:23</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1375,7 +1636,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.uploader.ts#L206">controllers/app.creation/post.uploader.ts:206</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.uploader.ts#L206">controllers/app.creation/post.uploader.ts:206</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1406,7 +1667,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/utils/utils.ts#L29">utils/utils.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/utils/utils.ts#L31">utils/utils.ts:31</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1437,7 +1698,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/utils/utils.ts#L10">utils/utils.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/utils/utils.ts#L12">utils/utils.ts:12</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1474,7 +1735,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/utils/utils.ts#L40">utils/utils.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/utils/utils.ts#L42">utils/utils.ts:42</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1505,7 +1766,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.uploader.ts#L98">controllers/app.creation/post.uploader.ts:98</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.uploader.ts#L98">controllers/app.creation/post.uploader.ts:98</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1543,7 +1804,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.parameter.ts#L76">controllers/app.creation/post.parameter.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.parameter.ts#L76">controllers/app.creation/post.parameter.ts:76</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1580,7 +1841,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.application.ts#L181">controllers/app.creation/post.application.ts:181</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.application.ts#L181">controllers/app.creation/post.application.ts:181</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1623,7 +1884,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.application.ts#L15">controllers/app.creation/post.application.ts:15</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.application.ts#L15">controllers/app.creation/post.application.ts:15</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1666,7 +1927,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/endpoint.creation/post.endpoint.ts#L9">controllers/endpoint.creation/post.endpoint.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/endpoint.creation/post.endpoint.ts#L9">controllers/endpoint.creation/post.endpoint.ts:9</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1700,7 +1961,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.streams.ts#L11">controllers/app.creation/post.streams.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.streams.ts#L11">controllers/app.creation/post.streams.ts:11</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1743,7 +2004,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.application.ts#L329">controllers/app.creation/post.application.ts:329</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.application.ts#L329">controllers/app.creation/post.application.ts:329</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1786,7 +2047,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.application.ts#L133">controllers/app.creation/post.application.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.application.ts#L133">controllers/app.creation/post.application.ts:133</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1829,9 +2090,44 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/endpoint.creation/post.endpoint.ts#L49">controllers/endpoint.creation/post.endpoint.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/endpoint.creation/post.endpoint.ts#L49">controllers/endpoint.creation/post.endpoint.ts:49</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>req: <span class="tsd-signature-type">Request</span></h5>
+								</li>
+								<li>
+									<h5>res: <span class="tsd-signature-type">Response</span></h5>
+								</li>
+								<li>
+									<h5>next: <span class="tsd-signature-type">NextFunction</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="postlogin" class="tsd-anchor"></a>
+					<h3>post<wbr>Login</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">post<wbr>Login<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Request</span>, res<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Response</span>, next<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NextFunction</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Response</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in controllers/user.ts:10</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Sign in using username and password. A JWT is returned for future authenticated requests.
+									No session is saved on the server.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -1858,7 +2154,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.application.ts#L255">controllers/app.creation/post.application.ts:255</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.application.ts#L255">controllers/app.creation/post.application.ts:255</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1901,7 +2197,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.application.ts#L66">controllers/app.creation/post.application.ts:66</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.application.ts#L66">controllers/app.creation/post.application.ts:66</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1944,7 +2240,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/endpoint.creation/post.endpoint.ts#L90">controllers/endpoint.creation/post.endpoint.ts:90</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/endpoint.creation/post.endpoint.ts#L90">controllers/endpoint.creation/post.endpoint.ts:90</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1978,7 +2274,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/endpoint.creation/post.params.ts#L8">controllers/endpoint.creation/post.params.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/endpoint.creation/post.params.ts#L8">controllers/endpoint.creation/post.params.ts:8</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2012,7 +2308,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.entryapp.ts#L12">controllers/app.creation/post.entryapp.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.entryapp.ts#L12">controllers/app.creation/post.entryapp.ts:12</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2055,7 +2351,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.output.ts#L12">controllers/app.creation/post.output.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.output.ts#L12">controllers/app.creation/post.output.ts:12</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2098,7 +2394,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.parameter.ts#L11">controllers/app.creation/post.parameter.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.parameter.ts#L11">controllers/app.creation/post.parameter.ts:11</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2141,7 +2437,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.uploader.ts#L19">controllers/app.creation/post.uploader.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.uploader.ts#L19">controllers/app.creation/post.uploader.ts:19</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2184,7 +2480,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/pre.invoke.ts#L199">controllers/app.invoke/pre.invoke.ts:199</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/pre.invoke.ts#L199">controllers/app.invoke/pre.invoke.ts:199</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2227,7 +2523,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/sandbox.ts#L10">controllers/sandbox.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/sandbox.ts#L10">controllers/sandbox.ts:10</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2264,7 +2560,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/pre.invoke.ts#L18">controllers/app.invoke/pre.invoke.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/pre.invoke.ts#L18">controllers/app.invoke/pre.invoke.ts:18</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2295,7 +2591,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/routes.ts#L12">routes.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/routes.ts#L14">routes.ts:14</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2326,7 +2622,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/post.invoke.ts#L55">controllers/app.invoke/post.invoke.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/post.invoke.ts#L55">controllers/app.invoke/post.invoke.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2361,7 +2657,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.uploader.ts#L172">controllers/app.creation/post.uploader.ts:172</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.uploader.ts#L172">controllers/app.creation/post.uploader.ts:172</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2416,7 +2712,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.invoke/pre.invoke.ts#L35">controllers/app.invoke/pre.invoke.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.invoke/pre.invoke.ts#L35">controllers/app.invoke/pre.invoke.ts:35</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2447,7 +2743,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/controllers/app.creation/post.parameter.ts#L125">controllers/app.creation/post.parameter.ts:125</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/controllers/app.creation/post.parameter.ts#L125">controllers/app.creation/post.parameter.ts:125</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2485,7 +2781,7 @@
 					<div class="tsd-signature tsd-kind-icon">default_<wbr>options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L11">docker_sandbox/sandbox.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L11">docker_sandbox/sandbox.ts:11</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -2499,7 +2795,7 @@
 						<div class="tsd-signature tsd-kind-icon">Attach<wbr>Stderr<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L16">docker_sandbox/sandbox.ts:16</a></li>
+								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L16">docker_sandbox/sandbox.ts:16</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2509,7 +2805,7 @@
 						<div class="tsd-signature tsd-kind-icon">Attach<wbr>Stdin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L14">docker_sandbox/sandbox.ts:14</a></li>
+								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L14">docker_sandbox/sandbox.ts:14</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2519,7 +2815,7 @@
 						<div class="tsd-signature tsd-kind-icon">Attach<wbr>Stdout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L15">docker_sandbox/sandbox.ts:15</a></li>
+								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L15">docker_sandbox/sandbox.ts:15</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2529,7 +2825,7 @@
 						<div class="tsd-signature tsd-kind-icon">Image<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;docker-sandbox&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L12">docker_sandbox/sandbox.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L12">docker_sandbox/sandbox.ts:12</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2539,7 +2835,7 @@
 						<div class="tsd-signature tsd-kind-icon">Network<wbr>Disabled<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L13">docker_sandbox/sandbox.ts:13</a></li>
+								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L13">docker_sandbox/sandbox.ts:13</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2549,7 +2845,7 @@
 						<div class="tsd-signature tsd-kind-icon">Open<wbr>Stdin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L17">docker_sandbox/sandbox.ts:17</a></li>
+								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L17">docker_sandbox/sandbox.ts:17</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2559,7 +2855,7 @@
 						<div class="tsd-signature tsd-kind-icon">Tty<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L19">docker_sandbox/sandbox.ts:19</a></li>
+								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L19">docker_sandbox/sandbox.ts:19</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2569,7 +2865,7 @@
 						<div class="tsd-signature tsd-kind-icon">User<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;sandboxuser&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L18">docker_sandbox/sandbox.ts:18</a></li>
+								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L18">docker_sandbox/sandbox.ts:18</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2579,7 +2875,7 @@
 						<div class="tsd-signature tsd-kind-icon">Exposed<wbr>Ports<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L31">docker_sandbox/sandbox.ts:31</a></li>
+								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L31">docker_sandbox/sandbox.ts:31</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -2588,7 +2884,7 @@
 							<div class="tsd-signature tsd-kind-icon">3000/tcp<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L32">docker_sandbox/sandbox.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L32">docker_sandbox/sandbox.ts:32</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-type-declaration">
@@ -2604,7 +2900,7 @@
 						<div class="tsd-signature tsd-kind-icon">Host<wbr>Config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L20">docker_sandbox/sandbox.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L20">docker_sandbox/sandbox.ts:20</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -2613,7 +2909,7 @@
 							<div class="tsd-signature tsd-kind-icon">Binds<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[&#x60;matlab:/usr/local/MATLAB:ro&#x60;]</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L24">docker_sandbox/sandbox.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L24">docker_sandbox/sandbox.ts:24</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2623,7 +2919,7 @@
 							<div class="tsd-signature tsd-kind-icon">Memory<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;250 * 1000000</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L21">docker_sandbox/sandbox.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L21">docker_sandbox/sandbox.ts:21</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2633,7 +2929,7 @@
 							<div class="tsd-signature tsd-kind-icon">Memory<wbr>Swap<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;-1</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L22">docker_sandbox/sandbox.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L22">docker_sandbox/sandbox.ts:22</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2643,7 +2939,7 @@
 							<div class="tsd-signature tsd-kind-icon">Privileged<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> =&nbsp;false</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L23">docker_sandbox/sandbox.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L23">docker_sandbox/sandbox.ts:23</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2654,7 +2950,7 @@
 						<div class="tsd-signature tsd-kind-icon">Labels<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L28">docker_sandbox/sandbox.ts:28</a></li>
+								<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L28">docker_sandbox/sandbox.ts:28</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -2663,7 +2959,7 @@
 							<div class="tsd-signature tsd-kind-icon">__docker_<wbr>sandbox<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;1&quot;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/b40df07/server/src/docker_sandbox/sandbox.ts#L29">docker_sandbox/sandbox.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/Carlosamouco/BRAINalytics/blob/2de4087/server/src/docker_sandbox/sandbox.ts#L29">docker_sandbox/sandbox.ts:29</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2689,6 +2985,9 @@
 					</li>
 					<li class=" tsd-kind-enum">
 						<a href="enums/parametertype.html" class="tsd-kind-icon">Parameter<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/userroles.html" class="tsd-kind-icon">User<wbr>Roles</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/container.html" class="tsd-kind-icon">Container</a>
@@ -2792,6 +3091,12 @@
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#processoutput" class="tsd-kind-icon">Process<wbr>Output</a>
 					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#usermodel" class="tsd-kind-icon">User<wbr>Model</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-not-exported">
+						<a href="globals.html#comparepasswordfunction" class="tsd-kind-icon">compare<wbr>Password<wbr>Function</a>
+					</li>
 					<li class=" tsd-kind-type-alias tsd-is-not-exported">
 						<a href="globals.html#stdoptions" class="tsd-kind-icon">std<wbr>Options</a>
 					</li>
@@ -2802,7 +3107,10 @@
 						<a href="globals.html#endpoint" class="tsd-kind-icon">Endpoint</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
-						<a href="globals.html#mongostore" class="tsd-kind-icon">Mongo<wbr>Store</a>
+						<a href="globals.html#localstrategy" class="tsd-kind-icon">Local<wbr>Strategy</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#user" class="tsd-kind-icon">User</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-is-not-exported">
 						<a href="globals.html#algorithmschema" class="tsd-kind-icon">algorithm<wbr>Schema</a>
@@ -2837,6 +3145,12 @@
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#server" class="tsd-kind-icon">server</a>
 					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#superuser" class="tsd-kind-icon">super<wbr>User</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#userschema" class="tsd-kind-icon">user<wbr>Schema</a>
+					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#adderror" class="tsd-kind-icon">add<wbr>Error</a>
 					</li>
@@ -2847,7 +3161,13 @@
 						<a href="globals.html#checkparamconstraints" class="tsd-kind-icon">check<wbr>Param<wbr>Constraints</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#comparepassword" class="tsd-kind-icon">compare<wbr>Password</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#containssubstr" class="tsd-kind-icon">contains<wbr>Substr</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#createsuperuser" class="tsd-kind-icon">create<wbr>Super<wbr>User</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#deletefiles" class="tsd-kind-icon">delete<wbr>Files</a>
@@ -2878,6 +3198,12 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#invokealgorithmformdata" class="tsd-kind-icon">invoke<wbr>Algorithm<wbr>Form<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isauthenticated" class="tsd-kind-icon">is<wbr>Authenticated</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#isauthorized" class="tsd-kind-icon">is<wbr>Authorized</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#isbool" class="tsd-kind-icon">is<wbr>Bool</a>
@@ -2920,6 +3246,9 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#postdeleteendpoint" class="tsd-kind-icon">post<wbr>Delete<wbr>Endpoint</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#postlogin" class="tsd-kind-icon">post<wbr>Login</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#postupdatealgorithm" class="tsd-kind-icon">post<wbr>Update<wbr>Algorithm</a>

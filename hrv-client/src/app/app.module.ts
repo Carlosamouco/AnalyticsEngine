@@ -11,13 +11,11 @@ import { PopoverModule } from 'ngx-bootstrap/popover';
 import { AppRoutingModule } from './app-routing.module';
 import { InvokeAppModule } from './invoke-app/invoke-app.module';
 import { AppComponent } from './app.component';
-import { TesteComponent } from './teste/teste.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    TesteComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

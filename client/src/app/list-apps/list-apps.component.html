@@ -1,11 +1,8 @@
 <div class="container-fluid" style="margin-bottom:20px;">
-  <div class="row border-bottom border-info" style="padding: 10px 0 10px 0">
-    <div class="col-sm-12">
-      <h2>Available Applications:</h2>
-    </div>
-  </div>
+  <h1 class="border-bottom border-info" style="padding: 10px;">Available Applications:</h1>
+
   <div class="row" style="padding: 10px 0 10px 0">
-    <div class="col-sm-12" style="margin: auto;text-align: left;">
+    <div class="col-sm-12" style="margin: auto;text-align: left;" *ngIf="auth.isAuthenticated()">
       <button type="button" class="btn btn-info" (click)="openCreateAppModal()">
         <i class="fa fas fa-plus"></i> Create App</button>
     </div>
@@ -13,9 +10,9 @@
       <div class="col-sm-12 col-md-6" style="margin-top: 15px">
         <div class="card">
           <div class="card-body">
-            <div style="font-size: 20px;float: right;top: -2px;position: relative;margin-left: 10px;">
+            <div style="font-size: 20px;float: right;top: -2px;position: relative;margin-left: 10px;" *ngIf="auth.isAuthenticated()">
               <i style="cursor:pointer;" class="fa fas fa-trash" (click)="openDeleteAppModal(app)"></i>
-              <i style="cursor:pointer;position:relative;top:1px;" class="fa fas fa-edit" (click)="openCreateAppModal(app)"></i>
+              <i style="cursor:pointer;position:relative;top:1px;margin-left:5px;" class="fa fas fa-edit" (click)="openCreateAppModal(app)"></i>
             </div>
             <h5 class="card-title">{{app.name}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">Author: {{app.author}}</h6>
@@ -24,7 +21,8 @@
             <p class="card-text" *ngIf="app.description != '' && app.description">{{app.description}}</p>
             <p class="card-text" *ngIf="app.description == '' || !app.description">No description available.</p>
             <ng-container *ngIf="app.algorithms.length > 0">
-              <a *ngIf="app.algorithms[0].entryApp" routerLink="/invoke/{{app._id}}/{{app.algorithms[0]._id}}" class="card-link">Invoke</a>
+              <a *ngIf="app.algorithms[0].entryApp && auth.isAuthenticated()" routerLink="/invoke/{{app._id}}/{{app.algorithms[0]._id}}"
+                class="card-link">Invoke</a>
               <a routerLink="/app/{{app._id}}/{{app.algorithms[0]._id}}" class="card-link">Details</a>
             </ng-container>
             <a routerLink="/app/{{app._id}}" class="card-link">Overview</a>

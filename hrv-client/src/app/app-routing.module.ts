@@ -7,7 +7,6 @@ import 'rxjs/add/observable/of';
 
 import { InvokeAppComponent } from './invoke-app/invoke-app.component';
 
-import { TesteComponent } from './teste/teste.component';
 import { ApplicationDetails } from './invoke-app/invoke-app.types';
 
 @Injectable()
@@ -27,7 +26,6 @@ export class AppDetailsResolver implements Resolve<ApplicationDetails> {
 
 const routes: Routes = [
   { path: '', component: InvokeAppComponent, resolve: { apps: AppDetailsResolver } },
-  { path: 'test', component: TesteComponent, resolve: { apps: AppDetailsResolver } },
   { path: '**', component: InvokeAppComponent }
 ];
 

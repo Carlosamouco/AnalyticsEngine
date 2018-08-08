@@ -1,0 +1,34 @@
+<div class="container-fluid" style="margin-bottom:20px;">
+  <h1 class="border-bottom border-info" style="padding: 10px;">Register User:</h1>
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="usernameInput">Username</label>
+      <input type="text" class="form-control" id="usernameInput" name="username" [(ngModel)]="username" autocomplete="off" placeholder="Enter username">
+      <div class="invalid-feedback" *ngIf="!isUsermameValide() && !inUse">Username must be at least three characters long!</div>
+      <div class="invalid-feedback" *ngIf="inUse && username === ''">Username already in use!</div>
+    </div>
+
+    <div class="form-group">
+      <label for="roleInput">User Role</label>
+      <select class="custom-select" id="roleInput" required name="role" [(ngModel)]="role">
+        <option value="">Select user role</option>
+        <option value="1">Administrator</option>
+        <option value="2">Normal User</option>
+      </select>
+      <div class="invalid-feedback" *ngIf="!isRoleValide()">Select user role!</div>
+    </div>
+
+    <div class="form-group">
+      <label for="pwInput">Password</label>
+      <input type="password" class="form-control" id="pwInput" name="pw" [(ngModel)]="pw" placeholder="Password">
+    </div>
+    <div class="form-group">
+      <label for="pwInput2">Confirm Password</label>
+      <input type="password" class="form-control" id="pwInput2" name="pw2" [(ngModel)]="pw2" placeholder="Password">
+      <div class="invalid-feedback" *ngIf="!isPwValide() && pw">Passwords don't match.</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!isValide()">Create User</button>
+  </form>
+</div>

@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { NgForm } from '@angular/forms';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
@@ -9,6 +8,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { UploadModalComponent } from './upload-modal/upload-modal.component';
 import { ApplicationDetails, Parameter } from './app-details.types';
 import { Endpoint } from '../list-endpoints/list-endpoints.types';
+
+import { AuthService } from './../auth.service';
 
 @Component({
   selector: 'app-app-details',
@@ -35,7 +36,8 @@ export class AppDetailsComponent implements OnInit {
   private copyParam: Parameter;
   private copyStream: any;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private modalService: BsModalService) {
+  constructor(private route: ActivatedRoute, private http: HttpClient,
+    private router: Router, private modalService: BsModalService, public auth: AuthService) {
 
     const data = route.snapshot.data['app'];
     this.endpoints = route.snapshot.data['endpoints'];

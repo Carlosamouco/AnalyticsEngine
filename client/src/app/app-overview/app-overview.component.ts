@@ -8,6 +8,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { CreateVersionComponent } from './create-version/create-version.component';
 import { DeleteVersionComponent } from './delete-version/delete-version.component';
 
+import { AuthService } from '../auth.service';
+
 @Component({
   selector: 'app-app-overview',
   templateUrl: './app-overview.component.html',
@@ -19,7 +21,9 @@ export class AppOverviewComponent implements OnInit {
   public createModalRef: BsModalRef;
   public deleteModalRef: BsModalRef;
 
-  constructor(private route: ActivatedRoute, private modalService: BsModalService, private http: HttpClient, private router: Router) {
+  constructor(private route: ActivatedRoute, private modalService: BsModalService,
+    private http: HttpClient, private router: Router, public auth: AuthService) {
+
     const data = route.snapshot.data['app'];
     data.algorithms.reverse();
     this.app = data;

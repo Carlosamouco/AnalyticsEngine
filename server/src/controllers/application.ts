@@ -23,7 +23,7 @@ export function getApplications(req: Request, res: Response, next: NextFunction)
           }
         }
       }
-      return res.status(200).json(apps);
+      return res.json(apps);
     });
 }
 

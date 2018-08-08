@@ -8,6 +8,8 @@ import { AppList } from './list-apps.types';
 import { CreateAppComponent } from './create-app/create-app.component';
 import { DeleteAppComponent } from './delete-app/delete-app.component';
 
+import { AuthService } from './../auth.service';
+
 @Component({
   selector: 'app-list-apps',
   templateUrl: './list-apps.component.html',
@@ -19,7 +21,7 @@ export class ListAppsComponent implements OnInit {
   public deleteAppModelRef: BsModalRef;
   public apps: AppList[];
 
-  constructor(private route: ActivatedRoute, private modalService: BsModalService) {
+  constructor(private route: ActivatedRoute, private modalService: BsModalService, public auth: AuthService) {
     this.apps = route.snapshot.data['apps'];
     this.apps.reverse();
   }

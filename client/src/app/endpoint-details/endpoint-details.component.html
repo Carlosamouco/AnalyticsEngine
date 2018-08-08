@@ -5,7 +5,7 @@
   <h5 class="sub-title">URL:</h5>
   <div class="card" *ngIf="!endpoint.urlEdit" style="background-color:#576d7f;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
     <div class="card-body">
-      <i style="font-size:20px;float:right;top:4px;position:relative;margin-left:10px;" (click)="endpoint.urlEdit=true;copyUrl=endpoint.url"
+      <i *ngIf="auth.isAuthenticated()" style="font-size:20px;float:right;top:4px;position:relative;margin-left:10px;" (click)="endpoint.urlEdit=true;copyUrl=endpoint.url"
         class="fa fas fa-edit"></i>
       <h5 style="display:inline;">{{endpoint.url}}</h5>
     </div>
@@ -25,7 +25,7 @@
   <h5 class="sub-title">HTTP Method:</h5>
   <div class="card" *ngIf="!endpoint.methodEdit" style="background-color:#234b6d;color: #fff;box-shadow: 6px 6px 15px -1px #2d2f4c;">
     <div class="card-body">
-      <i style="font-size:20px;float:right;top:4px;position:relative;margin-left:10px;" (click)="endpoint.methodEdit = true;copyMethod=endpoint.method"
+      <i *ngIf="auth.isAuthenticated()" style="font-size:20px;float:right;top:4px;position:relative;margin-left:10px;" (click)="endpoint.methodEdit = true;copyMethod=endpoint.method"
         class="fa fas fa-edit"></i>
       <h5 style="display:inline;">{{endpoint.method === '0' ? 'GET' : 'POST'}}</h5>
     </div>
@@ -61,7 +61,7 @@
 
 
   <h5 class="sub-title">Parameters:</h5>
-  <button type="button" class="btn btn-info" (click)="addParameter()" style="display:block;margin-bottom:10px;">
+  <button *ngIf="auth.isAuthenticated()" type="button" class="btn btn-info" (click)="addParameter()" style="display:block;margin-bottom:10px;">
     <i class="fa fas fa-plus"></i> Add Parameter</button>
   <div class="card-columns">
     <ng-container *ngFor="let param of endpoint.parameters; let i = index;">
@@ -69,7 +69,7 @@
         <div class="card-header" style="font-weight: bold;">
           <h6 style="margin:0">
             {{param.name}}
-            <i style="font-size:20px;float:right;cursor:pointer;" (click)="editParameter(param)" class="fa fas fa-edit"></i>
+            <i *ngIf="auth.isAuthenticated()" style="font-size:20px;float:right;cursor:pointer;" (click)="editParameter(param)" class="fa fas fa-edit"></i>
           </h6>
         </div>
 

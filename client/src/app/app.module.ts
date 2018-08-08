@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -21,12 +21,18 @@ import { AppRoutingModule } from './/app-routing.module';
 import { PageNotFoundComponent } from './page_not_found/page-not-found.component';
 import { ListEndpointsModule } from './list-endpoints/list-endpoints.module';
 import { EndpointDetailsComponent } from './endpoint-details/endpoint-details.component';
+import { LoginComponent } from './login/login.component';
+
+import { AuthService } from './auth.service';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageNotFoundComponent,
     EndpointDetailsComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +51,13 @@ import { EndpointDetailsComponent } from './endpoint-details/endpoint-details.co
     ListAppsModule,
     ListEndpointsModule
   ],
-  providers: [],
+  providers: [
+   {
+     provide: HTTP_INTERCEPTORS,
+     useClass: AuthService,
+     multi: true
+   }
+  ],
   bootstrap: [
     AppComponent
   ]

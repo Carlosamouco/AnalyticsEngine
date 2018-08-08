@@ -1,21 +1,17 @@
 <div class="container-fluid" style="margin-bottom:20px;">
-  <div class="row border-bottom border-info" style="padding: 10px 0 10px 0">
-    <div class="col-sm-12">
-      <h2>Available Endpoints:</h2>
-    </div>
-  </div>
+  <h1 class="border-bottom border-info" style="padding: 10px;">Available Endpoints:</h1>
   <div class="row" style="padding: 10px 0 10px 0">
     <div class="col-sm-12" style="margin: auto;text-align: left;">
-      <button type="button" class="btn btn-info" (click)="openCreateEndpointModal()">
+      <button *ngIf="auth.isAuthenticated()" type="button" class="btn btn-info" (click)="openCreateEndpointModal()">
         <i class="fa fas fa-plus"></i> Create Endpoint</button>
     </div>
     <ng-container *ngFor="let endpoint of endpoints">
       <div class="col-sm-12 col-md-6" style="margin-top: 15px">
         <div class="card">
           <div class="card-body">
-            <div style="font-size: 20px;float: right;top: -2px;position: relative;margin-left: 10px;">
+            <div *ngIf="auth.isAuthenticated()" style="font-size: 20px;float: right;top: -2px;position: relative;margin-left: 10px;">
               <i style="cursor:pointer;" class="fa fas fa-trash" (click)="openDeleteEndpointModal(endpoint)"></i>
-              <i style="cursor:pointer;position:relative;top:1px;" class="fa fas fa-edit" (click)="openCreateEndpointModal(endpoint)"></i>
+              <i style="cursor:pointer;position:relative;top:1px;margin-left:5px;" class="fa fas fa-edit" (click)="openCreateEndpointModal(endpoint)"></i>
             </div>
             <h5 class="card-title" style="display:inline">{{endpoint.url}}</h5>
             <h6 class="card-subtitle mb-2 text-muted" style="margin-top:10px;">HTTP Method: {{endpoint.method === '0' ? 'GET' : 'POST' }}</h6>

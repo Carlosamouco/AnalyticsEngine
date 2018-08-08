@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 import { Endpoint, EndpointParam } from '../list-endpoints/list-endpoints.types';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-endpoint-details',
@@ -14,7 +15,7 @@ export class EndpointDetailsComponent implements OnInit {
 
   public tempParam: EndpointParam;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {
+  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, public auth: AuthService) {
     this.endpoint = route.snapshot.data['endpoint'];
 
     if (!this.endpoint) {
