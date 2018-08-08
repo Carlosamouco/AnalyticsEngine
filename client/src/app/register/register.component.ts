@@ -47,8 +47,12 @@ export class RegisterComponent implements OnInit {
       password: this.pw,
       role: this.role
     })
-      .subscribe((data) => {
+      .subscribe(() => {
         this.usrMsg.addMesssage(`User named '${this.username}' created!`);
+        this.role = '';
+        this.username = '';
+        this.pw = '';
+        this.pw2 = '';
       },
       (error) => {
         if (error.status === 400) {
