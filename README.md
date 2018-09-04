@@ -16,7 +16,7 @@ The applications can be range from any executable file to a pre-installed applic
 
 1. Navigate to [scripts](https://github.com/Carlosamouco/AnalyticsEngine/tree/master/scripts) folder and run:
   1. **./start** or **./start-prod** (if in linux)
-  1. Waint for the installation to finish and navigate to http://localhost
+  1. Wait for the installation to finish and navigate to http://localhost
     
 ## Suported Applications:
 
