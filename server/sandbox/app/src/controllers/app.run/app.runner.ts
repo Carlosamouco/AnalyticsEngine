@@ -9,6 +9,23 @@ import { default as Spawn } from "./spawn";
 
 export async function invokeAlgorithm(req: Request, res: Response, next: NextFunction) {
 
+  const appFiles = (<{ [fieldname: string]: Express.Multer.File[] }>req.files)["app"];
+
+  if (appFiles) {
+    const appTar = appFiles[0];
+
+    const stream = fs.createReadStream(path.join(process.cwd(), "temp", appTar.filename)).pipe(tar.extract(process.cwd()));
+
+    stream.on("finish", () => {
+      spawnChild(req, res, next);
+    });
+  }
+  else {
+    spawnChild(req, res, next);
+  }
+}
+
+function spawnChild(req: Request, res: Response, next: NextFunction) {
   const outDir = path.join(process.cwd(), "temp", "output");
   const outFDir = path.join(outDir, "files");
 
@@ -21,6 +38,8 @@ export async function invokeAlgorithm(req: Request, res: Response, next: NextFun
   const mapping = JSON.parse(call.mapping);
   const args: string[] = JSON.parse(call.args);
 
+  const inputFiles = (<{ [fieldname: string]: Express.Multer.File[] }>req.files)["files"];
+
   for (const property in mapping) {
     if (mapping[property] === -1 && call.cwd) {
       call.command = path.join(call.cwd, property);
@@ -28,8 +47,8 @@ export async function invokeAlgorithm(req: Request, res: Response, next: NextFun
     else if (property === "outputDir") {
       args[mapping[property]] = outFDir;
     }
-    else {
-      for (const file of (<{ [fieldname: string]: Express.Multer.File[] }>req.files)["files"]) {
+    else if (inputFiles) {
+      for (const file of inputFiles) {
         if (property === file.originalname) {
           args[mapping[property]] = path.join(process.cwd(), "temp", file.filename);
         }
@@ -37,39 +56,33 @@ export async function invokeAlgorithm(req: Request, res: Response, next: NextFun
     }
   }
 
-  const appTar = (<{ [fieldname: string]: Express.Multer.File[] }>req.files)["app"][0];
-
-  const stream = fs.createReadStream(path.join(process.cwd(), "temp", appTar.filename)).pipe(tar.extract(process.cwd()));
-
-  stream.on("finish", () => {
-    const child = new Spawn(call.command, args, {
-      cwd: call.cwd,
-      detached: true
-    });
-
-    child.child.stderr.on("data", (data) => {
-      stderr.write(data);
-    });
-
-    child.child.stdout.on("data", (data) => {
-      stdout.write(data);
-    });
-
-    child.runChild
-      .then((code) => {
-        closeStreams([stdout, stderr, error])
-          .then(() => {
-            archiveData(outDir, code, res, next);
-          });
-      })
-      .catch((err) => {
-        error.write(JSON.stringify(err));
-        closeStreams([stdout, stderr, error])
-          .then(() => {
-            archiveData(outDir, null, res, next);
-          });
-      });
+  const child = new Spawn(call.command, args, {
+    cwd: call.cwd,
+    detached: true
   });
+
+  child.child.stderr.on("data", (data) => {
+    stderr.write(data);
+  });
+
+  child.child.stdout.on("data", (data) => {
+    stdout.write(data);
+  });
+
+  child.runChild
+    .then((code) => {
+      closeStreams([stdout, stderr, error])
+        .then(() => {
+          archiveData(outDir, code, res, next);
+        });
+    })
+    .catch((err) => {
+      error.write(JSON.stringify(err));
+      closeStreams([stdout, stderr, error])
+        .then(() => {
+          archiveData(outDir, null, res, next);
+        });
+    });
 }
 
 function closeStreams(streams: fs.WriteStream[]) {

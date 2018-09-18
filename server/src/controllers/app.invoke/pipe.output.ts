@@ -116,7 +116,7 @@ export abstract class PipeOutput {
       this.stream.push(model.stderr.alias + '":');
       this.pipeStderr(output.stderr);
     }
-    if (pipeOpts.files) {
+    if (pipeOpts.files && model.files.length > 0) {
       if (pipeOpts.stderr) {
         this.stream.push(",");
       }

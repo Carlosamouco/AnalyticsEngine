@@ -1,12 +1,10 @@
 import { NgModule, Injectable } from '@angular/core';
 import {
-  RouterModule, Routes, Resolve, ActivatedRouteSnapshot,
-  RouterStateSnapshot, Router, CanActivate, ActivatedRoute
+  RouterModule, Routes, Resolve, ActivatedRouteSnapshot, Router, CanActivate
 } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/of';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 import { PageNotFoundComponent } from './page_not_found/page-not-found.component';
 import { ListAppsComponent } from './list-apps/list-apps.component';
@@ -42,9 +40,7 @@ export class AppVersionDetailsResolver implements Resolve<ApplicationDetails> {
     route: ActivatedRouteSnapshot
   ): Observable<any> | Promise<any> | any {
     return this.http.get<ApplicationDetails>(`/api/application/${route.params['appId']}/${route.params['versionId']}`)
-      .catch(() => {
-        return Observable.of(null);
-      });
+      .pipe(catchError(() => of(null)));
   }
 }
 
@@ -56,9 +52,7 @@ export class AppOverviewResolver implements Resolve<ApplicationDetails> {
     route: ActivatedRouteSnapshot
   ): Observable<any> | Promise<any> | any {
     return this.http.get<ApplicationDetails>(`/api/application/${route.params['appId']}`)
-      .catch(() => {
-        return Observable.of(null);
-      });
+      .pipe(catchError(() => of(null)));
   }
 }
 

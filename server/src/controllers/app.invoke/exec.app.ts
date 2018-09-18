@@ -153,14 +153,20 @@ export class ExecApp {
 
     const archive = this._cwd ? path.join(this._cwd, "app_files.tar") : null;
 
-    const request = {
+    const request: any = {
       command: this._command,
       args: JSON.stringify(this._args),
       mapping: JSON.stringify(this._mapping),
-      cwd: this._cwd ? "/usr/src/app/run" : null,
-      files: fStreams,
-      app: fs.createReadStream(archive)
+      files: fStreams
     };
+
+    if (this._cwd) {
+      request.cwd = "/usr/src/app/run";
+    }
+
+    if (archive) {
+      request.app = fs.createReadStream(archive);
+    }
 
     return new Promise<ProcessOutput | Error>((resolve, reject) => {
       Sandbox.getInstance().run(zipStream, timeout, request)

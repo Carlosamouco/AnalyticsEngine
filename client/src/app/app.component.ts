@@ -2,8 +2,8 @@ import { Component, Renderer2 } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 import { AuthService } from './auth.service';
@@ -27,7 +27,10 @@ export class AppComponent {
     this.selectedItem = false;
     this.dataSource = Observable.create((observer: any) => {
       observer.next(this.selected);
-    }).mergeMap((token: string) => this.getApps(token));
+    })
+    .pipe(
+      mergeMap((token: string) => this.getApps(token))
+    );
 
     this.router.events.subscribe((val) => {
       if ((val instanceof NavigationEnd) && !this.isCollapsed) {

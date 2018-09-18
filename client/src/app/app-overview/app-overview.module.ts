@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 import { AppOverviewComponent } from './app-overview.component';
 import { CreateVersionComponent } from './create-version/create-version.component';
@@ -18,6 +19,7 @@ import { DeleteVersionComponent } from './delete-version/delete-version.componen
   ],
   imports: [
     ModalModule,
+    TypeaheadModule,
     CommonModule,
     HttpClientModule,
     FormsModule,

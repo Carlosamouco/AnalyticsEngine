@@ -25,11 +25,13 @@ export class AppOverviewComponent implements OnInit {
     private http: HttpClient, private router: Router, public auth: AuthService) {
 
     const data = route.snapshot.data['app'];
-    data.algorithms.reverse();
-    this.app = data;
-    if (!this.app) {
+
+    if (!data) {
       this.router.navigate(['/404'], { skipLocationChange: true });
     }
+
+    data.algorithms.reverse();
+    this.app = data;
   }
 
   ngOnInit() {
