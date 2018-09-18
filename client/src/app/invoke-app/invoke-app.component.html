@@ -68,7 +68,7 @@
               <div class="col align-self-center">Select Endpoint</div>
               <div class="col align-self-center" style="text-align: right;">
                 <div class="btn-group" style="width: 100%;" dropdown #dropdownRef>
-                  <input type="text" class="btn form-control-sm" style="width: 100%;text-align: left;" [ngClass]="{ 'btn-dark': param.useEndpoint, 'btn-light': !param.useEndpoint }"
+                  <input type="text" class="btn" style="width: 100%;text-align: left;" [ngClass]="{ 'btn-dark': param.useEndpoint, 'btn-light': !param.useEndpoint }"
                     readonly value="{{param.useEndpoint ? param.useEndpoint : 'Offline Mode' }}" />
                   <button type="button" dropdownToggle class="btn dropdown-toggle dropdown-toggle-split" [ngClass]="{ 'btn-dark': param.useEndpoint, 'btn-light': !param.useEndpoint }"
                     aria-controls="dropdown-split">
