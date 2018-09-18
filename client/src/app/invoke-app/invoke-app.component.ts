@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
@@ -237,9 +237,6 @@ export class InvokeAppComponent implements OnInit {
                 params
               });
             } else {
-              const headers = new HttpHeaders({
-                'Content-Type': 'application/json; charset=UTF8',
-              });
               request = this.http.post(url, params);
             }
             request.subscribe((data) => {
